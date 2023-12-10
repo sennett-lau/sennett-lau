@@ -19,11 +19,17 @@ const IndexExperienceItem: React.FC<Props> = (props: Props) => {
       flexDir={'column'}
       color={'themeDark.500'}
     >
-      <Flex w={'100%'} justifyContent={'space-between'} mb={'28px'}>
+      <Flex
+        w={'100%'}
+        justifyContent={'space-between'}
+        mb={'28px'}
+        flexDir={isReverse ? 'row-reverse' : 'row'}
+      >
         <Text fontSize={'48px'}>{title}</Text>
         <Flex
           mt={'15px'}
-          pl={'32px'}
+          pl={isReverse ? '0' : '32px'}
+          pr={isReverse ? '32px' : '0'}
           py={'12px'}
           position={'relative'}
           bg={'themeLight.900'}
@@ -32,7 +38,8 @@ const IndexExperienceItem: React.FC<Props> = (props: Props) => {
             fontSize={'20px'}
             position={'absolute'}
             top={'-15px'}
-            left={'32px'}
+            left={isReverse ? 'auto' : '32px'}
+            right={isReverse ? '32px' : 'auto'}
           >
             {date}
           </Text>
@@ -42,29 +49,37 @@ const IndexExperienceItem: React.FC<Props> = (props: Props) => {
             h={'100%'}
             bg={'themeLight.900'}
             position={'absolute'}
-            right={'0'}
+            right={isReverse ? 'auto' : '0'}
+            left={isReverse ? '0' : 'auto'}
             top={'0'}
-            transform={'translateX(100%)'}
+            transform={isReverse ? 'translateX(-100%)' : 'translateX(100%)'}
           />
         </Flex>
       </Flex>
-      <Flex w={'100%'}>
-        <Flex flex={10} flexDir={'column'} alignItems={'flex-start'} fontSize={'20px'}>
+      <Flex w={'100%'} flexDir={isReverse ? 'row-reverse' : 'row'}>
+        <Flex
+          flex={10}
+          flexDir={'column'}
+          alignItems={isReverse ? 'flex-end' : 'flex-start'}
+          fontSize={'20px'}
+        >
           {children}
         </Flex>
         <Flex
-        flex={2}
-        alignItems={'center'}
-        justifyContent={'flex-end'}
-        pr={'96px'}
+          flex={2}
+          alignItems={'center'}
+          justifyContent={'flex-end'}
+          pr={'96px'}
         >
           <Text
             fontSize={'20px'}
             css={{
               writingMode: 'vertical-rl',
-              transform: 'rotate(0deg)',
+              transform: isReverse ? 'rotate(180deg)' : 'rotate(0deg)',
             }}
-          >{industry}</Text>
+          >
+            {industry}
+          </Text>
         </Flex>
       </Flex>
     </Flex>
