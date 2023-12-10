@@ -33,7 +33,7 @@ const IndexHero = () => {
               position={'absolute'}
               bottom={'20px'}
               left={'0'}
-              w={'100%'}
+              w={'fit-content'}
               justifyContent={'center'}
               alignItems={'center'}
               gap={'16px'}
