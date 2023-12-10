@@ -1,3 +1,4 @@
+import IndexAbout from '@/component/index/IndexAbout/IndexAbout'
 import IndexHero from '@/component/index/IndexHero/IndexHero'
 import IndexQuote from '@/component/index/IndexQuote/IndexQuote'
 import { Flex } from '@chakra-ui/react'
@@ -51,6 +52,7 @@ const Home: FC<Props> = (props) => {
       <Flex width={'100%'} height={'100%'} flexDir={'column'}>
         <IndexHero />
         <IndexQuote />
+        <IndexAbout />
       </Flex>
     </>
   )
