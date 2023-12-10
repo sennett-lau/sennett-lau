@@ -26,7 +26,11 @@ const IndexHero = () => {
             height={'100%'}
             position={'relative'}
           >
-            <Text fontSize={'64px'} fontWeight={'400'}>
+            <Text
+              fontSize={'64px'}
+              fontWeight={'400'}
+              fontFamily={'Zarathustra'}
+            >
               Sennett Lau.
             </Text>
             <Flex
