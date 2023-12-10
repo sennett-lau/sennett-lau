@@ -5,7 +5,15 @@ export const extendedColors: DeepPartial<Record<string, Theme['colors']['blackAl
   blanc: {
     100: '#E7F2FF',
     200: '#054491',
-  }
+  },
+  themeDark: {
+    500: '#2E2A2A',
+    900: '#1F1F1F'
+  },
+  themeLight: {
+    500: '#EFE8DB',
+    900: '#DAD6CB'
+  },
 }
 
 /** override chakra colors here */
