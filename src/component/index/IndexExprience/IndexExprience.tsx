@@ -1,5 +1,6 @@
 import { Flex, Image, Text } from '@chakra-ui/react'
 import IndexExperienceQookia from './IndexExperienceQookia'
+import IndexExperienceOzaru from './IndexExperienceOzaru'
 
 const IndexExperience = () => {
   return (
@@ -24,6 +25,7 @@ const IndexExperience = () => {
           <Image src='/assets/icons/square-dark.svg' />
         </Flex>
         <IndexExperienceQookia />
+        <IndexExperienceOzaru />
       </Flex>
     </Flex>
   )
