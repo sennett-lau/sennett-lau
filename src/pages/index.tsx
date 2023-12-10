@@ -1,4 +1,5 @@
 import IndexHero from '@/component/index/IndexHero/IndexHero'
+import IndexQuote from '@/component/index/IndexQuote/IndexQuote'
 import { Flex } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
@@ -47,8 +48,9 @@ const Home: FC<Props> = (props) => {
           content='https://0xblanc.io/assets/logo/text_logo_og_meta.png'
         />
       </Head>
-      <Flex width={'100%'} height={'100%'}>
+      <Flex width={'100%'} height={'100%'} flexDir={'column'}>
         <IndexHero />
+        <IndexQuote />
       </Flex>
     </>
   )
