@@ -53,7 +53,7 @@ const IndexAbout: React.FC = () => {
         </Flex>
         <Flex gap={'22px'} h={'fit-content'}>
           {range(0, 3).map((i) => (
-            <Flex gap={'33px'} alignItems={'end'}>
+            <Flex key={i} gap={'33px'} alignItems={'end'}>
               <Text
                 fontSize={'96px'}
                 fontWeight={700}
