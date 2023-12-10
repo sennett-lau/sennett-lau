@@ -1,6 +1,7 @@
 import { Flex, Image, Text } from '@chakra-ui/react'
 import IndexExperienceQookia from './IndexExperienceQookia'
 import IndexExperienceOzaru from './IndexExperienceOzaru'
+import IndexExperienceKRGlobal from './IndexExperienceKRGlobal'
 
 const IndexExperience = () => {
   return (
@@ -26,6 +27,7 @@ const IndexExperience = () => {
         </Flex>
         <IndexExperienceQookia />
         <IndexExperienceOzaru />
+        <IndexExperienceKRGlobal />
       </Flex>
     </Flex>
   )
