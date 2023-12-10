@@ -19,7 +19,12 @@ const IndexQuote = () => {
             borderColor={'themeLight.500'}
           ></Box>
         </Flex>
-        <Flex flex={1} px={'86px'} alignItems={'center'} justifyContent={'center'}>
+        <Flex
+          flex={1}
+          px={'86px'}
+          alignItems={'center'}
+          justifyContent={'center'}
+        >
           <Text
             fontWeight={'medium'}
             fontSize={'64px'}
