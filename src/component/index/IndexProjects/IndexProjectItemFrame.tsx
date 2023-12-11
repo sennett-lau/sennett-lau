@@ -1,0 +1,63 @@
+import { Flex, Image, Text } from '@chakra-ui/react'
+
+type Props = {
+  year: number
+  image: string
+  name: string
+  description: string
+  stack: string
+  type: 'left' | 'right'
+  pl?: string
+  pr?: string
+}
+
+const IndexProjectItemFrame = (props: Props) => {
+  const {
+    year,
+    image,
+    name,
+    description,
+    stack,
+    type,
+    pl = '0',
+    pr = '0',
+  } = props
+
+  return (
+    <Flex
+      color={'themeLight.500'}
+      flexDir={'column'}
+      w={'100%'}
+      pl={pl}
+      pr={pr}
+    >
+      <Flex
+        w={'100%'}
+        justifyContent={'flex-end'}
+        alignItems={'center'}
+        mb={'8px'}
+      >
+        <Text fontSize={'16px'}>{year}</Text>
+      </Flex>
+      <Image src={image} w={'100%'} mb={'16px'} />
+      <Flex
+        w={'100%'}
+        textAlign={type === 'left' ? 'left' : 'end'}
+        flexDir={'column'}
+        gap={'8px'}
+      >
+        <Text fontSize={'24px'} lineHeight={'24px'} fontWeight={'semibold'}>
+          {name}
+        </Text>
+        <Text fontSize={'20px'} lineHeight={'20px'}>
+          {description}
+        </Text>
+        <Text fontSize={'16px'} lineHeight={'16px'}>
+          {stack}
+        </Text>
+      </Flex>
+    </Flex>
+  )
+}
+
+export default IndexProjectItemFrame
