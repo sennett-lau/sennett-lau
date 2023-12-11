@@ -3,6 +3,8 @@ import { Flex, Image, Text } from '@chakra-ui/react'
 type Props = {
   year: number
   image: string
+  imgW?: string
+  imgH?: string
   name: string
   description: string
   stack: string
@@ -15,6 +17,8 @@ const IndexProjectItemFrame = (props: Props) => {
   const {
     year,
     image,
+    imgW = 'auto',
+    imgH = 'auto',
     name,
     description,
     stack,
@@ -27,7 +31,7 @@ const IndexProjectItemFrame = (props: Props) => {
     <Flex
       color={'themeLight.500'}
       flexDir={'column'}
-      w={'100%'}
+      w={'fit-content'}
       pl={pl}
       pr={pr}
     >
@@ -39,7 +43,7 @@ const IndexProjectItemFrame = (props: Props) => {
       >
         <Text fontSize={'16px'}>{year}</Text>
       </Flex>
-      <Image src={image} w={'100%'} mb={'16px'} />
+      <Image src={image} w={imgW} h={imgH} mb={'16px'} />
       <Flex
         w={'100%'}
         textAlign={type === 'left' ? 'left' : 'end'}
