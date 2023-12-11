@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react'
+import IndexProjectQuote from './IndexProjectQuote'
 import IndexProjectsSectionTop from './IndexProjectsSectionTop'
 import IndexProjectsTopFrame from './IndexProjectsTopFrame'
 
@@ -14,6 +15,7 @@ const IndexProjects = () => {
       >
         <IndexProjectsTopFrame />
         <IndexProjectsSectionTop />
+        <IndexProjectQuote />
       </Flex>
     </Flex>
   )
