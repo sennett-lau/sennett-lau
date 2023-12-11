@@ -1,6 +1,7 @@
 import IndexAbout from '@/component/index/IndexAbout/IndexAbout'
 import IndexExperience from '@/component/index/IndexExprience/IndexExprience'
 import IndexHero from '@/component/index/IndexHero/IndexHero'
+import IndexProjects from '@/component/index/IndexProjects/IndexProjects'
 import IndexQuote from '@/component/index/IndexQuote/IndexQuote'
 import { Flex } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
@@ -55,6 +56,7 @@ const Home: FC<Props> = (props) => {
         <IndexQuote />
         <IndexAbout />
         <IndexExperience />
+        <IndexProjects />
       </Flex>
     </>
   )
