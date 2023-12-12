@@ -1,5 +1,6 @@
 import IndexAbout from '@/component/index/IndexAbout/IndexAbout'
 import IndexCerts from '@/component/index/IndexCerts/IndexCerts'
+import IndexContact from '@/component/index/IndexContact/IndexContact'
 import IndexExperience from '@/component/index/IndexExprience/IndexExprience'
 import IndexHero from '@/component/index/IndexHero/IndexHero'
 import IndexProjects from '@/component/index/IndexProjects/IndexProjects'
@@ -59,6 +60,7 @@ const Home: FC<Props> = (props) => {
         <IndexExperience />
         <IndexProjects />
         <IndexCerts />
+        <IndexContact />
       </Flex>
     </>
   )
