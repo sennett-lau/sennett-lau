@@ -1,4 +1,6 @@
 import { Flex, Image, Text } from '@chakra-ui/react'
+import IndexContactDescription from './IndexContactDescription'
+import IndexContactForm from './IndexContactForm'
 
 const IndexContact = () => {
   return (
@@ -28,31 +30,9 @@ const IndexContact = () => {
           </Flex>
         </Flex>
         <Flex w={'100%'}>
-          <Flex flex={7} flexDir={'column'}>
-            <Text
-              fontSize={'40px'}
-              fontWeight={'bold'}
-              mb={'0'}
-              lineHeight={'40px'}
-            >
-              Freelance? Job?
-            </Text>
-            <Text
-              fontSize={'40px'}
-              fontWeight={'bold'}
-              mb={'0'}
-              lineHeight={'40px'}
-            >
-              Or any project idea?
-            </Text>
-            <Text
-              fontSize={'40px'}
-              fontWeight={'bold'}
-              mb={'0'}
-              lineHeight={'40px'}
-            >
-              Do not hesitate to contact me!
-            </Text>
+          <Flex flex={7} flexDir={'column'} gap={'72px'}>
+            <IndexContactDescription />
+            <IndexContactForm />
           </Flex>
           <Flex flex={5}></Flex>
         </Flex>
