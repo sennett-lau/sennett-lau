@@ -1,13 +1,16 @@
-import { Flex, Image, Text } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
+import IndexProjectImageSelf from './IndexProjectImageSelf'
+import IndexProjectSectionExtraTopFrame from './IndexProjectSectionExtraTopFrame'
 
 const IndexProjectSectionExtra = () => {
   return (
     <Flex w={'100%'} flexDir={'column'} color={'themeLight.500'}>
-      <Flex w={'100%'} position={'relative'} justifyContent={'space-between'}>
-        <Text fontSize={'20px'} fontStyle={'italic'}>
-          With some that without any product image...
-        </Text>
-        <Image src={'/assets/icons/square.svg'} />
+      <IndexProjectSectionExtraTopFrame />
+      <Flex>
+        <Flex flex={1}></Flex>
+        <Flex w={'fit-content'}>
+          <IndexProjectImageSelf />
+        </Flex>
       </Flex>
     </Flex>
   )
