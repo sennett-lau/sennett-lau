@@ -4,7 +4,7 @@ import IndexProjectCityUGE from './IndexProjectCityUGE'
 
 const IndexProjectSectionDuo = () => {
   return (
-    <Flex w={'100%'} justifyContent={'space-between'}>
+    <Flex w={'100%'} justifyContent={'space-between'} mb={'96px'}>
       <Flex alignItems={'center'} flex={1}>
         <IndexProjectCityUGE />
       </Flex>
