@@ -1,8 +1,8 @@
 import { Flex } from '@chakra-ui/react'
 import IndexProjectQuote from './IndexProjectQuote'
-import IndexProjectsSectionTop from './IndexProjectsSectionTop'
+import IndexProjectSectionDuo from './IndexProjectSectionDuo'
+import IndexProjectsSectionHero from './IndexProjectsSectionHero'
 import IndexProjectsTopFrame from './IndexProjectsTopFrame'
-import IndexProjectSectionMiddle from './IndexProjectSectionMiddle'
 
 const IndexProjects = () => {
   return (
@@ -15,9 +15,9 @@ const IndexProjects = () => {
         flexDir={'column'}
       >
         <IndexProjectsTopFrame />
-        <IndexProjectsSectionTop />
+        <IndexProjectsSectionHero />
         <IndexProjectQuote />
-        <IndexProjectSectionMiddle />
+        <IndexProjectSectionDuo />
       </Flex>
     </Flex>
   )

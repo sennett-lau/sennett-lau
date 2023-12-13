@@ -1,7 +1,7 @@
 import { Flex, Image, Text } from '@chakra-ui/react'
 import IndexProject0xBlanc from './IndexProject0xBlanc'
 
-const IndexProjectsSectionTop = () => {
+const IndexProjectsSectionHero = () => {
   return (
     <Flex w={'100%'}>
       <Flex flex={1} justifyContent={'center'} alignItems={'center'}>
@@ -34,4 +34,4 @@ const IndexProjectsSectionTop = () => {
   )
 }
 
-export default IndexProjectsSectionTop
+export default IndexProjectsSectionHero

@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react'
 import IndexProjectCBTWines from './IndexProjectCBTWines'
 import IndexProjectCityUGE from './IndexProjectCityUGE'
 
-const IndexProjectSectionMiddle = () => {
+const IndexProjectSectionDuo = () => {
   return (
     <Flex w={'100%'} justifyContent={'space-between'}>
       <Flex alignItems={'center'} flex={1}>
@@ -15,4 +15,4 @@ const IndexProjectSectionMiddle = () => {
   )
 }
 
-export default IndexProjectSectionMiddle
+export default IndexProjectSectionDuo
