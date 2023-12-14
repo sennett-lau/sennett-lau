@@ -5,10 +5,13 @@ import IndexExperience from '@/component/index/IndexExprience/IndexExprience'
 import IndexHero from '@/component/index/IndexHero/IndexHero'
 import IndexProjects from '@/component/index/IndexProjects/IndexProjects'
 import IndexQuote from '@/component/index/IndexQuote/IndexQuote'
+import useScroll from '@/hook/useScroll'
+import { setDisplayColor, setShowHeader } from '@/store/controlSlice'
 import { Flex } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 export const getServerSideProps: GetServerSideProps = async () => {
   // for api call in server side
@@ -22,6 +25,117 @@ type Props = {
 }
 
 const Home: FC<Props> = (props) => {
+  const { scrollPosition } = useScroll()
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const windowHeight = window.innerHeight
+    if (scrollPosition > windowHeight) {
+      dispatch(
+        setShowHeader({
+          showHeader: true,
+        }),
+      )
+    } else {
+      dispatch(
+        setShowHeader({
+          showHeader: false,
+        }),
+      )
+    }
+
+    // get the position of element with id 'quote'
+    const quote = document.getElementById('quote')
+    const quotePosition = quote?.getBoundingClientRect().top
+
+    // get the position of element with id 'about'
+    const about = document.getElementById('about')
+    const aboutPosition = about?.getBoundingClientRect().top
+
+    // get the position of element with id 'experience'
+    const experience = document.getElementById('experience')
+    const experiencePosition = experience?.getBoundingClientRect().top
+
+    // get the position of element with id 'projects'
+    const projects = document.getElementById('projects')
+    const projectsPosition = projects?.getBoundingClientRect().top
+
+    // get the position of element with id 'certs'
+    const certs = document.getElementById('certs')
+    const certsPosition = certs?.getBoundingClientRect().top
+
+    // get the position of element with id 'contact'
+    const contact = document.getElementById('contact')
+    const contactPosition = contact?.getBoundingClientRect().top
+
+    const positionColors = [
+      {
+        position: quotePosition,
+        color: 'ultraDark',
+        id: 'quote',
+      },
+      {
+        position: aboutPosition,
+        color: 'dark',
+        id: 'about',
+      },
+      {
+        position: experiencePosition,
+        color: 'light',
+        id: 'experience',
+      },
+      {
+        position: projectsPosition,
+        color: 'dark',
+        id: 'projects',
+      },
+      {
+        position: certsPosition,
+        color: 'light',
+        id: 'certs',
+      },
+      {
+        position: contactPosition,
+        color: 'dark',
+        id: 'contact',
+      },
+    ]
+
+    const reversePositionColors = positionColors.reverse()
+
+    const targetColor = reversePositionColors.find((item) => {
+      return item.position! <= 0
+    })
+
+    let themeColor: string
+
+    if (targetColor) {
+      switch (targetColor.color) {
+        case 'ultraDark':
+          themeColor = 'themeDark.900'
+          break
+        case 'dark':
+          themeColor = 'themeDark.500'
+          break
+        case 'light':
+          themeColor = 'themeLight.500'
+          break
+        default:
+          themeColor = 'ultraDark'
+          break
+      }
+
+      dispatch(
+        setDisplayColor({
+          displayColor: themeColor,
+        }),
+      )
+    }
+
+    console.log(targetColor?.id)
+  }, [scrollPosition])
+
   return (
     <>
       <Head>

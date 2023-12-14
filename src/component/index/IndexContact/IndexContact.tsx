@@ -6,7 +6,7 @@ import IndexContactForm from './IndexContactForm'
 
 const IndexContact = () => {
   return (
-    <Flex id='contact' w={'100%'} bg={'themeDark.500'} py={'100px'}>
+    <Flex id='contact' w={'100%'} bg={'themeDark.500'} alignItems={'center'} minH={'100vh'}>
       <Flex
         w={'100%'}
         maxW={'1120px'}

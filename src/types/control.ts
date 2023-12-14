@@ -4,6 +4,7 @@ export interface IControlState {
   isImageModalOpen: boolean
   imageModalSrc: string
   showHeader: boolean
+  displayColor: string
 }
 
 export interface IControlSetImageModalOpenAction extends Action {
@@ -16,5 +17,11 @@ export interface IControlSetImageModalOpenAction extends Action {
 export interface IControlSetShowHeaderAction extends Action {
   payload: {
     showHeader: boolean
+  }
+}
+
+export interface IControlSetDisplayColorAction extends Action {
+  payload: {
+    displayColor: string
   }
 }

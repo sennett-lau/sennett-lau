@@ -8,12 +8,16 @@ const Header = () => {
     (state: RootState) => state.controlSlice.showHeader,
   )
 
+  const displayColor = useSelector(
+    (state: RootState) => state.controlSlice.displayColor,
+  )
+
   return (
     <Flex
       height={70}
       alignItems={'center'}
       px={3}
-      bg={'blanc.100'}
+      bg={displayColor}
       width={'100%'}
       position={'fixed'}
       zIndex={100}
