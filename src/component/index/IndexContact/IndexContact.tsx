@@ -1,5 +1,7 @@
 import { Flex, Image, Text } from '@chakra-ui/react'
 import IndexContactDescription from './IndexContactDescription'
+import IndexContactDetail from './IndexContactDetail'
+import IndexContactDigitalSpaces from './IndexContactDigitalSpaces'
 import IndexContactForm from './IndexContactForm'
 
 const IndexContact = () => {
@@ -29,12 +31,15 @@ const IndexContact = () => {
             />
           </Flex>
         </Flex>
-        <Flex w={'100%'}>
-          <Flex flex={7} flexDir={'column'} gap={'72px'}>
+        <Flex w={'100%'} justifyContent={'space-between'}>
+          <Flex w={'580px'} flexDir={'column'} gap={'72px'}>
             <IndexContactDescription />
             <IndexContactForm />
           </Flex>
-          <Flex flex={5}></Flex>
+          <Flex w={'fit-content'} flexDir={'column'} gap={'52px'}>
+            <IndexContactDetail />
+            <IndexContactDigitalSpaces />
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
