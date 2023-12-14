@@ -5,7 +5,14 @@ import React from 'react'
 
 const IndexAbout: React.FC = () => {
   return (
-    <Flex w={'100%'} minH={'102vh'} bg={'themeDark.500'} py={'100px'} alignItems={'center'}>
+    <Flex
+      id='about'
+      w={'100%'}
+      minH={'102vh'}
+      bg={'themeDark.500'}
+      py={'100px'}
+      alignItems={'center'}
+    >
       <Flex
         w={'100%'}
         maxW={'1120px'}

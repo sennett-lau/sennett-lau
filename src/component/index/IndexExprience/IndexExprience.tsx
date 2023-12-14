@@ -1,11 +1,11 @@
 import { Flex, Image, Text } from '@chakra-ui/react'
-import IndexExperienceQookia from './IndexExperienceQookia'
-import IndexExperienceOzaru from './IndexExperienceOzaru'
 import IndexExperienceKRGlobal from './IndexExperienceKRGlobal'
+import IndexExperienceOzaru from './IndexExperienceOzaru'
+import IndexExperienceQookia from './IndexExperienceQookia'
 
 const IndexExperience = () => {
   return (
-    <Flex w={'100%'} bg={'themeLight.500'} py={'100px'}>
+    <Flex id='experience' w={'100%'} bg={'themeLight.500'} py={'100px'}>
       <Flex
         w={'100%'}
         maxW={'1120px'}

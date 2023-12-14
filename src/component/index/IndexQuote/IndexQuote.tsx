@@ -3,6 +3,7 @@ import { Box, Flex, Text } from '@chakra-ui/react'
 const IndexQuote = () => {
   return (
     <Flex
+      id='quote'
       w={'100%'}
       h={'100vh'}
       bg={'themeDark.900'}

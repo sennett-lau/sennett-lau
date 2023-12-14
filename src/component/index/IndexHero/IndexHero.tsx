@@ -3,7 +3,13 @@ import { Box, Flex, Image, Link, Text } from '@chakra-ui/react'
 
 const IndexHero = () => {
   return (
-    <Flex w={'100%'} h={'100vh'} bg={'themeLight.500'} alignItems={'center'}>
+    <Flex
+      id='hero'
+      w={'100%'}
+      h={'100vh'}
+      bg={'themeLight.500'}
+      alignItems={'center'}
+    >
       <Flex maxW={'1120px'} w={'100%'} height={'650px'} mx={'auto'}>
         <Flex flex={1}>
           <Flex

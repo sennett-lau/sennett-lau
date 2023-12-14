@@ -3,7 +3,13 @@ import IndexCertItem from './IndexCertItem'
 
 const IndexCerts = () => {
   return (
-    <Flex w={'100%'} bg={'themeLight.500'} py={'100px'} minH={'105vh'}>
+    <Flex
+      id='certs'
+      w={'100%'}
+      bg={'themeLight.500'}
+      py={'100px'}
+      minH={'105vh'}
+    >
       <Flex w={'100%'} maxW={'1120px'} mx={'auto'}>
         <Flex flex={5} alignItems={'center'}>
           <Flex pr={'30px'} position={'relative'}>

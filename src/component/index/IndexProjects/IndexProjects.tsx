@@ -7,7 +7,7 @@ import IndexProjectsTopFrame from './IndexProjectsTopFrame'
 
 const IndexProjects = () => {
   return (
-    <Flex w={'100%'} bg={'themeDark.500'} py={'100px'}>
+    <Flex id='projects' w={'100%'} bg={'themeDark.500'} py={'100px'}>
       <Flex
         w={'100%'}
         maxW={'1120px'}
