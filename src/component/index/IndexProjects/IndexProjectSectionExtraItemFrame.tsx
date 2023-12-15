@@ -25,7 +25,6 @@ const IndexProjectSectionExtraItemFrame = (props: Props) => {
     <Flex
       flexDir={'column'}
       maxW={maxW ? maxW : 'auto'}
-      color={'themeLight.500'}
     >
       <Flex
         justifyContent={'space-between'}

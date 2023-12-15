@@ -1,14 +1,23 @@
+import { RootState } from '@/store'
+import { getBackgroundColorScheme, getContentColorScheme } from '@/utils'
 import { Box, Flex, Text } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
 
 const IndexQuote = () => {
+  const colorScheme = useSelector(
+    (state: RootState) => state.controlSlice.colorScheme,
+  )
+
   return (
     <Flex
       id='quote'
       w={'100%'}
       h={'100vh'}
-      bg={'themeDark.900'}
+      bg={getBackgroundColorScheme(colorScheme)}
       alignItems={'center'}
       justifyContent={'center'}
+      color={getContentColorScheme(colorScheme)}
+      transition={'all 0.3s ease-in-out'}
     >
       <Flex w={'100%'} maxW={'1120px'} mx={'auto'} h={'60vh'}>
         <Flex flexDir={'column'}>
@@ -17,7 +26,7 @@ const IndexQuote = () => {
             h={'44px'}
             borderLeft={'1px solid'}
             borderTop={'1px solid'}
-            borderColor={'themeLight.500'}
+            borderColor={getContentColorScheme(colorScheme)}
           ></Box>
         </Flex>
         <Flex
@@ -26,12 +35,7 @@ const IndexQuote = () => {
           alignItems={'center'}
           justifyContent={'center'}
         >
-          <Text
-            fontWeight={'medium'}
-            fontSize={'64px'}
-            fontStyle={'italic'}
-            color={'themeLight.500'}
-          >
+          <Text fontWeight={'medium'} fontSize={'64px'} fontStyle={'italic'}>
             I develop digital experiences that inspire, infused with
             cutting-edge technology.
           </Text>
@@ -42,7 +46,7 @@ const IndexQuote = () => {
             h={'44px'}
             borderRight={'1px solid'}
             borderBottom={'1px solid'}
-            borderColor={'themeLight.500'}
+            borderColor={getContentColorScheme(colorScheme)}
           ></Box>
         </Flex>
       </Flex>

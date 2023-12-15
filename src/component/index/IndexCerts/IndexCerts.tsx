@@ -1,23 +1,32 @@
+import { RootState } from '@/store'
+import { getBackgroundColorScheme, getContentColorScheme, getSquareColorScheme } from '@/utils'
 import { Flex, Image, Text } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
 import IndexCertItem from './IndexCertItem'
 
 const IndexCerts = () => {
+  const colorScheme = useSelector(
+    (state: RootState) => state.controlSlice.colorScheme,
+  )
+
   return (
     <Flex
       id='certs'
       w={'100%'}
-      bg={'themeLight.500'}
+      bg={getBackgroundColorScheme(colorScheme)}
+      color={getContentColorScheme(colorScheme)}
       py={'100px'}
       minH={'105vh'}
+      transition={'all 0.3s ease-in-out'}
     >
       <Flex w={'100%'} maxW={'1120px'} mx={'auto'}>
         <Flex flex={5} alignItems={'center'}>
           <Flex pr={'30px'} position={'relative'}>
-            <Text fontSize={'96px'} fontWeight={'bold'} color={'themeDark.500'}>
+            <Text fontSize={'96px'} fontWeight={'bold'}>
               Certs
             </Text>
             <Image
-              src={'/assets/icons/square-dark.svg'}
+              src={getSquareColorScheme(colorScheme)}
               position={'absolute'}
               bottom={'38px'}
               right={'-30px'}

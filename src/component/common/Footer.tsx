@@ -1,9 +1,16 @@
 import { Flex, Text } from '@chakra-ui/react'
 import Highlight from '../common/Highlight'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store'
+import { getBackgroundColorScheme, getContentColorScheme } from '@/utils'
 
 const Footer = () => {
+  const colorScheme = useSelector(
+    (state: RootState) => state.controlSlice.colorScheme,
+  )
+  
   return (
-    <Flex w={'100%'} bg={'themeLight.500'}>
+    <Flex w={'100%'} bg={getBackgroundColorScheme(colorScheme)}>
       <Flex
         w={'100%'}
         maxW={'1280px'}
@@ -15,7 +22,7 @@ const Footer = () => {
           <Text
             fontSize={'20px'}
             lineHeight={'20px'}
-            color={'themeDark.500'}
+            color={getContentColorScheme(colorScheme)}
             fontFamily={'Zarathustra'}
           >
             <Highlight>Sennett Lau.</Highlight>© 2023
@@ -25,7 +32,7 @@ const Footer = () => {
           <Text
             fontSize={'16px'}
             lineHeight={'16px'}
-            color={'themeDark.500'}
+            color={getContentColorScheme(colorScheme)}
             fontFamily={'Zarathustra'}
           >
             Site designed and developed by Sennett Lau
@@ -35,7 +42,7 @@ const Footer = () => {
           <Text
             fontSize={'20px'}
             lineHeight={'20px'}
-            color={'themeDark.500'}
+            color={getContentColorScheme(colorScheme)}
             fontFamily={'Zarathustra'}
             fontWeight={'bold'}
           >

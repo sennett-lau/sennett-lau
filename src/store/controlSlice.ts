@@ -1,5 +1,5 @@
 import {
-  IControlSetDisplayColorAction,
+  IControlSetColorSchemeAction,
   IControlSetImageModalOpenAction,
   IControlSetShowHeaderAction,
   IControlState,
@@ -10,7 +10,7 @@ const initialState: IControlState = {
   isImageModalOpen: false,
   imageModalSrc: '',
   showHeader: false,
-  displayColor: 'themeLight.500',
+  colorScheme: 'light',
 }
 
 const slice = createSlice({
@@ -24,13 +24,13 @@ const slice = createSlice({
     setShowHeader(state, action: IControlSetShowHeaderAction) {
       state.showHeader = action.payload.showHeader
     },
-    setDisplayColor(state, action: IControlSetDisplayColorAction) {
-      state.displayColor = action.payload.displayColor
-    },
+    setColorScheme(state, action: IControlSetColorSchemeAction) {
+      state.colorScheme = action.payload.colorScheme
+    }
   },
 })
 
-export const { setImageModalOpen, setShowHeader, setDisplayColor } =
+export const { setImageModalOpen, setShowHeader, setColorScheme } =
   slice.actions
 
 export default slice

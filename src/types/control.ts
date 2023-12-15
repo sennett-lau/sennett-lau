@@ -1,10 +1,11 @@
 import { Action } from 'redux'
+import { ColorScheme } from './color'
 
 export interface IControlState {
   isImageModalOpen: boolean
   imageModalSrc: string
   showHeader: boolean
-  displayColor: string
+  colorScheme: ColorScheme
 }
 
 export interface IControlSetImageModalOpenAction extends Action {
@@ -20,8 +21,8 @@ export interface IControlSetShowHeaderAction extends Action {
   }
 }
 
-export interface IControlSetDisplayColorAction extends Action {
+export interface IControlSetColorSchemeAction extends Action {
   payload: {
-    displayColor: string
+    colorScheme: ColorScheme
   }
 }

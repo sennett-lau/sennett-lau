@@ -16,7 +16,6 @@ const IndexCertItem = (props: Props) => {
         fontSize={'24px'}
         lineHeight={'24px'}
         fontWeight={'semibold'}
-        color={'themeDark.500'}
         textAlign={'left'}
       >
         {name}
@@ -24,7 +23,6 @@ const IndexCertItem = (props: Props) => {
       <Text
         fontSize={'20px'}
         lineHeight={'20px'}
-        color={'themeDark.500'}
         textAlign={'left'}
       >
         {date}
@@ -33,7 +31,6 @@ const IndexCertItem = (props: Props) => {
         <Text
           fontSize={'16px'}
           lineHeight={'16px'}
-          color={'themeDark.500'}
           textAlign={'left'}
         >
           {description}

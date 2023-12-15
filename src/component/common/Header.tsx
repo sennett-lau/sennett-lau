@@ -1,5 +1,6 @@
 import TextLogo from '@/component/logo/TextLogo'
 import { RootState } from '@/store'
+import { getBackgroundColorScheme } from '@/utils'
 import { Flex } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 
@@ -8,8 +9,8 @@ const Header = () => {
     (state: RootState) => state.controlSlice.showHeader,
   )
 
-  const displayColor = useSelector(
-    (state: RootState) => state.controlSlice.displayColor,
+  const colorScheme = useSelector(
+    (state: RootState) => state.controlSlice.colorScheme,
   )
 
   return (
@@ -17,13 +18,13 @@ const Header = () => {
       height={70}
       alignItems={'center'}
       px={3}
-      bg={displayColor}
+      bg={getBackgroundColorScheme(colorScheme)}
       width={'100%'}
       position={'fixed'}
       zIndex={100}
       justifyContent={'center'}
       transform={showHeader ? 'translateY(0)' : 'translateY(-100%)'}
-      transition={'transform 0.3s ease-in-out'}
+      transition={'all 0.3s ease-in-out'}
     >
       <TextLogo />
     </Flex>

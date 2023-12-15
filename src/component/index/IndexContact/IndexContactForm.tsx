@@ -1,11 +1,18 @@
 import { Flex, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import IndexContactFormTextInput from './IndexContactFormTextInput'
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { getBackgroundColorScheme, getContentColorScheme } from '@/utils';
 
 const IndexContactForm = () => {
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [message, setMessage] = useState<string>('')
+  
+  const colorScheme = useSelector(
+    (state: RootState) => state.controlSlice.colorScheme,
+  )
 
   return (
     <Flex w={'100%'} flexDir={'column'}>
@@ -40,12 +47,12 @@ const IndexContactForm = () => {
           w={'120px'}
           h={'40px'}
           border={'1px solid'}
-          borderColor={'themeLight.500'}
+          borderColor={getContentColorScheme(colorScheme)}
           borderRadius={'24px'}
           cursor={'pointer'}
           justifyContent={'center'}
           alignItems={'center'}
-          color={'themeLight.500'}
+          color={getContentColorScheme(colorScheme)}
           _hover={{
             bg: 'themeLight.500',
             color: 'themeDark.500',

@@ -28,13 +28,7 @@ const IndexProjectItemFrame = (props: Props) => {
   } = props
 
   return (
-    <Flex
-      color={'themeLight.500'}
-      flexDir={'column'}
-      w={'fit-content'}
-      pl={pl}
-      pr={pr}
-    >
+    <Flex flexDir={'column'} w={'fit-content'} pl={pl} pr={pr}>
       <Flex
         w={'100%'}
         justifyContent={'flex-end'}

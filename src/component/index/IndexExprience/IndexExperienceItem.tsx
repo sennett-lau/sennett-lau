@@ -1,4 +1,6 @@
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { RootState } from '@/store'
+import { Box,Flex,Text } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
 
 type Props = {
   date: string
@@ -11,14 +13,12 @@ type Props = {
 const IndexExperienceItem: React.FC<Props> = (props: Props) => {
   const { date, company, title, industry, children, isReverse = false } = props
 
+  const colorScheme = useSelector(
+    (state: RootState) => state.controlSlice.colorScheme,
+  )
+
   return (
-    <Flex
-      w={'100%'}
-      maxW={'1120px'}
-      mx={'auto'}
-      flexDir={'column'}
-      color={'themeDark.500'}
-    >
+    <Flex w={'100%'} maxW={'1120px'} mx={'auto'} flexDir={'column'}>
       <Flex
         w={'100%'}
         justifyContent={'space-between'}
@@ -32,7 +32,7 @@ const IndexExperienceItem: React.FC<Props> = (props: Props) => {
           pr={isReverse ? '32px' : '0'}
           py={'12px'}
           position={'relative'}
-          bg={'themeLight.900'}
+          bg={colorScheme === 'light' ? 'themeLight.900' : 'themeDark.900'}
         >
           <Text
             fontSize={'20px'}
@@ -47,7 +47,7 @@ const IndexExperienceItem: React.FC<Props> = (props: Props) => {
           <Box
             w={'calc(50vw - 560px)'}
             h={'100%'}
-            bg={'themeLight.900'}
+            bg={colorScheme === 'light' ? 'themeLight.900' : 'themeDark.900'}
             position={'absolute'}
             right={isReverse ? 'auto' : '0'}
             left={isReverse ? '0' : 'auto'}

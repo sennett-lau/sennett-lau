@@ -1,7 +1,14 @@
 import { Flex, Image, Text } from '@chakra-ui/react'
 import IndexProject0xBlanc from './IndexProject0xBlanc'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store';
+import { getSquareColorScheme } from '@/utils';
 
 const IndexProjectsSectionHero = () => {
+  const colorScheme = useSelector(
+    (state: RootState) => state.controlSlice.colorScheme,
+  )
+
   return (
     <Flex w={'100%'}>
       <Flex flex={1} justifyContent={'center'} alignItems={'center'}>
@@ -9,7 +16,6 @@ const IndexProjectsSectionHero = () => {
           <Text
             fontSize={'96px'}
             fontWeight={700}
-            color={'themeLight.500'}
             ml={'30px'}
             css={{
               writingMode: 'vertical-rl',
@@ -20,7 +26,7 @@ const IndexProjectsSectionHero = () => {
             Projects
           </Text>
           <Image
-            src='/assets/icons/square.svg'
+            src={getSquareColorScheme(colorScheme)}
             position={'absolute'}
             top={'0'}
             right={'38px'}

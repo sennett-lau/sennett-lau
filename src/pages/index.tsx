@@ -6,7 +6,8 @@ import IndexHero from '@/component/index/IndexHero/IndexHero'
 import IndexProjects from '@/component/index/IndexProjects/IndexProjects'
 import IndexQuote from '@/component/index/IndexQuote/IndexQuote'
 import useScroll from '@/hook/useScroll'
-import { setDisplayColor, setShowHeader } from '@/store/controlSlice'
+import { setColorScheme, setShowHeader } from '@/store/controlSlice'
+import { ColorScheme } from '@/types'
 import { Flex } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
@@ -71,32 +72,37 @@ const Home: FC<Props> = (props) => {
 
     const positionColors = [
       {
-        position: quotePosition,
+        position: 0,
+        color: 'light',
+        id: 'hero',
+      },
+      {
+        position: quotePosition! - 300,
         color: 'ultraDark',
         id: 'quote',
       },
       {
-        position: aboutPosition,
+        position: aboutPosition! - 300,
         color: 'dark',
         id: 'about',
       },
       {
-        position: experiencePosition,
+        position: experiencePosition! - 300,
         color: 'light',
         id: 'experience',
       },
       {
-        position: projectsPosition,
+        position: projectsPosition! - 300,
         color: 'dark',
         id: 'projects',
       },
       {
-        position: certsPosition,
+        position: certsPosition! - 300,
         color: 'light',
         id: 'certs',
       },
       {
-        position: contactPosition,
+        position: contactPosition! - 300,
         color: 'dark',
         id: 'contact',
       },
@@ -104,43 +110,25 @@ const Home: FC<Props> = (props) => {
 
     const reversePositionColors = positionColors.reverse()
 
-    const targetColor = reversePositionColors.find((item) => {
+    const targetColorScheme = reversePositionColors.find((item) => {
       return item.position! <= 0
     })
 
-    let themeColor: string
-
-    if (targetColor) {
-      switch (targetColor.color) {
-        case 'ultraDark':
-          themeColor = 'themeDark.900'
-          break
-        case 'dark':
-          themeColor = 'themeDark.500'
-          break
-        case 'light':
-          themeColor = 'themeLight.500'
-          break
-        default:
-          themeColor = 'ultraDark'
-          break
-      }
-
-      dispatch(
-        setDisplayColor({
-          displayColor: themeColor,
-        }),
-      )
-    }
-
-    console.log(targetColor?.id)
+    dispatch(
+      setColorScheme({
+        colorScheme: targetColorScheme?.color as ColorScheme,
+      }),
+    )
   }, [scrollPosition])
 
   return (
     <>
       <Head>
         <title>Sennett Lau | A FullStack Developer</title>
-        <meta name='description' content='Sennett Lau, a fullstack developer skilled in frontend, backend, deployment, cloud and web3. Feel free to find me for any freelance, job or project idea!' />
+        <meta
+          name='description'
+          content='Sennett Lau, a fullstack developer skilled in frontend, backend, deployment, cloud and web3. Feel free to find me for any freelance, job or project idea!'
+        />
 
         <meta name='og:title' content='Sennett Lau | A FullStack Developer' />
         <meta
@@ -154,10 +142,16 @@ const Home: FC<Props> = (props) => {
         <meta property='og:image:width' content='2500' />
         <meta property='og:image:height' content='1330' />
         <meta property='og:url' content='https://0xblanc.io' />
-        <meta property='og:site_name' content='Sennett Lau | A FullStack Developer' />
+        <meta
+          property='og:site_name'
+          content='Sennett Lau | A FullStack Developer'
+        />
         <meta property='og:type' content='website' />
 
-        <meta name='twitter:title' content='Sennett Lau | A FullStack Developer' />
+        <meta
+          name='twitter:title'
+          content='Sennett Lau | A FullStack Developer'
+        />
         <meta
           name='twitter:description'
           content='Sennett Lau, a fullstack developer skilled in frontend, backend, deployment, cloud and web3. Feel free to find me for any freelance, job or project idea!'

@@ -1,13 +1,20 @@
-import { range } from '@/utils'
+import { RootState } from '@/store'
+import { getBackgroundColorScheme, getContentColorScheme, range } from '@/utils'
 import { Box, Flex, Image, Link, Text } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
 
 const IndexHero = () => {
+  const colorScheme = useSelector(
+    (state: RootState) => state.controlSlice.colorScheme,
+  )
+  
   return (
     <Flex
       id='hero'
       w={'100%'}
       h={'100vh'}
-      bg={'themeLight.500'}
+      bg={getBackgroundColorScheme(colorScheme)}
+      transition={'all 0.3s ease-in-out'}
       alignItems={'center'}
     >
       <Flex maxW={'1120px'} w={'100%'} height={'650px'} mx={'auto'}>
@@ -52,7 +59,7 @@ const IndexHero = () => {
                 fontSize={'18px'}
                 fontWeight={'400'}
                 fontFamily={'Raleway'}
-                color={'themeDark.500'}
+                color={getContentColorScheme(colorScheme)}
                 href='#about'
               >
                 about
@@ -61,7 +68,7 @@ const IndexHero = () => {
                 fontSize={'18px'}
                 fontWeight={'400'}
                 fontFamily={'Raleway'}
-                color={'themeDark.500'}
+                color={getContentColorScheme(colorScheme)}
                 href='#experience'
               >
                 experience
@@ -70,7 +77,7 @@ const IndexHero = () => {
                 fontSize={'18px'}
                 fontWeight={'400'}
                 fontFamily={'Raleway'}
-                color={'themeDark.500'}
+                color={getContentColorScheme(colorScheme)}
                 href='#projects'
               >
                 projects
@@ -79,7 +86,7 @@ const IndexHero = () => {
                 fontSize={'18px'}
                 fontWeight={'400'}
                 fontFamily={'Raleway'}
-                color={'themeDark.500'}
+                color={getContentColorScheme(colorScheme)}
                 href='#certs'
               >
                 certs
@@ -88,7 +95,7 @@ const IndexHero = () => {
                 fontSize={'18px'}
                 fontWeight={'400'}
                 fontFamily={'Raleway'}
-                color={'themeDark.500'}
+                color={getContentColorScheme(colorScheme)}
                 href='#contact'
               >
                 contact

@@ -1,17 +1,25 @@
 import Highlight from '@/component/common/Highlight'
-import { range } from '@/utils'
+import { RootState } from '@/store'
+import { getBackgroundColorScheme, getContentColorScheme, getSquareColorScheme, range } from '@/utils'
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const IndexAbout: React.FC = () => {
+  const colorScheme = useSelector(
+    (state: RootState) => state.controlSlice.colorScheme,
+  )
+  
   return (
     <Flex
       id='about'
       w={'100%'}
       minH={'102vh'}
-      bg={'themeDark.500'}
+      bg={getBackgroundColorScheme(colorScheme)}
+      color={getContentColorScheme(colorScheme)}
       py={'100px'}
       alignItems={'center'}
+      transition={'all 0.3s ease-in-out'}
     >
       <Flex
         w={'100%'}
@@ -26,13 +34,13 @@ const IndexAbout: React.FC = () => {
           h={'44px'}
           borderRight={'1px solid'}
           borderTop={'1px solid'}
-          borderColor={'themeLight.500'}
+          borderColor={getContentColorScheme(colorScheme)}
           position={'absolute'}
           top={'0'}
           right={'0'}
         />
         <Image
-          src='/assets/icons/square.svg'
+          src={getSquareColorScheme(colorScheme)}
           position={'absolute'}
           bottom={'0'}
           left={'0'}
@@ -51,13 +59,12 @@ const IndexAbout: React.FC = () => {
           <Text
             fontSize={'96px'}
             fontWeight={700}
-            color={'themeLight.500'}
             h={'106px'}
             mr={'30px'}
           >
             About
           </Text>
-          <Image src='/assets/icons/square.svg' />
+          <Image src={getSquareColorScheme(colorScheme)} />
         </Flex>
         <Flex gap={'22px'} h={'fit-content'}>
           {range(0, 3).map((i) => (
@@ -65,12 +72,11 @@ const IndexAbout: React.FC = () => {
               <Text
                 fontSize={'96px'}
                 fontWeight={700}
-                color={'themeLight.500'}
                 h={'106px'}
               >
                 About
               </Text>
-              <Image src='/assets/icons/square.svg' />
+              <Image src={getSquareColorScheme(colorScheme)} />
             </Flex>
           ))}
         </Flex>
@@ -85,7 +91,6 @@ const IndexAbout: React.FC = () => {
             flex={1}
             maxW={'772px'}
             flexDir={'column'}
-            color={'themeLight.500'}
             fontSize={'24px'}
             lineHeight={'28px'}
             gap={'24px'}

@@ -7,7 +7,6 @@ const IndexProjectQuote = () => {
       justifyContent={'center'}
       alignItems={'center'}
       flexDir={'column'}
-      color={'themeLight.500'}
       my={'60px'}
     >
       <Text fontSize={'20px'} lineHeight={'20px'} mb={'8px'}>
