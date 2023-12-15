@@ -139,13 +139,13 @@ const Home: FC<Props> = (props) => {
   return (
     <>
       <Head>
-        <title>Next Chakra Starter | 0xBlanc</title>
-        <meta name='description' content='A Next Chakra Starter by 0xBlanc' />
+        <title>Sennett Lau | A FullStack Developer</title>
+        <meta name='description' content='Sennett Lau, a fullstack developer skilled in frontend, backend, deployment, cloud and web3. Feel free to find me for any freelance, job or project idea!' />
 
-        <meta name='og:title' content='Next Chakra Starter | 0xBlanc' />
+        <meta name='og:title' content='Sennett Lau | A FullStack Developer' />
         <meta
           name='og:description'
-          content='A Next Chakra Starter by 0xBlanc'
+          content='Sennett Lau, a fullstack developer skilled in frontend, backend, deployment, cloud and web3. Feel free to find me for any freelance, job or project idea!'
         />
         <meta
           name='og:image'
@@ -154,13 +154,13 @@ const Home: FC<Props> = (props) => {
         <meta property='og:image:width' content='2500' />
         <meta property='og:image:height' content='1330' />
         <meta property='og:url' content='https://0xblanc.io' />
-        <meta property='og:site_name' content='Next Chakra Starter | 0xBlanc' />
+        <meta property='og:site_name' content='Sennett Lau | A FullStack Developer' />
         <meta property='og:type' content='website' />
 
-        <meta name='twitter:title' content='Next Chakra Starter | 0xBlanc' />
+        <meta name='twitter:title' content='Sennett Lau | A FullStack Developer' />
         <meta
           name='twitter:description'
-          content='A Next Chakra Starter by 0xBlanc'
+          content='Sennett Lau, a fullstack developer skilled in frontend, backend, deployment, cloud and web3. Feel free to find me for any freelance, job or project idea!'
         />
         <meta
           name='twitter:image'
