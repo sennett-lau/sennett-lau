@@ -34,6 +34,7 @@ const Header = () => {
         alignItems={'center'}
         py={'12px'}
         px={'24px'}
+        mx={'auto'}
       >
         <Text fontSize={'20px'} lineHeight={'20px'} fontFamily={'Zarathustra'}>
           <Highlight>Sennett Lau .</Highlight>
