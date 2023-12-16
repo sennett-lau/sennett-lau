@@ -1,6 +1,7 @@
 import { RootState } from '@/store'
 import { getBackgroundColorScheme, range } from '@/utils'
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import IndexHeroNav from './IndexHeroNav'
 
@@ -8,6 +9,32 @@ const IndexHero = () => {
   const colorScheme = useSelector(
     (state: RootState) => state.controlSlice.colorScheme,
   )
+
+  const [transitionStep, setTransitionStep] = useState(0)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setTransitionStep(1)
+    }, 1000)
+    setTimeout(() => {
+      setTransitionStep(2)
+    }, 1500)
+    setTimeout(() => {
+      setTransitionStep(3)
+    }, 1750)
+    setTimeout(() => {
+      setTransitionStep(4)
+    }, 2500)
+    setTimeout(() => {
+      setTransitionStep(5)
+    }, 3000)
+    setTimeout(() => {
+      setTransitionStep(6)
+    }, 3500)
+    setTimeout(() => {
+      setTransitionStep(7)
+    }, 4000)
+  }, [])
 
   return (
     <Flex
@@ -27,11 +54,12 @@ const IndexHero = () => {
             mr={'38px'}
           >
             <Box
-              w={'44px'}
-              h={'44px'}
+              w={transitionStep >= 1 ? '44px' : '1120px'}
+              h={transitionStep >= 1 ? '44px' : '650px'}
               borderLeft={'1px solid'}
               borderBottom={'1px solid'}
               borderColor={'themeDark.500'}
+              transition={'all 1s ease-in-out'}
             />
           </Flex>
           <Flex
@@ -42,15 +70,32 @@ const IndexHero = () => {
           >
             <Box w={'100%'} h={'54px'} />
             <Flex flex={1} justifyContent={'center'} alignItems={'center'}>
-              <Text
-                fontSize={'64px'}
-                fontWeight={'400'}
-                fontFamily={'Zarathustra'}
+              <Flex
+                flex={1}
+                justifyContent={'center'}
+                alignItems={'center'}
+                transform={transitionStep >= 1 ? 'none' : 'translateX(254px)'}
+                transition={'all 1s ease-in-out'}
               >
-                Sennett Lau.
-              </Text>
+                <Text
+                  fontSize={'64px'}
+                  fontWeight={'400'}
+                  fontFamily={'Zarathustra'}
+                  transform={transitionStep >= 1 ? 'none' : 'scale(2.5)'}
+                  transition={'all 1s ease-in-out'}
+                >
+                  Sennett Lau.
+                </Text>
+              </Flex>
             </Flex>
-            <Flex w={'100%'} h={'54px'} pb={'20px'} alignItems={'flex-end'}>
+            <Flex
+              w={'100%'}
+              h={'54px'}
+              pb={'20px'}
+              alignItems={'flex-end'}
+              opacity={transitionStep >= 2 ? 1 : 0}
+              transition={'all 1s ease-in-out'}
+            >
               <IndexHeroNav />
             </Flex>
           </Flex>
@@ -61,7 +106,11 @@ const IndexHero = () => {
           justifyContent={'space-between'}
           pl={'28px'}
         >
-          <Image src='/assets/me.png' />
+          <Image
+            src='/assets/me.png'
+            opacity={transitionStep >= 3 ? 1 : 0}
+            transition={'all 1s ease-in-out'}
+          />
           <Flex flexDir={'column'} gap={'14px'}>
             {range(0, 4).map((i) => (
               <Image
@@ -69,6 +118,8 @@ const IndexHero = () => {
                 src='/assets/icons/cross.svg'
                 w={'46px'}
                 h={'46px'}
+                opacity={transitionStep >= i + 4 ? 1 : 0}
+                transition={'all 0.5s ease-in-out'}
               />
             ))}
           </Flex>
