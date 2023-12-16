@@ -1,8 +1,8 @@
-import CustomLink from '@/component/common/CustomLink'
 import { RootState } from '@/store'
-import { getBackgroundColorScheme, getContentColorScheme, range } from '@/utils'
-import { Box, Flex, Image, Link, Text } from '@chakra-ui/react'
+import { getBackgroundColorScheme, range } from '@/utils'
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
+import IndexHeroNav from './IndexHeroNav'
 
 const IndexHero = () => {
   const colorScheme = useSelector(
@@ -47,44 +47,15 @@ const IndexHero = () => {
             >
               Sennett Lau.
             </Text>
-            <Flex
-              position={'absolute'}
-              bottom={'20px'}
-              left={'0'}
-              w={'fit-content'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              gap={'4px'}
-            >
-              <CustomLink
-                text='about'
-                colorScheme={colorScheme}
-                href='#about'
-              />
-              <CustomLink
-                text='experience'
-                colorScheme={colorScheme}
-                href='#experience'
-              />
-              <CustomLink
-                text='projects'
-                colorScheme={colorScheme}
-                href='#projects'
-              />
-              <CustomLink
-                text='certs'
-                colorScheme={colorScheme}
-                href='#certs'
-              />
-              <CustomLink
-                text='contact'
-                colorScheme={colorScheme}
-                href='#contact'
-              />
-            </Flex>
+            <IndexHeroNav />
           </Flex>
         </Flex>
-        <Flex flex={1} height={'100%'} justifyContent={'space-around'}>
+        <Flex
+          flex={1}
+          height={'100%'}
+          justifyContent={'space-between'}
+          pl={'28px'}
+        >
           <Image src='/assets/me.png' />
           <Flex flexDir={'column'} gap={'14px'}>
             {range(0, 4).map((i) => (
