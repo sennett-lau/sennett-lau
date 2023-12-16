@@ -1,3 +1,4 @@
+import CustomLink from '@/component/common/CustomLink'
 import { RootState } from '@/store'
 import { getBackgroundColorScheme, getContentColorScheme, range } from '@/utils'
 import { Box, Flex, Image, Link, Text } from '@chakra-ui/react'
@@ -7,7 +8,7 @@ const IndexHero = () => {
   const colorScheme = useSelector(
     (state: RootState) => state.controlSlice.colorScheme,
   )
-  
+
   return (
     <Flex
       id='hero'
@@ -53,53 +54,33 @@ const IndexHero = () => {
               w={'fit-content'}
               justifyContent={'center'}
               alignItems={'center'}
-              gap={'16px'}
+              gap={'4px'}
             >
-              <Link
-                fontSize={'18px'}
-                fontWeight={'400'}
-                fontFamily={'Raleway'}
-                color={getContentColorScheme(colorScheme)}
+              <CustomLink
+                text='about'
+                colorScheme={colorScheme}
                 href='#about'
-              >
-                about
-              </Link>
-              <Link
-                fontSize={'18px'}
-                fontWeight={'400'}
-                fontFamily={'Raleway'}
-                color={getContentColorScheme(colorScheme)}
+              />
+              <CustomLink
+                text='experience'
+                colorScheme={colorScheme}
                 href='#experience'
-              >
-                experience
-              </Link>
-              <Link
-                fontSize={'18px'}
-                fontWeight={'400'}
-                fontFamily={'Raleway'}
-                color={getContentColorScheme(colorScheme)}
+              />
+              <CustomLink
+                text='projects'
+                colorScheme={colorScheme}
                 href='#projects'
-              >
-                projects
-              </Link>
-              <Link
-                fontSize={'18px'}
-                fontWeight={'400'}
-                fontFamily={'Raleway'}
-                color={getContentColorScheme(colorScheme)}
+              />
+              <CustomLink
+                text='certs'
+                colorScheme={colorScheme}
                 href='#certs'
-              >
-                certs
-              </Link>
-              <Link
-                fontSize={'18px'}
-                fontWeight={'400'}
-                fontFamily={'Raleway'}
-                color={getContentColorScheme(colorScheme)}
+              />
+              <CustomLink
+                text='contact'
+                colorScheme={colorScheme}
                 href='#contact'
-              >
-                contact
-              </Link>
+              />
             </Flex>
           </Flex>
         </Flex>
