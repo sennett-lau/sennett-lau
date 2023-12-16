@@ -12,9 +12,6 @@ const IndexHeroNav = () => {
 
   return (
     <Flex
-      position={'absolute'}
-      bottom={'20px'}
-      left={'0'}
       w={'fit-content'}
       justifyContent={'center'}
       alignItems={'center'}

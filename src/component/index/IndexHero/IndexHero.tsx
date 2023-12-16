@@ -38,16 +38,21 @@ const IndexHero = () => {
             justifyContent={'center'}
             alignItems={'center'}
             height={'100%'}
-            position={'relative'}
+            flexDir={'column'}
           >
-            <Text
-              fontSize={'64px'}
-              fontWeight={'400'}
-              fontFamily={'Zarathustra'}
-            >
-              Sennett Lau.
-            </Text>
-            <IndexHeroNav />
+            <Box w={'100%'} h={'54px'} />
+            <Flex flex={1} justifyContent={'center'} alignItems={'center'}>
+              <Text
+                fontSize={'64px'}
+                fontWeight={'400'}
+                fontFamily={'Zarathustra'}
+              >
+                Sennett Lau.
+              </Text>
+            </Flex>
+            <Flex w={'100%'} h={'54px'} pb={'20px'} alignItems={'flex-end'}>
+              <IndexHeroNav />
+            </Flex>
           </Flex>
         </Flex>
         <Flex
