@@ -1,8 +1,11 @@
 import { RootState } from '@/store'
 import { getBackgroundColorScheme, getContentColorScheme } from '@/utils'
-import { Flex, Link, Text } from '@chakra-ui/react'
+import { Flex, Link } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
+import CustomLink from './CustomLink'
 import Highlight from './Highlight'
+
+const navs = ['about', 'experience', 'projects', 'certs']
 
 const Header = () => {
   const showHeader = useSelector(
@@ -36,27 +39,31 @@ const Header = () => {
         px={'24px'}
         mx={'auto'}
       >
-        <Text fontSize={'20px'} lineHeight={'20px'} fontFamily={'Zarathustra'}>
+        <Link
+          fontSize={'24px'}
+          lineHeight={'24px'}
+          fontFamily={'Zarathustra'}
+          _hover={{
+            textDecoration: 'none',
+          }}
+          href='/'
+        >
           <Highlight>Sennett Lau .</Highlight>
-        </Text>
+        </Link>
         <Flex
           justifyContent={'flex-end'}
           alignItems={'center'}
           flex={1}
           gap={'24px'}
         >
-          <Link href={'#about'} px={'16px'} py={'8px'}>
-            About
-          </Link>
-          <Link href={'#experience'} px={'16px'} py={'8px'}>
-            Experience
-          </Link>
-          <Link href={'#projects'} px={'16px'} py={'8px'}>
-            Projects
-          </Link>
-          <Link href={'#certs'} px={'16px'} py={'8px'}>
-            Certs
-          </Link>
+          {navs.map((nav) => (
+            <CustomLink
+              key={nav}
+              text={nav}
+              colorScheme={colorScheme}
+              href={`#${nav}`}
+            />
+          ))}
           <Link
             href={'#contact'}
             borderRadius={'32px'}
