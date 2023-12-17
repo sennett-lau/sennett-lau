@@ -1,5 +1,5 @@
 import { RootState } from '@/store'
-import { getBackgroundColorScheme, range } from '@/utils'
+import { getBackgroundColorScheme, getContentColorScheme, range } from '@/utils'
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -11,6 +11,7 @@ const IndexHero = () => {
   )
 
   const [transitionStep, setTransitionStep] = useState(0)
+  const [tid, setTid] = useState<NodeJS.Timeout>()
 
   useEffect(() => {
     setTimeout(() => {
@@ -36,12 +37,41 @@ const IndexHero = () => {
     }, 4000)
   }, [])
 
+  useEffect(() => {
+    if (transitionStep === 7 && !tid) {
+      const interval = setInterval(() => {
+        const scrollHint = document.querySelector('.scroll-hint') as HTMLElement
+
+        // move scroll hint from top to bottom
+        if (scrollHint) {
+          const currTransform = scrollHint.style.transform
+          if (!currTransform) {
+            scrollHint.style.transform = `translateY(-30px)`
+            return
+          }
+          const currY = parseInt(
+            currTransform.replace('translateY(', '').replace('px)', ''),
+          )
+
+          if (currY > 55) {
+            scrollHint.style.transform = `translateY(-30px)`
+          } else {
+            scrollHint.style.transform = `translateY(${currY + 1}px)`
+          }
+        }
+      }, 15)
+
+      setTid(interval)
+    }
+  }, [transitionStep, tid])
+
   return (
     <Flex
       id='hero'
       w={'100%'}
       h={'100vh'}
       bg={getBackgroundColorScheme(colorScheme)}
+      color={getContentColorScheme(colorScheme)}
       transition={'all 0.3s ease-in-out'}
       alignItems={'center'}
     >
@@ -58,7 +88,7 @@ const IndexHero = () => {
               h={transitionStep >= 1 ? '44px' : '650px'}
               borderLeft={'1px solid'}
               borderBottom={'1px solid'}
-              borderColor={'themeDark.500'}
+              borderColor={getContentColorScheme(colorScheme)}
               transition={'all 1s ease-in-out'}
             />
           </Flex>
@@ -111,17 +141,43 @@ const IndexHero = () => {
             opacity={transitionStep >= 3 ? 1 : 0}
             transition={'all 1s ease-in-out'}
           />
-          <Flex flexDir={'column'} gap={'14px'}>
-            {range(0, 4).map((i) => (
-              <Image
-                key={i}
-                src='/assets/icons/cross.svg'
-                w={'46px'}
-                h={'46px'}
-                opacity={transitionStep >= i + 4 ? 1 : 0}
-                transition={'all 0.5s ease-in-out'}
-              />
-            ))}
+          <Flex flexDir={'column'} justifyContent={'space-between'}>
+            <Flex flexDir={'column'} gap={'14px'}>
+              {range(0, 4).map((i) => (
+                <Image
+                  key={i}
+                  src='/assets/icons/cross.svg'
+                  w={'46px'}
+                  h={'46px'}
+                  opacity={transitionStep >= i + 4 ? 1 : 0}
+                  transition={'all 0.5s ease-in-out'}
+                />
+              ))}
+            </Flex>
+            <Flex
+              opacity={transitionStep >= 7 ? 1 : 0}
+              transition={'all 1s ease-in-out'}
+              flexDir={'column'}
+              alignItems={'flex-end'}
+              gap={'6px'}
+            >
+              <Text
+                css={{
+                  writingMode: 'vertical-rl',
+                }}
+              >
+                scroll
+              </Text>
+              <Box w={'24px'} h={'30px'} overflow={'hidden'}>
+                <Box
+                  className='scroll-hint'
+                  w={'1px'}
+                  h={'30px'}
+                  mx={'auto'}
+                  bg={getContentColorScheme(colorScheme)}
+                ></Box>
+              </Box>
+            </Flex>
           </Flex>
         </Flex>
       </Flex>
