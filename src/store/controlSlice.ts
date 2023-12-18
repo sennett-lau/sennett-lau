@@ -1,5 +1,6 @@
 import {
   IControlSetColorSchemeAction,
+  IControlSetCurrSectionIdAction,
   IControlSetImageModalOpenAction,
   IControlSetShowHeaderAction,
   IControlState,
@@ -11,6 +12,7 @@ const initialState: IControlState = {
   imageModalSrc: '',
   showHeader: false,
   colorScheme: 'light',
+  currSectionId: 'hero',
 }
 
 const slice = createSlice({
@@ -26,11 +28,18 @@ const slice = createSlice({
     },
     setColorScheme(state, action: IControlSetColorSchemeAction) {
       state.colorScheme = action.payload.colorScheme
-    }
+    },
+    setCurrSectionId(state, action: IControlSetCurrSectionIdAction) {
+      state.currSectionId = action.payload.currSectionId
+    },
   },
 })
 
-export const { setImageModalOpen, setShowHeader, setColorScheme } =
-  slice.actions
+export const {
+  setImageModalOpen,
+  setShowHeader,
+  setColorScheme,
+  setCurrSectionId,
+} = slice.actions
 
 export default slice

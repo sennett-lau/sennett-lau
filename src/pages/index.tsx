@@ -6,7 +6,11 @@ import IndexHero from '@/component/index/IndexHero/IndexHero'
 import IndexProjects from '@/component/index/IndexProjects/IndexProjects'
 import IndexQuote from '@/component/index/IndexQuote/IndexQuote'
 import useScroll from '@/hook/useScroll'
-import { setColorScheme, setShowHeader } from '@/store/controlSlice'
+import {
+  setColorScheme,
+  setCurrSectionId,
+  setShowHeader,
+} from '@/store/controlSlice'
 import { ColorScheme } from '@/types'
 import { Flex } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
@@ -117,6 +121,11 @@ const Home: FC<Props> = (props) => {
     dispatch(
       setColorScheme({
         colorScheme: targetColorScheme?.color as ColorScheme,
+      }),
+    )
+    dispatch(
+      setCurrSectionId({
+        currSectionId: targetColorScheme!.id,
       }),
     )
   }, [scrollPosition])

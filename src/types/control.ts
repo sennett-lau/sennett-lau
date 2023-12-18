@@ -6,6 +6,7 @@ export interface IControlState {
   imageModalSrc: string
   showHeader: boolean
   colorScheme: ColorScheme
+  currSectionId: string
 }
 
 export interface IControlSetImageModalOpenAction extends Action {
@@ -24,5 +25,11 @@ export interface IControlSetShowHeaderAction extends Action {
 export interface IControlSetColorSchemeAction extends Action {
   payload: {
     colorScheme: ColorScheme
+  }
+}
+
+export interface IControlSetCurrSectionIdAction extends Action {
+  payload: {
+    currSectionId: string
   }
 }
