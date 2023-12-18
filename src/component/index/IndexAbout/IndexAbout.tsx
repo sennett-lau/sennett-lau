@@ -19,31 +19,10 @@ const IndexAbout: React.FC = () => {
   )
 
   const [isAnimationTriggered, setIsAnimationTriggered] = useState(false)
-  const [transitionStep, setTransitionStep] = useState(0)
 
   useEffect(() => {
     if (currSectionId === 'about' && !isAnimationTriggered) {
       setIsAnimationTriggered(true)
-
-      // 1 - 3: 3x 'About.' display
-      // 2 - 9: content display
-      // 10: bottom right 'About.' display - 'A'
-      // for bottom right 'About.' display
-      // 11 - 15: for bottom right 'About.' display - b o u t .
-
-      setTransitionStep(1)
-
-      for (let i = 2; i <= 10; i++) {
-        setTimeout(() => {
-          setTransitionStep(i)
-        }, 250 * (i - 1))
-      }
-
-      for (let i = 11; i <= 15; i++) {
-        setTimeout(() => {
-          setTransitionStep(i)
-        }, 250 * 9 + 200 * (i - 10))
-      }
     }
   }, [currSectionId, isAnimationTriggered])
 
@@ -98,8 +77,9 @@ const IndexAbout: React.FC = () => {
               <Text
                 as={'span'}
                 key={i}
-                opacity={transitionStep >= i + 10 ? 1 : 0}
+                opacity={isAnimationTriggered ? 1 : 0}
                 transition={'all 0.3s ease-in-out'}
+                transitionDelay={`${2 + (i + 1) * 0.2}s`}
               >
                 {c}
               </Text>
@@ -107,8 +87,9 @@ const IndexAbout: React.FC = () => {
           </Text>
           <Image
             src={getSquareColorScheme(colorScheme)}
-            opacity={transitionStep >= 15 ? 1 : 0}
+            opacity={isAnimationTriggered ? 1 : 0}
             transition={'all 0.3s ease-in-out'}
+            transitionDelay={'3.2s'}
           />
         </Flex>
         <Flex gap={'22px'} h={'fit-content'}>
@@ -117,8 +98,9 @@ const IndexAbout: React.FC = () => {
               key={i}
               gap={'33px'}
               alignItems={'end'}
-              opacity={transitionStep >= i + 1 ? 1 : 0}
+              opacity={isAnimationTriggered ? 1 : 0}
               transition={'all 0.5s ease-in-out'}
+              transitionDelay={`${0.25 * i}s`}
             >
               <Text fontSize={'96px'} fontWeight={700} h={'106px'}>
                 About
@@ -144,18 +126,20 @@ const IndexAbout: React.FC = () => {
           >
             <Text
               h={'28px'}
-              opacity={transitionStep >= 4 ? 1 : 0}
-              transform={transitionStep >= 4 ? 'none' : 'translateX(-20px)'}
+              opacity={isAnimationTriggered ? 1 : 0}
+              transform={isAnimationTriggered ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
+              transitionDelay={'0.75s'}
             >
               I'm <Highlight>Sennett Lau</Highlight>, a full-stack developer
               based in Hong Kong.
             </Text>
             <Text
               h={'84px'}
-              opacity={transitionStep >= 5 ? 1 : 0}
-              transform={transitionStep >= 5 ? 'none' : 'translateX(-20px)'}
+              opacity={isAnimationTriggered ? 1 : 0}
+              transform={isAnimationTriggered? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
+              transitionDelay={'1s'}
             >
               Holding a Bachelor of Science in{' '}
               <Highlight>Computer Science</Highlight> with a focus on Artificial
@@ -165,9 +149,10 @@ const IndexAbout: React.FC = () => {
             </Text>
             <Text
               h={'112px'}
-              opacity={transitionStep >= 6 ? 1 : 0}
-              transform={transitionStep >= 6 ? 'none' : 'translateX(-20px)'}
+              opacity={isAnimationTriggered ? 1 : 0}
+              transform={isAnimationTriggered? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
+              transitionDelay={'1.25s'}
             >
               With a strong foundation in <Highlight>web development</Highlight>{' '}
               specialized in <Highlight>JavaScript</Highlight>, a year of
@@ -179,9 +164,10 @@ const IndexAbout: React.FC = () => {
             </Text>
             <Text
               h={'56px'}
-              opacity={transitionStep >= 7 ? 1 : 0}
-              transform={transitionStep >= 7 ? 'none' : 'translateX(-20px)'}
+              opacity={isAnimationTriggered ? 1 : 0}
+              transform={isAnimationTriggered? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
+              transitionDelay={'1.5s'}
             >
               Technically proficient in <Highlight>TypeScript</Highlight>,{' '}
               <Highlight>Terraform</Highlight>,{' '}
@@ -190,18 +176,20 @@ const IndexAbout: React.FC = () => {
             </Text>
             <Text
               h={'28px'}
-              opacity={transitionStep >= 8 ? 1 : 0}
-              transform={transitionStep >= 8 ? 'none' : 'translateX(-20px)'}
+              opacity={isAnimationTriggered ? 1 : 0}
+              transform={isAnimationTriggered? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
+              transitionDelay={'1.75s'}
             >
               I am a <Highlight>fast learner</Highlight> and an effective{' '}
               <Highlight>team player</Highlight>.
             </Text>
             <Text
               h={'56px'}
-              opacity={transitionStep >= 9 ? 1 : 0}
-              transform={transitionStep >= 9 ? 'none' : 'translateX(-20px)'}
+              opacity={isAnimationTriggered ? 1 : 0}
+              transform={isAnimationTriggered? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
+              transitionDelay={'2s'}
             >
               I'm dedicated to pushing the envelope in tech, blending a solid
               technical base with a keen interest in emerging technologies.
