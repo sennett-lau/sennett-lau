@@ -1,8 +1,32 @@
 import Highlight from '@/component/common/Highlight'
+import { RootState } from '@/store'
 import { Text } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import IndexExperienceItem from './IndexExperienceItem'
 
 const IndexExperienceQookia = () => {
+  const subsectionId = useSelector(
+    (state: RootState) => state.controlSlice.subsectionId,
+  )
+
+  const [transitionSteps, setTransitionSteps] = useState(0)
+  const [tid, setTid] = useState<NodeJS.Timeout>()
+
+  useEffect(() => {
+    if (tid && transitionSteps === 7) {
+      clearInterval(tid)
+    }
+
+    if (subsectionId === 'experience-qookia' && !tid) {
+      const interval = setInterval(() => {
+        setTransitionSteps((prev) => prev + 1)
+      }, 50)
+
+      setTid(interval)
+    }
+  }, [subsectionId, transitionSteps])
+
   return (
     <IndexExperienceItem
       id={'experience-qookia'}
@@ -11,7 +35,11 @@ const IndexExperienceQookia = () => {
       company={'Qookia Limited'}
       industry={'Mobile Game'}
     >
-      <Text>
+      <Text
+        opacity={transitionSteps >= 1 ? 1 : 0}
+        transform={transitionSteps >= 1 ? 'none' : 'translateX(-30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         Expertise in{' '}
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           TypeScript
@@ -26,7 +54,11 @@ const IndexExperienceQookia = () => {
         </Highlight>
         .
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 2 ? 1 : 0}
+        transform={transitionSteps >= 2 ? 'none' : 'translateX(-30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           Backend
         </Highlight>
@@ -36,7 +68,11 @@ const IndexExperienceQookia = () => {
         </Highlight>
         .
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 3 ? 1 : 0}
+        transform={transitionSteps >= 3 ? 'none' : 'translateX(-30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         Designing{' '}
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           Kubernetes
@@ -47,7 +83,11 @@ const IndexExperienceQookia = () => {
         </Highlight>{' '}
         systems.
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 4 ? 1 : 0}
+        transform={transitionSteps >= 4 ? 'none' : 'translateX(-30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           CI/CD
         </Highlight>{' '}
@@ -57,7 +97,11 @@ const IndexExperienceQookia = () => {
         </Highlight>
         .
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 5 ? 1 : 0}
+        transform={transitionSteps >= 5 ? 'none' : 'translateX(-30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           Data analytics pipeline
         </Highlight>{' '}
@@ -67,13 +111,21 @@ const IndexExperienceQookia = () => {
         </Highlight>
         .
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 6 ? 1 : 0}
+        transform={transitionSteps >= 6 ? 'none' : 'translateX(-30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           Cost reduction
         </Highlight>{' '}
         in AWS with DevOps engineers.
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 7 ? 1 : 0}
+        transform={transitionSteps >= 7 ? 'none' : 'translateX(-30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         Database{' '}
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           query optimization

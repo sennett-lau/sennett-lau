@@ -5,6 +5,7 @@ import {
   getSquareColorScheme,
 } from '@/utils'
 import { Flex, Image, Text } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import IndexExperienceKRGlobal from './IndexExperienceKRGlobal'
 import IndexExperienceOzaru from './IndexExperienceOzaru'
@@ -14,6 +15,17 @@ const IndexExperience = () => {
   const colorScheme = useSelector(
     (state: RootState) => state.controlSlice.colorScheme,
   )
+  const currSectionId = useSelector(
+    (state: RootState) => state.controlSlice.currSectionId,
+  )
+
+  const [isAnimationTriggered, setIsAnimationTriggered] = useState(false)
+
+  useEffect(() => {
+    if (currSectionId === 'experience' && !isAnimationTriggered) {
+      setIsAnimationTriggered(true)
+    }
+  }, [currSectionId, isAnimationTriggered])
 
   return (
     <Flex
@@ -32,7 +44,12 @@ const IndexExperience = () => {
         flexDir={'column'}
         gap={'85px'}
       >
-        <Flex gap={'33px'} alignItems={'end'}>
+        <Flex
+          gap={'33px'}
+          alignItems={'end'}
+          opacity={isAnimationTriggered ? 1 : 0}
+          transition={'all 0.3s ease-in-out'}
+        >
           <Text fontSize={'96px'} fontWeight={700} h={'106px'}>
             Experience
           </Text>
