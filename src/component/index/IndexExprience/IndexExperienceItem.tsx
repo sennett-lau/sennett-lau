@@ -3,6 +3,7 @@ import { Box,Flex,Text } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 
 type Props = {
+  id: string
   date: string
   company: string
   title: string
@@ -11,14 +12,14 @@ type Props = {
   isReverse?: boolean
 }
 const IndexExperienceItem: React.FC<Props> = (props: Props) => {
-  const { date, company, title, industry, children, isReverse = false } = props
+  const { id, date, company, title, industry, children, isReverse = false } = props
 
   const colorScheme = useSelector(
     (state: RootState) => state.controlSlice.colorScheme,
   )
 
   return (
-    <Flex w={'100%'} maxW={'1120px'} mx={'auto'} flexDir={'column'}>
+    <Flex id={id} w={'100%'} maxW={'1120px'} mx={'auto'} flexDir={'column'}>
       <Flex
         w={'100%'}
         justifyContent={'space-between'}

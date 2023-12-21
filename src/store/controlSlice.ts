@@ -3,6 +3,7 @@ import {
   IControlSetCurrSectionIdAction,
   IControlSetImageModalOpenAction,
   IControlSetShowHeaderAction,
+  IControlSetSubsectionIdAction,
   IControlState,
 } from '@/types'
 import { createSlice } from '@reduxjs/toolkit'
@@ -13,6 +14,7 @@ const initialState: IControlState = {
   showHeader: false,
   colorScheme: 'light',
   currSectionId: 'hero',
+  subsectionId: '',
 }
 
 const slice = createSlice({
@@ -32,6 +34,9 @@ const slice = createSlice({
     setCurrSectionId(state, action: IControlSetCurrSectionIdAction) {
       state.currSectionId = action.payload.currSectionId
     },
+    setSubsectionId(state, action: IControlSetSubsectionIdAction) {
+      state.subsectionId = action.payload.subsectionId
+    },
   },
 })
 
@@ -40,6 +45,7 @@ export const {
   setShowHeader,
   setColorScheme,
   setCurrSectionId,
+  setSubsectionId,
 } = slice.actions
 
 export default slice

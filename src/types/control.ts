@@ -7,6 +7,7 @@ export interface IControlState {
   showHeader: boolean
   colorScheme: ColorScheme
   currSectionId: string
+  subsectionId: string
 }
 
 export interface IControlSetImageModalOpenAction extends Action {
@@ -31,5 +32,11 @@ export interface IControlSetColorSchemeAction extends Action {
 export interface IControlSetCurrSectionIdAction extends Action {
   payload: {
     currSectionId: string
+  }
+}
+
+export interface IControlSetSubsectionIdAction extends Action {
+  payload: {
+    subsectionId: string
   }
 }

@@ -10,6 +10,7 @@ import {
   setColorScheme,
   setCurrSectionId,
   setShowHeader,
+  setSubsectionId,
 } from '@/store/controlSlice'
 import { ColorScheme } from '@/types'
 import { Flex } from '@chakra-ui/react'
@@ -126,6 +127,48 @@ const Home: FC<Props> = (props) => {
     dispatch(
       setCurrSectionId({
         currSectionId: targetColorScheme!.id,
+      }),
+    )
+
+    // subSection
+
+    const subSectionPositions: { id: string; position: number }[] = []
+
+    const experienceQookia = document.getElementById('experience-qookia')
+    const experienceQookiaPosition =
+      experienceQookia?.getBoundingClientRect().top
+
+    const experienceOzaru = document.getElementById('experience-ozaru')
+    const experienceOzaruPosition = experienceOzaru?.getBoundingClientRect().top
+
+    const experienceKRGlobal = document.getElementById('experience-kr-global')
+    const experienceKRGlobalPosition =
+      experienceKRGlobal?.getBoundingClientRect().top
+
+    subSectionPositions.push({
+      id: 'experience-qookia',
+      position: experienceQookiaPosition!,
+    })
+
+    subSectionPositions.push({
+      id: 'experience-ozaru',
+      position: experienceOzaruPosition!,
+    })
+
+    subSectionPositions.push({
+      id: 'experience-kr-global',
+      position: experienceKRGlobalPosition!,
+    })
+
+    const reverseSubSectionPositions = subSectionPositions.reverse()
+
+    const targetSubSection = reverseSubSectionPositions.find((item) => {
+      return item.position! <= 0
+    })
+
+    dispatch(
+      setSubsectionId({
+        subsectionId: targetSubSection?.id || '',
       }),
     )
   }, [scrollPosition])

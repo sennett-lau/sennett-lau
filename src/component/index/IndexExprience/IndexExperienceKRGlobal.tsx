@@ -5,6 +5,7 @@ import IndexExperienceItem from './IndexExperienceItem'
 const IndexExperienceKRGlobal = () => {
   return (
     <IndexExperienceItem
+      id={'experience-krglobal'}
       title={'Frontend Developer'}
       date={'July, 2021 - July, 2022'}
       company={'KR Global (Ecosa)'}

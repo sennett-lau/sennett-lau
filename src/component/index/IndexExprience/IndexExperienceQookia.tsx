@@ -5,6 +5,7 @@ import IndexExperienceItem from './IndexExperienceItem'
 const IndexExperienceQookia = () => {
   return (
     <IndexExperienceItem
+      id={'experience-qookia'}
       title={'FullStack Developer'}
       date={'Feb, 2023 - Present'}
       company={'Qookia Limited'}
