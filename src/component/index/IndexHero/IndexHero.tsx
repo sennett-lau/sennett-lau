@@ -10,40 +10,60 @@ const IndexHero = () => {
     (state: RootState) => state.controlSlice.colorScheme,
   )
 
-  const [isAnimationTriggered, setIsAnimationTriggered] = useState(false)
+  const [transitionStep, setTransitionStep] = useState(0)
+  const [tid, setTid] = useState<NodeJS.Timeout>()
 
   useEffect(() => {
-    if (!isAnimationTriggered) {
-      setTimeout(() => {
-        setIsAnimationTriggered(true)
-      }, 1000)
-      setTimeout(() => {
-        setInterval(() => {
-          const scrollHint = document.querySelector(
-            '.scroll-hint',
-          ) as HTMLElement
-
-          // move scroll hint from top to bottom
-          if (scrollHint) {
-            const currTransform = scrollHint.style.transform
-            if (!currTransform) {
-              scrollHint.style.transform = `translateY(-30px)`
-              return
-            }
-            const currY = parseInt(
-              currTransform.replace('translateY(', '').replace('px)', ''),
-            )
-
-            if (currY > 100) {
-              scrollHint.style.transform = `translateY(-30px)`
-            } else {
-              scrollHint.style.transform = `translateY(${currY + 1}px)`
-            }
-          }
-        }, 18)
-      }, 4000)
-    }
+    setTimeout(() => {
+      setTransitionStep(1)
+    }, 1000)
+    setTimeout(() => {
+      setTransitionStep(2)
+    }, 1500)
+    setTimeout(() => {
+      setTransitionStep(3)
+    }, 1750)
+    setTimeout(() => {
+      setTransitionStep(4)
+    }, 2500)
+    setTimeout(() => {
+      setTransitionStep(5)
+    }, 3000)
+    setTimeout(() => {
+      setTransitionStep(6)
+    }, 3500)
+    setTimeout(() => {
+      setTransitionStep(7)
+    }, 4000)
   }, [])
+
+  useEffect(() => {
+    if (transitionStep === 7 && !tid) {
+      const interval = setInterval(() => {
+        const scrollHint = document.querySelector('.scroll-hint') as HTMLElement
+
+        // move scroll hint from top to bottom
+        if (scrollHint) {
+          const currTransform = scrollHint.style.transform
+          if (!currTransform) {
+            scrollHint.style.transform = `translateY(-30px)`
+            return
+          }
+          const currY = parseInt(
+            currTransform.replace('translateY(', '').replace('px)', ''),
+          )
+
+          if (currY > 55) {
+            scrollHint.style.transform = `translateY(-30px)`
+          } else {
+            scrollHint.style.transform = `translateY(${currY + 1}px)`
+          }
+        }
+      }, 15)
+
+      setTid(interval)
+    }
+  }, [transitionStep, tid])
 
   return (
     <Flex
@@ -64,8 +84,8 @@ const IndexHero = () => {
             mr={'38px'}
           >
             <Box
-              w={isAnimationTriggered ? '44px' : '1120px'}
-              h={isAnimationTriggered ? '44px' : '650px'}
+              w={transitionStep >= 1 ? '44px' : '1120px'}
+              h={transitionStep >= 1 ? '44px' : '650px'}
               borderLeft={'1px solid'}
               borderBottom={'1px solid'}
               borderColor={getContentColorScheme(colorScheme)}
@@ -84,14 +104,14 @@ const IndexHero = () => {
                 flex={1}
                 justifyContent={'center'}
                 alignItems={'center'}
-                transform={isAnimationTriggered ? 'none' : 'translateX(254px)'}
+                transform={transitionStep >= 1 ? 'none' : 'translateX(254px)'}
                 transition={'all 1s ease-in-out'}
               >
                 <Text
                   fontSize={'64px'}
                   fontWeight={'400'}
                   fontFamily={'Zarathustra'}
-                  transform={isAnimationTriggered ? 'none' : 'scale(2.5)'}
+                  transform={transitionStep >= 1 ? 'none' : 'scale(2.5)'}
                   transition={'all 1s ease-in-out'}
                 >
                   Sennett Lau.
@@ -103,9 +123,8 @@ const IndexHero = () => {
               h={'54px'}
               pb={'20px'}
               alignItems={'flex-end'}
-              opacity={isAnimationTriggered ? 1 : 0}
+              opacity={transitionStep >= 2 ? 1 : 0}
               transition={'all 1s ease-in-out'}
-              transitionDelay={'0.5s'}
             >
               <IndexHeroNav />
             </Flex>
@@ -119,9 +138,8 @@ const IndexHero = () => {
         >
           <Image
             src='/assets/me.png'
-            opacity={isAnimationTriggered ? 1 : 0}
+            opacity={transitionStep >= 3 ? 1 : 0}
             transition={'all 1s ease-in-out'}
-            transitionDelay={'0.75s'}
           />
           <Flex flexDir={'column'} justifyContent={'space-between'}>
             <Flex flexDir={'column'} gap={'14px'}>
@@ -131,16 +149,14 @@ const IndexHero = () => {
                   src='/assets/icons/cross.svg'
                   w={'46px'}
                   h={'46px'}
-                  opacity={isAnimationTriggered ? 1 : 0}
+                  opacity={transitionStep >= i + 4 ? 1 : 0}
                   transition={'all 0.5s ease-in-out'}
-                  transitionDelay={`${1.5 + i * 0.5}s`}
                 />
               ))}
             </Flex>
             <Flex
-              opacity={isAnimationTriggered ? 1 : 0}
+              opacity={transitionStep >= 7 ? 1 : 0}
               transition={'all 1s ease-in-out'}
-              transitionDelay={'3s'}
               flexDir={'column'}
               alignItems={'flex-end'}
               gap={'6px'}
