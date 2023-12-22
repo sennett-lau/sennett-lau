@@ -1,5 +1,6 @@
 import { RootState } from '@/store'
-import { Box,Flex,Text } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 type Props = {
@@ -10,13 +11,36 @@ type Props = {
   industry: string
   children: React.ReactNode
   isReverse?: boolean
+  isTriggerAnimation: boolean
 }
 const IndexExperienceItem: React.FC<Props> = (props: Props) => {
-  const { id, date, company, title, industry, children, isReverse = false } = props
+  const {
+    id,
+    date,
+    company,
+    title,
+    industry,
+    children,
+    isReverse = false,
+    isTriggerAnimation,
+  } = props
 
   const colorScheme = useSelector(
     (state: RootState) => state.controlSlice.colorScheme,
   )
+
+  const [transitionStep, setTransitionStep] = useState(0)
+
+  useEffect(() => {
+    if (isTriggerAnimation && transitionStep === 0) {
+      setTransitionStep(1)
+      for (let i = 2; i <= 50; i++) {
+        setTimeout(() => {
+          setTransitionStep(i)
+        }, 50 * (i - 1))
+      }
+    }
+  }, [isTriggerAnimation, transitionStep])
 
   return (
     <Flex id={id} w={'100%'} maxW={'1120px'} mx={'auto'} flexDir={'column'}>
@@ -26,7 +50,18 @@ const IndexExperienceItem: React.FC<Props> = (props: Props) => {
         mb={'28px'}
         flexDir={isReverse ? 'row-reverse' : 'row'}
       >
-        <Text fontSize={'48px'}>{title}</Text>
+        <Text fontSize={'48px'}>
+          {title.split('').map((c, i) => (
+            <Text
+              as={'span'}
+              key={i}
+              opacity={transitionStep >= i + 1 ? 1 : 0}
+              transition={'all 0.3s ease-in-out'}
+            >
+              {c}
+            </Text>
+          ))}
+        </Text>
         <Flex
           mt={'15px'}
           pl={isReverse ? '0' : '32px'}
@@ -44,7 +79,18 @@ const IndexExperienceItem: React.FC<Props> = (props: Props) => {
           >
             {date}
           </Text>
-          <Text fontSize={'40px'}>{company}</Text>
+          <Text fontSize={'40px'}>
+            {company.split('').map((c, i) => (
+              <Text
+                as={'span'}
+                key={i}
+                opacity={transitionStep >= i + 1 ? 1 : 0}
+                transition={'all 0.3s ease-in-out'}
+              >
+                {c}
+              </Text>
+            ))}
+          </Text>
           <Box
             w={'calc(50vw - 560px)'}
             h={'100%'}
@@ -79,7 +125,16 @@ const IndexExperienceItem: React.FC<Props> = (props: Props) => {
               transform: isReverse ? 'rotate(180deg)' : 'rotate(0deg)',
             }}
           >
-            {industry}
+            {industry.split('').map((c, i) => (
+              <Text
+                as={'span'}
+                key={i}
+                opacity={transitionStep >= i + 1 ? 1 : 0}
+                transition={'all 0.3s ease-in-out'}
+              >
+                {c}
+              </Text>
+            ))}
           </Text>
         </Flex>
       </Flex>

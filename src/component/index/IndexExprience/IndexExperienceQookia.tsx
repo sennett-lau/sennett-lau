@@ -18,7 +18,7 @@ const IndexExperienceQookia = () => {
       clearInterval(tid)
     }
 
-    if (subsectionId === 'experience-qookia' && !tid) {
+    if (subsectionId === 'experience-qookia-t2' && !tid) {
       const interval = setInterval(() => {
         setTransitionSteps((prev) => prev + 1)
       }, 50)
@@ -34,6 +34,7 @@ const IndexExperienceQookia = () => {
       date={'Feb, 2023 - Present'}
       company={'Qookia Limited'}
       industry={'Mobile Game'}
+      isTriggerAnimation={subsectionId === 'experience-qookia-t1'}
     >
       <Text
         opacity={transitionSteps >= 1 ? 1 : 0}

@@ -141,23 +141,38 @@ const Home: FC<Props> = (props) => {
     const experienceOzaru = document.getElementById('experience-ozaru')
     const experienceOzaruPosition = experienceOzaru?.getBoundingClientRect().top
 
-    const experienceKRGlobal = document.getElementById('experience-kr-global')
+    const experienceKRGlobal = document.getElementById('experience-krglobal')
     const experienceKRGlobalPosition =
       experienceKRGlobal?.getBoundingClientRect().top
 
     subSectionPositions.push({
-      id: 'experience-qookia',
+      id: 'experience-qookia-t1',
       position: experienceQookiaPosition! - 400,
     })
 
     subSectionPositions.push({
-      id: 'experience-ozaru',
+      id: 'experience-qookia-t2',
+      position: experienceQookiaPosition! - 300,
+    })
+
+    subSectionPositions.push({
+      id: 'experience-ozaru-t1',
       position: experienceOzaruPosition! - 400,
     })
 
     subSectionPositions.push({
-      id: 'experience-kr-global',
+      id: 'experience-ozaru-t2',
+      position: experienceOzaruPosition! - 300,
+    })
+
+    subSectionPositions.push({
+      id: 'experience-krglobal-t1',
       position: experienceKRGlobalPosition! - 400,
+    })
+
+    subSectionPositions.push({
+      id: 'experience-krglobal-t2',
+      position: experienceKRGlobalPosition! - 300,
     })
 
     const reverseSubSectionPositions = subSectionPositions.reverse()

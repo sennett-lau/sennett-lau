@@ -1,8 +1,32 @@
 import Highlight from '@/component/common/Highlight'
+import { RootState } from '@/store'
 import { Text } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import IndexExperienceItem from './IndexExperienceItem'
 
 const IndexExperienceOzaru = () => {
+  const subsectionId = useSelector(
+    (state: RootState) => state.controlSlice.subsectionId,
+  )
+
+  const [transitionSteps, setTransitionSteps] = useState(0)
+  const [tid, setTid] = useState<NodeJS.Timeout>()
+
+  useEffect(() => {
+    if (tid && transitionSteps === 9) {
+      clearInterval(tid)
+    }
+
+    if (subsectionId === 'experience-ozaru-t2' && !tid) {
+      const interval = setInterval(() => {
+        setTransitionSteps((prev) => prev + 1)
+      }, 50)
+
+      setTid(interval)
+    }
+  }, [subsectionId, transitionSteps])
+
   return (
     <IndexExperienceItem
       id={'experience-ozaru'}
@@ -11,8 +35,13 @@ const IndexExperienceOzaru = () => {
       company={'Ozaru Limited'}
       industry={'Web3 & Blockchain'}
       isReverse={true}
+      isTriggerAnimation={subsectionId === 'experience-ozaru-t1'}
     >
-      <Text>
+      <Text
+        opacity={transitionSteps >= 1 ? 1 : 0}
+        transform={transitionSteps >= 1 ? 'none' : 'translateX(30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           Dapp
         </Highlight>{' '}
@@ -26,7 +55,11 @@ const IndexExperienceOzaru = () => {
         </Highlight>
         .
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 2 ? 1 : 0}
+        transform={transitionSteps >= 2 ? 'none' : 'translateX(30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           Mobile app
         </Highlight>{' '}
@@ -36,7 +69,11 @@ const IndexExperienceOzaru = () => {
         </Highlight>
         .
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 3 ? 1 : 0}
+        transform={transitionSteps >= 3 ? 'none' : 'translateX(30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           Smart contract
         </Highlight>{' '}
@@ -50,7 +87,11 @@ const IndexExperienceOzaru = () => {
         </Highlight>
         .
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 4 ? 1 : 0}
+        transform={transitionSteps >= 4 ? 'none' : 'translateX(30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           Testing
         </Highlight>{' '}
@@ -68,7 +109,11 @@ const IndexExperienceOzaru = () => {
         </Highlight>
         .
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 5 ? 1 : 0}
+        transform={transitionSteps >= 5 ? 'none' : 'translateX(30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         Proficiency in{' '}
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           web development
@@ -79,7 +124,11 @@ const IndexExperienceOzaru = () => {
         </Highlight>
         technologies.
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 6 ? 1 : 0}
+        transform={transitionSteps >= 6 ? 'none' : 'translateX(30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           Serverless backend
         </Highlight>{' '}
@@ -89,13 +138,21 @@ const IndexExperienceOzaru = () => {
         </Highlight>
         .
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 7 ? 1 : 0}
+        transform={transitionSteps >= 7 ? 'none' : 'translateX(30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           Docker
         </Highlight>{' '}
         application with ECR, ECR.
       </Text>
-      <Text>
+      <Text
+        opacity={transitionSteps >= 8 ? 1 : 0}
+        transform={transitionSteps >= 8 ? 'none' : 'translateX(30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
         <Highlight fontSize={'24px'} fontWeight={'semibold'}>
           Data scraping
         </Highlight>{' '}
