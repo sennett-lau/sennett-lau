@@ -8,6 +8,7 @@ const IndexProjectQuote = () => {
       alignItems={'center'}
       flexDir={'column'}
       my={'60px'}
+      id={'projects-quote'}
     >
       <Text fontSize={'20px'} lineHeight={'20px'} mb={'8px'}>
         Also as a member of technical solution team 0xBlanc. Provides web3,

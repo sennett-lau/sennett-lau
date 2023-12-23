@@ -7,7 +7,12 @@ import IndexProjectSectionExtraTopFrame from './IndexProjectSectionExtraTopFrame
 
 const IndexProjectSectionExtra = () => {
   return (
-    <Flex w={'100%'} flexDir={'column'} color={'themeLight.500'}>
+    <Flex
+      w={'100%'}
+      flexDir={'column'}
+      color={'themeLight.500'}
+      id={'projects-extra'}
+    >
       <IndexProjectSectionExtraTopFrame />
       <Flex mb={'95px'}>
         <Flex flex={1} pt={'110px'}>

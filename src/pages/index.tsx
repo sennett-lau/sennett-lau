@@ -145,6 +145,15 @@ const Home: FC<Props> = (props) => {
     const experienceKRGlobalPosition =
       experienceKRGlobal?.getBoundingClientRect().top
 
+    const projectQuote = document.getElementById('projects-quote')
+    const projectQuotePosition = projectQuote?.getBoundingClientRect().top
+
+    const projectDuo = document.getElementById('projects-duo')
+    const projectDuoPosition = projectDuo?.getBoundingClientRect().top
+
+    const projectExtra = document.getElementById('projects-extra')
+    const projectExtraPosition = projectExtra?.getBoundingClientRect().top
+
     subSectionPositions.push({
       id: 'experience-qookia-t1',
       position: experienceQookiaPosition! - 400,
@@ -173,6 +182,26 @@ const Home: FC<Props> = (props) => {
     subSectionPositions.push({
       id: 'experience-krglobal-t2',
       position: experienceKRGlobalPosition! - 300,
+    })
+
+    subSectionPositions.push({
+      id: 'projects-hero',
+      position: projectsPosition! - 300,
+    })
+
+    subSectionPositions.push({
+      id: 'projects-quote',
+      position: projectQuotePosition! - 300,
+    })
+
+    subSectionPositions.push({
+      id: 'projects-duo',
+      position: projectDuoPosition! - 300,
+    })
+
+    subSectionPositions.push({
+      id: 'projects-extra',
+      position: projectExtraPosition! - 300,
     })
 
     const reverseSubSectionPositions = subSectionPositions.reverse()
