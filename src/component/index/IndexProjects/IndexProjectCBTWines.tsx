@@ -1,6 +1,12 @@
+import { RootState } from '@/store'
+import { useSelector } from 'react-redux'
 import IndexProjectItemFrame from './IndexProjectItemFrame'
 
 const IndexProjectCBTWines = () => {
+  const subsectionId = useSelector(
+    (state: RootState) => state.controlSlice.subsectionId,
+  )
+
   return (
     <IndexProjectItemFrame
       year={2021}
@@ -11,6 +17,7 @@ const IndexProjectCBTWines = () => {
       description={'Frontend, Backend Development'}
       stack={'NuxtJs · VueJs · Vuetify · MongoDB'}
       type={'right'}
+      isTriggerAnimation={subsectionId === 'projects-duo'}
     />
   )
 }

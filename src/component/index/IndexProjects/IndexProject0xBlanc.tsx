@@ -1,6 +1,12 @@
+import { RootState } from '@/store'
+import { useSelector } from 'react-redux'
 import IndexProjectItemFrame from './IndexProjectItemFrame'
 
 const IndexProject0xBlanc = () => {
+  const subsectionId = useSelector(
+    (state: RootState) => state.controlSlice.subsectionId,
+  )
+
   return (
     <IndexProjectItemFrame
       year={2023}
@@ -11,6 +17,7 @@ const IndexProject0xBlanc = () => {
       type={'left'}
       pl={'48px'}
       pr={'48px'}
+      isTriggerAnimation={subsectionId === 'projects-hero'}
     />
   )
 }

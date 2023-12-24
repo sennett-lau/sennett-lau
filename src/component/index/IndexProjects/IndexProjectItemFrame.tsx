@@ -1,4 +1,5 @@
 import { Flex, Image, Text } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 
 type Props = {
   year: number
@@ -11,6 +12,7 @@ type Props = {
   type: 'left' | 'right'
   pl?: string
   pr?: string
+  isTriggerAnimation: boolean
 }
 
 const IndexProjectItemFrame = (props: Props) => {
@@ -25,7 +27,20 @@ const IndexProjectItemFrame = (props: Props) => {
     type,
     pl = '0',
     pr = '0',
+    isTriggerAnimation,
   } = props
+
+  const [transitionStep, setTransitionStep] = useState(0)
+
+  useEffect(() => {
+    if (isTriggerAnimation && transitionStep === 0) {
+      for (let i = 1; i <= 50; i++) {
+        setTimeout(() => {
+          setTransitionStep(i)
+        }, 50 * (i - 1))
+      }
+    }
+  }, [isTriggerAnimation, transitionStep])
 
   return (
     <Flex flexDir={'column'} w={'fit-content'} pl={pl} pr={pr}>
@@ -35,9 +50,30 @@ const IndexProjectItemFrame = (props: Props) => {
         alignItems={'center'}
         mb={'8px'}
       >
-        <Text fontSize={'16px'}>{year}</Text>
+        <Text fontSize={'16px'}>
+          {year
+            .toString()
+            .split('')
+            .map((c, i) => (
+              <Text
+                as={'span'}
+                key={i}
+                opacity={transitionStep >= i + 1 ? 1 : 0}
+                transition={'all 0.3s ease-in-out'}
+              >
+                {c}
+              </Text>
+            ))}
+        </Text>
       </Flex>
-      <Image src={image} w={imgW} h={imgH} mb={'16px'} />
+      <Image
+        src={image}
+        w={imgW}
+        h={imgH}
+        mb={'16px'}
+        opacity={transitionStep >= 1 ? 1 : 0}
+        transition={'all 0.3s ease-in-out'}
+      />
       <Flex
         w={'100%'}
         textAlign={type === 'left' ? 'left' : 'end'}
@@ -45,13 +81,40 @@ const IndexProjectItemFrame = (props: Props) => {
         gap={'8px'}
       >
         <Text fontSize={'24px'} lineHeight={'24px'} fontWeight={'semibold'}>
-          {name}
+          {name.split('').map((c, i) => (
+            <Text
+              as={'span'}
+              key={i}
+              opacity={transitionStep >= i + 1 ? 1 : 0}
+              transition={'all 0.3s ease-in-out'}
+            >
+              {c}
+            </Text>
+          ))}
         </Text>
         <Text fontSize={'20px'} lineHeight={'20px'}>
-          {description}
+          {description.split('').map((c, i) => (
+            <Text
+              as={'span'}
+              key={i}
+              opacity={transitionStep >= i + 1 ? 1 : 0}
+              transition={'all 0.3s ease-in-out'}
+            >
+              {c}
+            </Text>
+          ))}
         </Text>
         <Text fontSize={'16px'} lineHeight={'16px'}>
-          {stack}
+          {stack.split('').map((c, i) => (
+            <Text
+              as={'span'}
+              key={i}
+              opacity={transitionStep >= i + 1 ? 1 : 0}
+              transition={'all 0.3s ease-in-out'}
+            >
+              {c}
+            </Text>
+          ))}
         </Text>
       </Flex>
     </Flex>
