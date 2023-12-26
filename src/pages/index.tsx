@@ -191,7 +191,7 @@ const Home: FC<Props> = (props) => {
 
     subSectionPositions.push({
       id: 'projects-quote',
-      position: projectQuotePosition! - 300,
+      position: projectQuotePosition! - 700,
     })
 
     subSectionPositions.push({
