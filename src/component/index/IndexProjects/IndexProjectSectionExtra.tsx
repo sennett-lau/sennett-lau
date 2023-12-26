@@ -24,18 +24,18 @@ const IndexProjectSectionExtra = () => {
       />
       <Flex mb={'95px'}>
         <Flex flex={1} pt={'110px'}>
-          <IndexProjectExtraAINA />
+          <IndexProjectExtraAINA triggerAnimation={subsectionId === 'projects-extra'} />
         </Flex>
         <Flex w={'fit-content'} pr={'31px'}>
-          <IndexProjectImageSelf />
+          <IndexProjectImageSelf triggerAnimation={subsectionId === 'projects-extra'} />
         </Flex>
       </Flex>
       <Flex>
         <Flex flex={1} pt={'60px'} pl={'84px'}>
-          <IndexProjectExtraSCL />
+          <IndexProjectExtraSCL triggerAnimation={subsectionId === 'projects-extra'} />
         </Flex>
         <Flex w={'fit-content'}>
-          <IndexProjectExtraLCSD />
+          <IndexProjectExtraLCSD triggerAnimation={subsectionId === 'projects-extra'} />
         </Flex>
       </Flex>
     </Flex>
