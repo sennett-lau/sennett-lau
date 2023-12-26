@@ -1,6 +1,11 @@
 import { RootState } from '@/store'
-import { getBackgroundColorScheme, getContentColorScheme, getSquareColorScheme } from '@/utils'
+import {
+  getBackgroundColorScheme,
+  getContentColorScheme,
+  getSquareColorScheme,
+} from '@/utils'
 import { Flex, Image, Text } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import IndexCertItem from './IndexCertItem'
 
@@ -8,6 +13,21 @@ const IndexCerts = () => {
   const colorScheme = useSelector(
     (state: RootState) => state.controlSlice.colorScheme,
   )
+  const currSectionId = useSelector(
+    (state: RootState) => state.controlSlice.currSectionId,
+  )
+
+  const [transitionStep, setTransitionStep] = useState(0)
+
+  useEffect(() => {
+    if (currSectionId === 'certs' && transitionStep === 0) {
+      for (let i = 1; i <= 100; i++) {
+        setTimeout(() => {
+          setTransitionStep(i)
+        }, 50 * (i - 1))
+      }
+    }
+  }, [currSectionId, transitionStep])
 
   return (
     <Flex
@@ -23,13 +43,26 @@ const IndexCerts = () => {
         <Flex flex={5} alignItems={'center'}>
           <Flex pr={'30px'} position={'relative'}>
             <Text fontSize={'96px'} fontWeight={'bold'}>
-              Certs
+              {'Certs'.split('').map((c, i) => (
+                <Text
+                  as={'span'}
+                  key={i}
+                  opacity={transitionStep >= i + 1 ? 1 : 0}
+                  transition={'all 0.3s ease-in-out'}
+                >
+                  {c}
+                </Text>
+              ))}
             </Text>
             <Image
               src={getSquareColorScheme(colorScheme)}
               position={'absolute'}
               bottom={'38px'}
               right={'-30px'}
+              transform={
+                transitionStep >= 1 ? 'none' : 'rotate(225deg) scale(2.5)'
+              }
+              transition={'all 1s ease-in-out'}
             />
           </Flex>
         </Flex>
@@ -39,6 +72,9 @@ const IndexCerts = () => {
           justifyContent={'center'}
           alignItems={'center'}
           gap={'50px'}
+          opacity={transitionStep >= 1 ? 1 : 0}
+          transform={transitionStep >= 1 ? 'none' : 'translateX(100px)'}
+          transition={'all 0.3s ease-in-out'}
         >
           <IndexCertItem
             name={'AWS Certified Solutions Architect – Associate'}
