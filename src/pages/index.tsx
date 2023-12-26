@@ -201,7 +201,7 @@ const Home: FC<Props> = (props) => {
 
     subSectionPositions.push({
       id: 'projects-extra',
-      position: projectExtraPosition! - 300,
+      position: projectExtraPosition! - 500,
     })
 
     const reverseSubSectionPositions = subSectionPositions.reverse()
