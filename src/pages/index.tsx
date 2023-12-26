@@ -233,11 +233,11 @@ const Home: FC<Props> = (props) => {
         />
         <meta
           name='og:image'
-          content='https://0xblanc.io/assets/logo/text_logo_og_meta.png'
+          content='https://sennettlau.me/assets/name_meta_banner.png'
         />
         <meta property='og:image:width' content='2500' />
         <meta property='og:image:height' content='1330' />
-        <meta property='og:url' content='https://0xblanc.io' />
+        <meta property='og:url' content='https://sennettlau.me' />
         <meta
           property='og:site_name'
           content='Sennett Lau | A FullStack Developer'
@@ -254,7 +254,7 @@ const Home: FC<Props> = (props) => {
         />
         <meta
           name='twitter:image'
-          content='https://0xblanc.io/assets/logo/text_logo_og_meta.png'
+          content='https://sennettlau.me/assets/name_meta_banner.png'
         />
       </Head>
       <Flex width={'100%'} height={'100%'} flexDir={'column'}>
