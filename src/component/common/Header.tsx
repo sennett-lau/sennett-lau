@@ -61,7 +61,7 @@ const Header = () => {
               key={nav}
               text={nav}
               colorScheme={colorScheme}
-              href={`#${nav}`}
+              href={`${nav}`}
             />
           ))}
           <Link

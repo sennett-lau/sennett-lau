@@ -22,7 +22,7 @@ const IndexHeroNav = () => {
           key={nav}
           text={nav}
           colorScheme={colorScheme}
-          href={`#${nav}`}
+          href={`${nav}`}
         />
       ))}
     </Flex>
