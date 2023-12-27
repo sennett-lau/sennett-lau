@@ -1,18 +1,43 @@
+import { RootState } from '@/store'
+import { discordHookMessageSend, getContentColorScheme } from '@/utils'
 import { Flex, Text } from '@chakra-ui/react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import IndexContactFormTextInput from './IndexContactFormTextInput'
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
-import { getBackgroundColorScheme, getContentColorScheme } from '@/utils';
 
 const IndexContactForm = () => {
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [message, setMessage] = useState<string>('')
-  
+  const [functionState, setFunctionState] = useState<
+    'idle' | 'loading' | 'error' | 'done'
+  >('idle')
+
   const colorScheme = useSelector(
     (state: RootState) => state.controlSlice.colorScheme,
   )
+
+  const onMessageSend = async () => {
+    if (!name || !email || !message) {
+      return
+    }
+    if (functionState === 'loading') {
+      return
+    }
+
+    setFunctionState('loading')
+
+    let content = `Name: ${name}\n\nEmail: ${email}\n\nMessage:\n${message}`
+
+    try {
+      await discordHookMessageSend(content)
+      setFunctionState('done')
+    } catch (err) {
+      console.log(err)
+      setFunctionState('error')
+      return
+    }
+  }
 
   return (
     <Flex w={'100%'} flexDir={'column'}>
@@ -59,7 +84,7 @@ const IndexContactForm = () => {
           }}
           transition={'all 0.2s ease'}
         >
-          <Text fontSize={'16px'} lineHeight={'16px'}>
+          <Text fontSize={'16px'} lineHeight={'16px'} onClick={onMessageSend}>
             Send
           </Text>
         </Flex>
