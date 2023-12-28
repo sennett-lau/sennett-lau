@@ -1,14 +1,14 @@
-import { Flex, Text } from '@chakra-ui/react'
-import Highlight from '../common/Highlight'
-import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
 import { getBackgroundColorScheme, getContentColorScheme } from '@/utils'
+import { Flex, Text } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
+import Highlight from '../common/Highlight'
 
 const Footer = () => {
   const colorScheme = useSelector(
     (state: RootState) => state.controlSlice.colorScheme,
   )
-  
+
   return (
     <Flex w={'100%'} bg={getBackgroundColorScheme(colorScheme)}>
       <Flex
@@ -45,6 +45,13 @@ const Footer = () => {
             color={getContentColorScheme(colorScheme)}
             fontFamily={'Zarathustra'}
             fontWeight={'bold'}
+            cursor={'pointer'}
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+              })
+            }}
           >
             Back to top
           </Text>
