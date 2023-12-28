@@ -1,6 +1,6 @@
 import { RootState } from '@/store'
 import { getIconColorScheme } from '@/utils'
-import { Flex, Image, Text } from '@chakra-ui/react'
+import { Flex, Image, Link, Text } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 
 const IndexContactDigitalSpaces = () => {
@@ -13,7 +13,14 @@ const IndexContactDigitalSpaces = () => {
       <Text fontSize={'36px'} fontWeight={'bold'} lineHeight={'36px'}>
         Other Digital Spaces
       </Text>
-      <Flex w={'fit-content'} gap={'8px'} alignItems={'center'}>
+      <Link
+        href='https://www.linkedin.com/in/sennett-lau'
+        target='_blank'
+        w={'fit-content'}
+        gap={'8px'}
+        alignItems={'center'}
+        display={'flex'}
+      >
         <Image
           src={getIconColorScheme('linkedin', colorScheme)}
           w={'24px'}
@@ -22,8 +29,15 @@ const IndexContactDigitalSpaces = () => {
         <Text fontSize={'24px'} lineHeight={'24px'}>
           sennett-lau
         </Text>
-      </Flex>
-      <Flex w={'fit-content'} gap={'8px'} alignItems={'center'}>
+      </Link>
+      <Link
+        href='https://github.com/sennett-lau'
+        target='_blank'
+        w={'fit-content'}
+        gap={'8px'}
+        alignItems={'center'}
+        display={'flex'}
+      >
         <Image
           src={getIconColorScheme('github', colorScheme)}
           w={'24px'}
@@ -32,7 +46,7 @@ const IndexContactDigitalSpaces = () => {
         <Text fontSize={'24px'} lineHeight={'24px'}>
           sennett-lau
         </Text>
-      </Flex>
+      </Link>
     </Flex>
   )
 }
