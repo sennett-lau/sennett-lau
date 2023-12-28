@@ -1,9 +1,5 @@
 import { RootState } from '@/store'
-import {
-  getBackgroundColorScheme,
-  getContentColorScheme,
-  getSquareColorScheme,
-} from '@/utils'
+import { getBackgroundColorScheme, getContentColorScheme, getIconColorScheme } from '@/utils'
 import { Flex, Image, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -53,7 +49,7 @@ const IndexExperience = () => {
           <Text fontSize={'96px'} fontWeight={700} h={'106px'}>
             Experience
           </Text>
-          <Image src={getSquareColorScheme(colorScheme)} />
+          <Image src={getIconColorScheme('square', colorScheme)} />
         </Flex>
         <IndexExperienceQookia />
         <IndexExperienceOzaru />

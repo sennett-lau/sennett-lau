@@ -22,13 +22,16 @@ export const getContentColorScheme = (theme: ColorScheme): string => {
   }
 }
 
-export const getSquareColorScheme = (theme: ColorScheme): string => {
+export const getIconColorScheme = (
+  icon: string,
+  theme: ColorScheme,
+): string => {
   switch (theme) {
     case 'light':
-      return '/assets/icons/square-dark.svg'
+      return `/assets/icons/${icon}-dark.svg`
     case 'dark':
-      return '/assets/icons/square.svg'
+      return `/assets/icons/${icon}.svg`
     case 'ultraDark':
-      return '/assets/icons/square.svg'
+      return `/assets/icons/${icon}.svg`
   }
 }

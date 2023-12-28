@@ -1,5 +1,5 @@
 import { RootState } from '@/store'
-import { getContentColorScheme, getSquareColorScheme } from '@/utils'
+import { getContentColorScheme, getIconColorScheme } from '@/utils'
 import { Box, Image } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -23,7 +23,7 @@ const IndexProjectsTopFrame = () => {
   return (
     <Box w={'100%'} position={'relative'} h={'74px'}>
       <Image
-        src={getSquareColorScheme(colorScheme)}
+        src={getIconColorScheme('square', colorScheme)}
         position={'absolute'}
         top={'0'}
         left={'0'}

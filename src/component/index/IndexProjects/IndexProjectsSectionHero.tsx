@@ -1,9 +1,9 @@
 import { RootState } from '@/store'
-import { getSquareColorScheme } from '@/utils'
 import { Flex, Image, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import IndexProject0xBlanc from './IndexProject0xBlanc'
+import { getIconColorScheme } from '@/utils'
 
 const IndexProjectsSectionHero = () => {
   const colorScheme = useSelector(
@@ -40,7 +40,7 @@ const IndexProjectsSectionHero = () => {
             Projects
           </Text>
           <Image
-            src={getSquareColorScheme(colorScheme)}
+            src={getIconColorScheme('square', colorScheme)}
             position={'absolute'}
             top={'0'}
             right={'38px'}

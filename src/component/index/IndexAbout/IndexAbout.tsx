@@ -1,11 +1,6 @@
 import Highlight from '@/component/common/Highlight'
 import { RootState } from '@/store'
-import {
-  getBackgroundColorScheme,
-  getContentColorScheme,
-  getSquareColorScheme,
-  range,
-} from '@/utils'
+import { getBackgroundColorScheme, getContentColorScheme, getIconColorScheme, range } from '@/utils'
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -77,7 +72,7 @@ const IndexAbout: React.FC = () => {
           right={'0'}
         />
         <Image
-          src={getSquareColorScheme(colorScheme)}
+          src={getIconColorScheme('square', colorScheme)}
           position={'absolute'}
           bottom={'0'}
           left={'0'}
@@ -106,7 +101,7 @@ const IndexAbout: React.FC = () => {
             ))}
           </Text>
           <Image
-            src={getSquareColorScheme(colorScheme)}
+            src={getIconColorScheme('square', colorScheme)}
             opacity={transitionStep >= 15 ? 1 : 0}
             transition={'all 0.3s ease-in-out'}
           />
@@ -123,7 +118,7 @@ const IndexAbout: React.FC = () => {
               <Text fontSize={'96px'} fontWeight={700} h={'106px'}>
                 About
               </Text>
-              <Image src={getSquareColorScheme(colorScheme)} />
+              <Image src={getIconColorScheme('square', colorScheme)} />
             </Flex>
           ))}
         </Flex>

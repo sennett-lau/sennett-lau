@@ -1,9 +1,5 @@
 import { RootState } from '@/store'
-import {
-  getBackgroundColorScheme,
-  getContentColorScheme,
-  getSquareColorScheme,
-} from '@/utils'
+import { getBackgroundColorScheme, getContentColorScheme, getIconColorScheme } from '@/utils'
 import { Flex, Image, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -55,7 +51,7 @@ const IndexCerts = () => {
               ))}
             </Text>
             <Image
-              src={getSquareColorScheme(colorScheme)}
+              src={getIconColorScheme('square', colorScheme)}
               position={'absolute'}
               bottom={'38px'}
               right={'-30px'}
