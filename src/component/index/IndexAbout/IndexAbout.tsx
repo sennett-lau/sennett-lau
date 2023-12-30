@@ -1,6 +1,11 @@
 import Highlight from '@/component/common/Highlight'
 import { RootState } from '@/store'
-import { getBackgroundColorScheme, getContentColorScheme, getIconColorScheme, range } from '@/utils'
+import {
+  getBackgroundColorScheme,
+  getContentColorScheme,
+  getIconColorScheme,
+  range,
+} from '@/utils'
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -28,16 +33,10 @@ const IndexAbout: React.FC = () => {
 
       setTransitionStep(1)
 
-      for (let i = 2; i <= 10; i++) {
+      for (let i = 2; i <= 6; i++) {
         setTimeout(() => {
           setTransitionStep(i)
-        }, 250 * (i - 1))
-      }
-
-      for (let i = 11; i <= 15; i++) {
-        setTimeout(() => {
-          setTransitionStep(i)
-        }, 250 * 9 + 200 * (i - 10))
+        }, 20 * (i - 1))
       }
     }
   }, [currSectionId, isAnimationTriggered])
@@ -93,7 +92,7 @@ const IndexAbout: React.FC = () => {
               <Text
                 as={'span'}
                 key={i}
-                opacity={transitionStep >= i + 10 ? 1 : 0}
+                opacity={transitionStep >= i + 1 ? 1 : 0}
                 transition={'all 0.3s ease-in-out'}
               >
                 {c}
@@ -102,7 +101,7 @@ const IndexAbout: React.FC = () => {
           </Text>
           <Image
             src={getIconColorScheme('square', colorScheme)}
-            opacity={transitionStep >= 15 ? 1 : 0}
+            opacity={transitionStep >= 6 ? 1 : 0}
             transition={'all 0.3s ease-in-out'}
           />
         </Flex>
@@ -139,8 +138,8 @@ const IndexAbout: React.FC = () => {
           >
             <Text
               h={'28px'}
-              opacity={transitionStep >= 4 ? 1 : 0}
-              transform={transitionStep >= 4 ? 'none' : 'translateX(-20px)'}
+              opacity={transitionStep >= 1 ? 1 : 0}
+              transform={transitionStep >= 1 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
             >
               I'm <Highlight>Sennett Lau</Highlight>, a full-stack developer
@@ -148,8 +147,8 @@ const IndexAbout: React.FC = () => {
             </Text>
             <Text
               h={'84px'}
-              opacity={transitionStep >= 5 ? 1 : 0}
-              transform={transitionStep >= 5 ? 'none' : 'translateX(-20px)'}
+              opacity={transitionStep >= 2 ? 1 : 0}
+              transform={transitionStep >= 2 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
             >
               Holding a Bachelor of Science in{' '}
@@ -160,8 +159,8 @@ const IndexAbout: React.FC = () => {
             </Text>
             <Text
               h={'112px'}
-              opacity={transitionStep >= 6 ? 1 : 0}
-              transform={transitionStep >= 6 ? 'none' : 'translateX(-20px)'}
+              opacity={transitionStep >= 3 ? 1 : 0}
+              transform={transitionStep >= 3 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
             >
               With a strong foundation in <Highlight>web development</Highlight>{' '}
@@ -174,8 +173,8 @@ const IndexAbout: React.FC = () => {
             </Text>
             <Text
               h={'56px'}
-              opacity={transitionStep >= 7 ? 1 : 0}
-              transform={transitionStep >= 7 ? 'none' : 'translateX(-20px)'}
+              opacity={transitionStep >= 4 ? 1 : 0}
+              transform={transitionStep >= 4 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
             >
               Technically proficient in <Highlight>TypeScript</Highlight>,{' '}
@@ -185,8 +184,8 @@ const IndexAbout: React.FC = () => {
             </Text>
             <Text
               h={'28px'}
-              opacity={transitionStep >= 8 ? 1 : 0}
-              transform={transitionStep >= 8 ? 'none' : 'translateX(-20px)'}
+              opacity={transitionStep >= 5 ? 1 : 0}
+              transform={transitionStep >= 5 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
             >
               I am a <Highlight>fast learner</Highlight> and an effective{' '}
@@ -194,8 +193,8 @@ const IndexAbout: React.FC = () => {
             </Text>
             <Text
               h={'56px'}
-              opacity={transitionStep >= 9 ? 1 : 0}
-              transform={transitionStep >= 9 ? 'none' : 'translateX(-20px)'}
+              opacity={transitionStep >= 6 ? 1 : 0}
+              transform={transitionStep >= 6 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
             >
               I'm dedicated to pushing the envelope in tech, blending a solid
