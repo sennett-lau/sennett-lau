@@ -16,6 +16,10 @@ const IndexHeroNav = () => {
       justifyContent={'center'}
       alignItems={'center'}
       gap={'4px'}
+      flexDir={{
+        base: 'column',
+        lg: 'row',
+      }}
     >
       {navs.map((nav) => (
         <CustomLink
