@@ -128,7 +128,10 @@ const IndexHeroDesktop = () => {
                 />
               ))}
             </Flex>
-            <ScrollHint triggerAnimation={transitionStep >= 7} />
+            <ScrollHint
+              triggerAnimation={transitionStep >= 7}
+              classSuffix='desktop'
+            />
           </Flex>
         </Flex>
       </Flex>

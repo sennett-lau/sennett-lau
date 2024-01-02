@@ -6,10 +6,11 @@ import { useSelector } from 'react-redux'
 
 type Props = {
   triggerAnimation: boolean
+  classSuffix?: string
 }
 
 const ScrollHint = (prop: Props) => {
-  const { triggerAnimation } = prop
+  const { triggerAnimation, classSuffix } = prop
 
   const colorScheme = useSelector(
     (state: RootState) => state.controlSlice.colorScheme,
@@ -20,7 +21,9 @@ const ScrollHint = (prop: Props) => {
   useEffect(() => {
     if (triggerAnimation && !tid) {
       const interval = setInterval(() => {
-        const scrollHint = document.querySelector('.scroll-hint') as HTMLElement
+        const scrollHint = document.querySelector(`.scroll-hint-${classSuffix}`) as HTMLElement
+
+        console.log(scrollHint)
 
         // move scroll hint from top to bottom
         if (scrollHint) {
@@ -62,7 +65,7 @@ const ScrollHint = (prop: Props) => {
       </Text>
       <Box w={'24px'} h={'30px'} overflow={'hidden'}>
         <Box
-          className='scroll-hint'
+          className={`scroll-hint-${classSuffix}`}
           w={'1px'}
           h={'30px'}
           mx={'auto'}
