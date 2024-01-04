@@ -21,9 +21,9 @@ const ScrollHint = (prop: Props) => {
   useEffect(() => {
     if (triggerAnimation && !tid) {
       const interval = setInterval(() => {
-        const scrollHint = document.querySelector(`.scroll-hint-${classSuffix}`) as HTMLElement
-
-        console.log(scrollHint)
+        const scrollHint = document.querySelector(
+          `.scroll-hint-${classSuffix}`,
+        ) as HTMLElement
 
         // move scroll hint from top to bottom
         if (scrollHint) {
