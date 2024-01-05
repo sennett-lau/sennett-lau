@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import IndexProjectImageSelf from '../IndexProjects/IndexProjectImageSelf'
 import IndexHeroNav from './IndexHeroNav'
 import ScrollHint from './ScrollHint'
+import { getBackgroundColorScheme } from '@/utils'
 
 const IndexHeroMobile = () => {
   const colorScheme = useSelector(
@@ -24,11 +25,13 @@ const IndexHeroMobile = () => {
   return (
     <Flex
       h={'100vh'}
-      bg={'themeLight.500'}
+      bg={getBackgroundColorScheme(colorScheme)}
       display={{ base: 'flex', md: 'none' }}
       flexDir={'column'}
       alignItems={'center'}
-      pt={'22vw'}
+      justifyContent={'center'}
+      mt={'-5vw'}
+      transition={'all 0.3s ease-in-out'}
     >
       <IndexProjectImageSelf triggerAnimation={true} />
       <Text
@@ -44,7 +47,10 @@ const IndexHeroMobile = () => {
       <Flex position={'relative'} justify={'center'} w={'100%'}>
         <IndexHeroNav />
         <Box position={'absolute'} bottom={'0px'} right={'20px'}>
-          <ScrollHint triggerAnimation={transitionStep > 2} classSuffix='mobile' />
+          <ScrollHint
+            triggerAnimation={transitionStep > 2}
+            classSuffix='mobile'
+          />
         </Box>
       </Flex>
     </Flex>
