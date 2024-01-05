@@ -8,10 +8,11 @@ type Props = {
   text: string
   href: string
   fontSize?: string
+  display?: string | { base?: string; sm?: string; md?: string; lg?: string }
 }
 
 const CustomLink = (props: Props) => {
-  const { colorScheme, text, href, fontSize = '18px' } = props
+  const { colorScheme, text, href, fontSize = '18px', display = 'flex' } = props
 
   const [isHover, setIsHover] = useState(false)
 
@@ -30,6 +31,7 @@ const CustomLink = (props: Props) => {
       onClick={onClickHandler}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
+      display={display}
     >
       <Flex
         w={'fit-content'}

@@ -26,7 +26,10 @@ const Header = () => {
       width={'100%'}
       position={'fixed'}
       zIndex={100}
-      transform={showHeader ? 'translateY(0)' : 'translateY(-100%)'}
+      transform={{
+        base: 'none',
+        lg: showHeader ? 'translateY(0)' : 'translateY(-100%)',
+      }}
       transition={'all 0.3s ease-in-out'}
     >
       <Flex
@@ -62,6 +65,7 @@ const Header = () => {
               text={nav}
               colorScheme={colorScheme}
               href={`${nav}`}
+              display={{ base: 'none', lg: 'flex' }}
             />
           ))}
           <Link
@@ -70,7 +74,14 @@ const Header = () => {
             border={'1px solid'}
             borderColor={getContentColorScheme(colorScheme)}
             px={'16px'}
-            py={'8px'}
+            py={{
+              base: '4px',
+              lg: '8px',
+            }}
+            transform={{
+              base: 'translateY(-3px)',
+              lg: 'none',
+            }}
             _hover={{
               textDecoration: 'none',
               bg: getContentColorScheme(colorScheme),
