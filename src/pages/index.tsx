@@ -6,6 +6,7 @@ import IndexHero from '@/component/index/IndexHero/IndexHero'
 import IndexProjects from '@/component/index/IndexProjects/IndexProjects'
 import IndexQuote from '@/component/index/IndexQuote/IndexQuote'
 import useScroll from '@/hook/useScroll'
+import { RootState } from '@/store'
 import {
   setColorScheme,
   setCurrSectionId,
@@ -17,7 +18,8 @@ import { Flex } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { FC, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getBackgroundColorScheme } from '../utils/color'
 
 export const getServerSideProps: GetServerSideProps = async () => {
   // for api call in server side
@@ -32,6 +34,10 @@ type Props = {
 
 const Home: FC<Props> = (props) => {
   const { scrollPosition } = useScroll()
+
+  const colorScheme = useSelector(
+    (state: RootState) => state.controlSlice.colorScheme,
+  )
 
   const dispatch = useDispatch()
 
@@ -257,7 +263,13 @@ const Home: FC<Props> = (props) => {
           content='https://sennettlau.me/assets/name_meta_banner.png'
         />
       </Head>
-      <Flex width={'100%'} height={'100%'} flexDir={'column'}>
+      <Flex
+        width={'100%'}
+        height={'100%'}
+        flexDir={'column'}
+        bg={getBackgroundColorScheme(colorScheme)}
+        transition={'all 0.3s ease-in-out'}
+      >
         <IndexHero />
         <IndexQuote />
         <IndexAbout />
