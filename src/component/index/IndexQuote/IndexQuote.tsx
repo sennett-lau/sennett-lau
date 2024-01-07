@@ -35,14 +35,29 @@ const IndexQuote = () => {
     <Flex
       id='quote'
       w={'100%'}
-      h={'100vh'}
+      h={{
+        base: '50vh',
+        lg: '100vh',
+      }}
       bg={getBackgroundColorScheme(colorScheme)}
       alignItems={'center'}
       justifyContent={'center'}
       color={getContentColorScheme(colorScheme)}
       transition={'all 0.3s ease-in-out'}
     >
-      <Flex w={'100%'} maxW={'1120px'} mx={'auto'} h={'60vh'}>
+      <Flex
+        w={'100%'}
+        maxW={'1120px'}
+        mx={'auto'}
+        h={{
+          base: 'fit-content',
+          lg: '100%',
+        }}
+        px={{
+          base: '12px',
+          lg: '0',
+        }}
+      >
         <Flex flexDir={'column'}>
           <Box
             w={'44px'}
@@ -54,11 +69,29 @@ const IndexQuote = () => {
         </Flex>
         <Flex
           flex={1}
-          px={'86px'}
+          px={{
+            base: '0',
+            lg: '86px',
+          }}
+          py={{
+            base: '64px',
+            lg: '0',
+          }}
           alignItems={'center'}
           justifyContent={'center'}
         >
-          <Text fontWeight={'medium'} fontSize={'64px'} fontStyle={'italic'}>
+          <Text
+            fontWeight={'medium'}
+            fontSize={{
+              base: '24px',
+              lg: '64px',
+            }}
+            fontStyle={'italic'}
+            textAlign={{
+              base: 'center',
+              lg: 'left',
+            }}
+          >
             {quote
               .split('')
               .slice(
