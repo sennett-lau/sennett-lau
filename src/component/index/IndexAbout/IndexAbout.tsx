@@ -56,9 +56,16 @@ const IndexAbout: React.FC = () => {
         w={'100%'}
         maxW={'1120px'}
         mx={'auto'}
-        h={'780px'}
+        h={{
+          base: 'fit-content',
+          lg: '780px',
+        }}
         position={'relative'}
         flexDir={'column'}
+        px={{
+          base: '20px',
+          lg: '0',
+        }}
       >
         <Box
           w={'44px'}
@@ -68,15 +75,28 @@ const IndexAbout: React.FC = () => {
           borderColor={getContentColorScheme(colorScheme)}
           position={'absolute'}
           top={'0'}
-          right={'0'}
+          right={{
+            base: '20px',
+            lg: '0',
+          }}
         />
         <Image
           src={getIconColorScheme('square', colorScheme)}
           position={'absolute'}
-          bottom={'0'}
-          left={'0'}
+          bottom={{
+            base: '-22px',
+            lg: '0',
+          }}
+          left={{
+            base: '20px',
+            lg: '0',
+          }}
         />
         <Flex
+          display={{
+            base: 'none',
+            lg: 'flex',
+          }}
           alignItems={'end'}
           position={'absolute'}
           bottom={'0'}
@@ -113,8 +133,22 @@ const IndexAbout: React.FC = () => {
               alignItems={'end'}
               opacity={transitionStep >= i + 1 ? 1 : 0}
               transition={'all 0.5s ease-in-out'}
+              display={{
+                base: i === 0 ? 'flex' : 'none',
+                lg: 'flex',
+              }}
             >
-              <Text fontSize={'96px'} fontWeight={700} h={'106px'}>
+              <Text
+                fontSize={{
+                  base: '64px',
+                  lg: '96px',
+                }}
+                fontWeight={700}
+                h={{
+                  base: '70px',
+                  lg: '106px',
+                }}
+              >
                 About
               </Text>
               <Image src={getIconColorScheme('square', colorScheme)} />
@@ -125,19 +159,38 @@ const IndexAbout: React.FC = () => {
           position={'relative'}
           h={'100%'}
           alignItems={'end'}
-          pb={'44px'}
-          pl={'54px'}
+          pb={{
+            base: '24px',
+            lg: '44px',
+          }}
+          pl={{
+            base: '0',
+            lg: '54px',
+          }}
+          pt={{
+            base: '24px',
+            lg: '0',
+          }}
         >
           <Flex
             flex={1}
             maxW={'772px'}
             flexDir={'column'}
-            fontSize={'24px'}
-            lineHeight={'28px'}
+            fontSize={{
+              base: '16px',
+              lg: '24px',
+            }}
+            lineHeight={{
+              base: '24px',
+              lg: '28px',
+            }}
             gap={'24px'}
           >
             <Text
-              h={'28px'}
+              h={{
+                base: 'fit-content',
+                lg: '28px',
+              }}
               opacity={transitionStep >= 1 ? 1 : 0}
               transform={transitionStep >= 1 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
@@ -146,7 +199,10 @@ const IndexAbout: React.FC = () => {
               based in Hong Kong.
             </Text>
             <Text
-              h={'84px'}
+              h={{
+                base: 'fit-content',
+                lg: '84px',
+              }}
               opacity={transitionStep >= 2 ? 1 : 0}
               transform={transitionStep >= 2 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
@@ -158,7 +214,10 @@ const IndexAbout: React.FC = () => {
               <Highlight>June, 2022</Highlight>.
             </Text>
             <Text
-              h={'112px'}
+              h={{
+                base: 'fit-content',
+                lg: '112px',
+              }}
               opacity={transitionStep >= 3 ? 1 : 0}
               transform={transitionStep >= 3 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
@@ -172,7 +231,10 @@ const IndexAbout: React.FC = () => {
               application and <Highlight>system design</Highlight>.
             </Text>
             <Text
-              h={'56px'}
+              h={{
+                base: 'fit-content',
+                lg: '56px',
+              }}
               opacity={transitionStep >= 4 ? 1 : 0}
               transform={transitionStep >= 4 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
@@ -183,7 +245,10 @@ const IndexAbout: React.FC = () => {
               and more.
             </Text>
             <Text
-              h={'28px'}
+              h={{
+                base: 'fit-content',
+                lg: '28px',
+              }}
               opacity={transitionStep >= 5 ? 1 : 0}
               transform={transitionStep >= 5 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
@@ -192,7 +257,10 @@ const IndexAbout: React.FC = () => {
               <Highlight>team player</Highlight>.
             </Text>
             <Text
-              h={'56px'}
+              h={{
+                base: 'fit-content',
+                lg: '56px',
+              }}
               opacity={transitionStep >= 6 ? 1 : 0}
               transform={transitionStep >= 6 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
