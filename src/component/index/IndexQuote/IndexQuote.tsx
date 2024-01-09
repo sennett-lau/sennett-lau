@@ -49,6 +49,10 @@ const IndexQuote = () => {
         w={'100%'}
         maxW={'1120px'}
         mx={'auto'}
+        minH={{
+          base: '272px',
+          lg: 'auto',
+        }}
         h={{
           base: 'fit-content',
           lg: '100%',
