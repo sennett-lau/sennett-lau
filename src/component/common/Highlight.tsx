@@ -1,7 +1,7 @@
 import { Text } from '@chakra-ui/react'
 
 type Props = {
-  fontSize?: string
+  fontSize?: string | { base: string; lg: string }
   fontWeight?: string
   children: React.ReactNode
 }
