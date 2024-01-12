@@ -48,9 +48,17 @@ const IndexExperienceItem: React.FC<Props> = (props: Props) => {
         w={'100%'}
         justifyContent={'space-between'}
         mb={'28px'}
-        flexDir={isReverse ? 'row-reverse' : 'row'}
+        flexDir={{
+          base: 'column',
+          lg: isReverse ? 'row-reverse' : 'row',
+        }}
       >
-        <Text fontSize={'48px'}>
+        <Text
+          fontSize={{
+            base: '32px',
+            lg: '48px',
+          }}
+        >
           {title.split('').map((c, i) => (
             <Text
               as={'span'}
@@ -92,7 +100,10 @@ const IndexExperienceItem: React.FC<Props> = (props: Props) => {
             ))}
           </Text>
           <Box
-            w={'calc(50vw - 560px)'}
+            w={{
+              base: '100%',
+              lg: 'calc(50vw - 560px)',
+            }}
             h={'100%'}
             bg={colorScheme === 'light' ? 'themeLight.900' : 'themeDark.900'}
             position={'absolute'}
@@ -107,8 +118,14 @@ const IndexExperienceItem: React.FC<Props> = (props: Props) => {
         <Flex
           flex={10}
           flexDir={'column'}
-          alignItems={isReverse ? 'flex-end' : 'flex-start'}
-          fontSize={'20px'}
+          alignItems={{
+            base: 'flex-start',
+            lg: isReverse ? 'flex-end' : 'flex-start',
+          }}
+          fontSize={{
+            base: '18px',
+            lg: '20px',
+          }}
         >
           {children}
         </Flex>
@@ -117,6 +134,10 @@ const IndexExperienceItem: React.FC<Props> = (props: Props) => {
           alignItems={'center'}
           justifyContent={'flex-end'}
           pr={'96px'}
+          display={{
+            base: 'none',
+            lg: 'flex',
+          }}
         >
           <Text
             fontSize={'20px'}
