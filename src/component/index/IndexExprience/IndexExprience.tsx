@@ -1,5 +1,9 @@
 import { RootState } from '@/store'
-import { getBackgroundColorScheme, getContentColorScheme, getIconColorScheme } from '@/utils'
+import {
+  getBackgroundColorScheme,
+  getContentColorScheme,
+  getIconColorScheme,
+} from '@/utils'
 import { Flex, Image, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -39,6 +43,10 @@ const IndexExperience = () => {
         position={'relative'}
         flexDir={'column'}
         gap={'85px'}
+        px={{
+          base: '20px',
+          lg: '0',
+        }}
       >
         <Flex
           gap={'33px'}
@@ -46,7 +54,17 @@ const IndexExperience = () => {
           opacity={isAnimationTriggered ? 1 : 0}
           transition={'all 0.3s ease-in-out'}
         >
-          <Text fontSize={'96px'} fontWeight={700} h={'106px'}>
+          <Text
+            fontSize={{
+              base: '48px',
+              lg: '96px',
+            }}
+            fontWeight={700}
+            h={{
+              base: '53px',
+              lg: '106px',
+            }}
+          >
             Experience
           </Text>
           <Image src={getIconColorScheme('square', colorScheme)} />
