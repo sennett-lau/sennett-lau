@@ -42,15 +42,24 @@ const IndexExperienceQookia = () => {
         transition={'all 0.3s ease-in-out'}
       >
         Expertise in{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           TypeScript
         </Highlight>
         ,{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           VueTerraformJS
         </Highlight>
         ,{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Kubernetes
         </Highlight>
         .
@@ -60,11 +69,17 @@ const IndexExperienceQookia = () => {
         transform={transitionSteps >= 2 ? 'none' : 'translateX(-30px)'}
         transition={'all 0.3s ease-in-out'}
       >
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Backend
         </Highlight>
         application development and{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Docker orchestrationing
         </Highlight>
         .
@@ -75,11 +90,17 @@ const IndexExperienceQookia = () => {
         transition={'all 0.3s ease-in-out'}
       >
         Designing{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Kubernetes
         </Highlight>
         -based{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           distributed
         </Highlight>{' '}
         systems.
@@ -89,11 +110,17 @@ const IndexExperienceQookia = () => {
         transform={transitionSteps >= 4 ? 'none' : 'translateX(-30px)'}
         transition={'all 0.3s ease-in-out'}
       >
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           CI/CD
         </Highlight>{' '}
         pipeline setup and optimization with{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           GitLab CI
         </Highlight>
         .
@@ -103,11 +130,17 @@ const IndexExperienceQookia = () => {
         transform={transitionSteps >= 5 ? 'none' : 'translateX(-30px)'}
         transition={'all 0.3s ease-in-out'}
       >
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Data analytics pipeline
         </Highlight>{' '}
         design and implementation using{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           AWS
         </Highlight>
         .
@@ -117,7 +150,10 @@ const IndexExperienceQookia = () => {
         transform={transitionSteps >= 6 ? 'none' : 'translateX(-30px)'}
         transition={'all 0.3s ease-in-out'}
       >
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Cost reduction
         </Highlight>{' '}
         in AWS with DevOps engineers.
@@ -128,7 +164,10 @@ const IndexExperienceQookia = () => {
         transition={'all 0.3s ease-in-out'}
       >
         Database{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           query optimization
         </Highlight>
         for enhanced performance.
