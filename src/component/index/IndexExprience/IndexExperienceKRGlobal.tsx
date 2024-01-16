@@ -42,7 +42,7 @@ const IndexExperienceKRGlobal = () => {
         transition={'all 0.3s ease-in-out'}
       >
         Involved in{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
           e-commerce
         </Highlight>{' '}
         store development for multiple countries.
@@ -53,19 +53,19 @@ const IndexExperienceKRGlobal = () => {
         transition={'all 0.3s ease-in-out'}
       >
         Utilized technologies like{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
           NuxtJS
         </Highlight>
         ,{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
           VueJS
         </Highlight>
         ,{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
           Vuex
         </Highlight>
         ,{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
           PHP
         </Highlight>
         .
@@ -76,11 +76,11 @@ const IndexExperienceKRGlobal = () => {
         transition={'all 0.3s ease-in-out'}
       >
         Integrated with frontend-related vendors such as{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
           VWO
         </Highlight>{' '}
         and{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
           Storyblok
         </Highlight>
         .
@@ -90,11 +90,11 @@ const IndexExperienceKRGlobal = () => {
         transform={transitionSteps >= 4 ? 'none' : 'translateX(-30px)'}
         transition={'all 0.3s ease-in-out'}
       >
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
           Revamped
         </Highlight>{' '}
         multilingual blog,{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
           optimizing
         </Highlight>{' '}
         page loading speed.
@@ -105,7 +105,7 @@ const IndexExperienceKRGlobal = () => {
         transition={'all 0.3s ease-in-out'}
       >
         Worked on{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
           mobile responsive
         </Highlight>
         web applications.
@@ -116,11 +116,11 @@ const IndexExperienceKRGlobal = () => {
         transition={'all 0.3s ease-in-out'}
       >
         Focused on{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
           enhancing page speed
         </Highlight>{' '}
         and{' '}
-        <Highlight fontSize={'24px'} fontWeight={'semibold'}>
+        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
           SEO
         </Highlight>
         .
