@@ -21,6 +21,10 @@ const IndexProjects = () => {
       color={getContentColorScheme(colorScheme)}
       py={'100px'}
       transition={'all 0.3s ease-in-out'}
+      px={{
+        base: '8px',
+        lg: 0,
+      }}
     >
       <Flex
         w={'100%'}
