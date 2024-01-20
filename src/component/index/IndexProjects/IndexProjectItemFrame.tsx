@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react'
 type Props = {
   year: number
   image: string
-  imgW?: string
-  imgH?: string
+  imgW?: string | { base: string; lg: string }
+  imgH?: string | { base: string; lg: string }
   name: string
   description: string
   stack: string
   type: 'left' | 'right'
-  pl?: string
-  pr?: string
+  pl?: string | { base: string; lg: string }
+  pr?: string | { base: string; lg: string }
   isTriggerAnimation: boolean
 }
 
@@ -80,7 +80,21 @@ const IndexProjectItemFrame = (props: Props) => {
         flexDir={'column'}
         gap={'8px'}
       >
-        <Text fontSize={'24px'} lineHeight={'24px'} fontWeight={'semibold'}>
+        <Text
+          fontSize={{
+            base: '20px',
+            lg: '24px',
+          }}
+          lineHeight={{
+            base: '20px',
+            lg: '24px',
+          }}
+          fontWeight={'semibold'}
+          textAlign={{
+            base: 'center',
+            lg: 'left',
+          }}
+        >
           {name.split('').map((c, i) => (
             <Text
               as={'span'}
@@ -92,7 +106,20 @@ const IndexProjectItemFrame = (props: Props) => {
             </Text>
           ))}
         </Text>
-        <Text fontSize={'20px'} lineHeight={'20px'}>
+        <Text
+          fontSize={{
+            base: '18px',
+            lg: '20px',
+          }}
+          lineHeight={{
+            base: '18px',
+            lg: '20px',
+          }}
+          textAlign={{
+            base: 'center',
+            lg: 'left',
+          }}
+        >
           {description.split('').map((c, i) => (
             <Text
               as={'span'}
@@ -104,7 +131,20 @@ const IndexProjectItemFrame = (props: Props) => {
             </Text>
           ))}
         </Text>
-        <Text fontSize={'16px'} lineHeight={'16px'}>
+        <Text
+          fontSize={{
+            base: '14px',
+            lg: '16px',
+          }}
+          lineHeight={{
+            base: '14px',
+            lg: '16px',
+          }}
+          textAlign={{
+            base: 'center',
+            lg: 'left',
+          }}
+        >
           {stack.split('').map((c, i) => (
             <Text
               as={'span'}
