@@ -15,8 +15,14 @@ const IndexProject0xBlanc = () => {
       description={'Frontend Development'}
       stack={'NextJs · ChakraUI'}
       type={'left'}
-      pl={'48px'}
-      pr={'48px'}
+      pl={{
+        base: '4px',
+        lg: '48px',
+      }}
+      pr={{
+        base: '0',
+        lg: '48px',
+      }}
       isTriggerAnimation={subsectionId === 'projects-hero'}
     />
   )
