@@ -1,9 +1,9 @@
 import { RootState } from '@/store'
+import { getIconColorScheme } from '@/utils'
 import { Flex, Image, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import IndexProject0xBlanc from './IndexProject0xBlanc'
-import { getIconColorScheme } from '@/utils'
 
 const IndexProjectsSectionHero = () => {
   const colorScheme = useSelector(
@@ -26,9 +26,15 @@ const IndexProjectsSectionHero = () => {
       <Flex flex={1} justifyContent={'center'} alignItems={'center'}>
         <Flex pt={'58px'} position={'relative'}>
           <Text
-            fontSize={'96px'}
+            fontSize={{
+              base: '64px',
+              lg: '96px',
+            }}
             fontWeight={700}
-            ml={'30px'}
+            ml={{
+              base: 0,
+              lg: '30px',
+            }}
             css={{
               writingMode: 'vertical-rl',
               transform: 'rotate(180deg)',
@@ -43,7 +49,10 @@ const IndexProjectsSectionHero = () => {
             src={getIconColorScheme('square', colorScheme)}
             position={'absolute'}
             top={'0'}
-            right={'38px'}
+            right={{
+              base: '26px',
+              lg: '38px',
+            }}
             transform={transitionStep >= 1 ? 'scale(1)' : 'scale(0)'}
             transition={'all 1s ease-in-out'}
           />
