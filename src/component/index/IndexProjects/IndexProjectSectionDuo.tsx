@@ -7,8 +7,19 @@ const IndexProjectSectionDuo = () => {
     <Flex
       w={'100%'}
       justifyContent={'space-between'}
-      mb={'96px'}
+      mb={{
+        base: '60px',
+        lg: '96px',
+      }}
       id={'projects-duo'}
+      flexDir={{
+        base: 'column',
+        lg: 'row',
+      }}
+      gap={{
+        base: '32px',
+        lg: '0',
+      }}
     >
       <Flex alignItems={'center'} flex={1}>
         <IndexProjectCityUGE />
