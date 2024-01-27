@@ -33,7 +33,15 @@ const IndexProjectQuote = () => {
       my={'60px'}
       id={'projects-quote'}
     >
-      <Text fontSize={'20px'} lineHeight={'20px'} mb={'8px'}>
+      <Text
+        fontSize={'20px'}
+        lineHeight={'22px'}
+        mb={'8px'}
+        textAlign={{
+          base: 'center',
+          lg: 'left',
+        }}
+      >
         {description.split('').map((c, i) => (
           <Text
             as={'span'}
@@ -45,7 +53,14 @@ const IndexProjectQuote = () => {
           </Text>
         ))}
       </Text>
-      <Text fontSize={'16px'} lineHeight={'16px'}>
+      <Text
+        fontSize={'16px'}
+        lineHeight={'16px'}
+        textAlign={{
+          base: 'center',
+          lg: 'left',
+        }}
+      >
         {stack.split('').map((c, i) => (
           <Text
             as={'span'}
