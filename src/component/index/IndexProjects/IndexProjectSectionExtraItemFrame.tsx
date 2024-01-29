@@ -22,17 +22,21 @@ const IndexProjectSectionExtraItemFrame = (props: Props) => {
   } = props
 
   return (
-    <Flex
-      flexDir={'column'}
-      maxW={maxW ? maxW : 'auto'}
-    >
+    <Flex flexDir={'column'} maxW={maxW ? maxW : 'auto'}>
       <Flex
         justifyContent={'space-between'}
         alignItems={'center'}
-        flexDir={isReverse ? 'row-reverse' : 'row'}
+        flexDir={{
+          base: 'row',
+          lg: isReverse ? 'row-reverse' : 'row',
+        }}
         mb={'8px'}
       >
-        <Text fontSize={'24px'} lineHeight={'24px'} fontWeight={'semibold'}>
+        <Text
+          fontSize={'24px'}
+          lineHeight={'24px'}
+          fontWeight={'semibold'}
+        >
           {name}
         </Text>
         <Text fontSize={'16px'} lineHeight={'16px'}>
