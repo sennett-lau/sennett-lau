@@ -22,8 +22,19 @@ const IndexProjectSectionExtra = () => {
       <IndexProjectSectionExtraTopFrame
         triggerAnimation={subsectionId === 'projects-extra'}
       />
-      <Flex mb={'95px'} >
-        <Flex flex={1} pt={'110px'}>
+      <Flex
+        mb={{
+          base: '40px',
+          lg: '95px',
+        }}
+      >
+        <Flex
+          flex={1}
+          pt={{
+            base: '52px',
+            lg: '110px',
+          }}
+        >
           <IndexProjectExtraAINA
             triggerAnimation={subsectionId === 'projects-extra'}
           />
@@ -41,8 +52,31 @@ const IndexProjectSectionExtra = () => {
           />
         </Flex>
       </Flex>
-      <Flex>
-        <Flex flex={1} pt={'60px'} pl={'84px'}>
+      <Flex
+        flexDir={{
+          base: 'column',
+          lg: 'row',
+        }}
+        px={{
+          base: '4px',
+          lg: '0',
+        }}
+        gap={{
+          base: '40px',
+          lg: '0',
+        }}
+      >
+        <Flex
+          flex={1}
+          pt={{
+            base: '0',
+            lg: '60px',
+          }}
+          pl={{
+            base: '0',
+            lg: '84px',
+          }}
+        >
           <IndexProjectExtraSCL
             triggerAnimation={subsectionId === 'projects-extra'}
           />
