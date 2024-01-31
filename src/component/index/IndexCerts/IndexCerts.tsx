@@ -1,5 +1,9 @@
 import { RootState } from '@/store'
-import { getBackgroundColorScheme, getContentColorScheme, getIconColorScheme } from '@/utils'
+import {
+  getBackgroundColorScheme,
+  getContentColorScheme,
+  getIconColorScheme,
+} from '@/utils'
 import { Flex, Image, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -31,14 +35,49 @@ const IndexCerts = () => {
       w={'100%'}
       bg={getBackgroundColorScheme(colorScheme)}
       color={getContentColorScheme(colorScheme)}
-      py={'100px'}
-      minH={'105vh'}
+      py={{
+        base: '50px',
+        lg: '100px',
+      }}
+      mb={{
+        base: '120px',
+        lg: '0',
+      }}
+      minH={{
+        base: 'auto',
+        lg: '105vh',
+      }}
       transition={'all 0.3s ease-in-out'}
     >
-      <Flex w={'100%'} maxW={'1120px'} mx={'auto'}>
-        <Flex flex={5} alignItems={'center'}>
+      <Flex
+        w={'100%'}
+        maxW={'1120px'}
+        mx={'auto'}
+        flexDir={{
+          base: 'column',
+          lg: 'row',
+        }}
+        px={{
+          base: '8px',
+          lg: '0',
+        }}
+      >
+        <Flex
+          flex={5}
+          alignItems={'center'}
+          mb={{
+            base: '36px',
+            lg: '0',
+          }}
+        >
           <Flex pr={'30px'} position={'relative'}>
-            <Text fontSize={'96px'} fontWeight={'bold'}>
+            <Text
+              fontSize={{
+                base: '72px',
+                lg: '96px',
+              }}
+              fontWeight={'bold'}
+            >
               {'Certs'.split('').map((c, i) => (
                 <Text
                   as={'span'}
@@ -53,8 +92,14 @@ const IndexCerts = () => {
             <Image
               src={getIconColorScheme('square', colorScheme)}
               position={'absolute'}
-              bottom={'38px'}
-              right={'-30px'}
+              bottom={{
+                base: '28px',
+                lg: '38px',
+              }}
+              right={{
+                base: '-20px',
+                lg: '-30px',
+              }}
               transform={
                 transitionStep >= 1 ? 'none' : 'rotate(225deg) scale(2.5)'
               }
