@@ -11,7 +11,7 @@ const IndexCertItem = (props: Props) => {
   const { name, date, description, link } = props
 
   return (
-    <Flex flexDir={'column'} gap={'8px'} w={'550px'}>
+    <Flex flexDir={'column'} gap={'8px'} w={'550px'} maxW={'100%'}>
       <Text
         fontSize={'24px'}
         lineHeight={'24px'}
@@ -20,19 +20,11 @@ const IndexCertItem = (props: Props) => {
       >
         {name}
       </Text>
-      <Text
-        fontSize={'20px'}
-        lineHeight={'20px'}
-        textAlign={'left'}
-      >
+      <Text fontSize={'20px'} lineHeight={'20px'} textAlign={'left'}>
         {date}
       </Text>
       {description && (
-        <Text
-          fontSize={'16px'}
-          lineHeight={'16px'}
-          textAlign={'left'}
-        >
+        <Text fontSize={'16px'} lineHeight={'16px'} textAlign={'left'}>
           {description}
         </Text>
       )}
