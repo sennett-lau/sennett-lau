@@ -52,6 +52,10 @@ const IndexContact = () => {
               base: '40px',
               lg: '56px',
             }}
+            mx={'auto'}
+            w={'fit-content'}
+            minW={'580px'}
+            maxW={'100%'}
           >
             <Text
               fontSize={{
@@ -70,8 +74,12 @@ const IndexContact = () => {
                 lg: '38px',
               }}
               right={{
-                base: '-20px',
+                base: 'auto',
                 lg: '-30px',
+              }}
+              left={{
+                base: '300px',
+                lg: 'auto',
               }}
             />
           </Flex>
@@ -93,11 +101,19 @@ const IndexContact = () => {
               base: '72px',
               lg: '0',
             }}
+            mx={'auto'}
           >
             <IndexContactDescription />
             <IndexContactForm />
           </Flex>
-          <Flex w={'fit-content'} flexDir={'column'} gap={'52px'}>
+          <Flex
+            w={'fit-content'}
+            minW={'580px'}
+            maxW={'100%'}
+            flexDir={'column'}
+            gap={'52px'}
+            mx={'auto'}
+          >
             <IndexContactDetail />
             <IndexContactDigitalSpaces />
           </Flex>

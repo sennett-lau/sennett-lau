@@ -65,6 +65,9 @@ const IndexCerts = () => {
         <Flex
           flex={5}
           alignItems={'center'}
+          w={'550px'}
+          maxW={'100%'}
+          mx={'auto'}
           mb={{
             base: '36px',
             lg: '0',

@@ -45,7 +45,7 @@ const IndexProjectItemFrame = (props: Props) => {
   }, [isTriggerAnimation, transitionStep])
 
   return (
-    <Link href={url} target={'_blank'}>
+    <Link href={url} target={'_blank'} mx={'auto'}>
       <Flex flexDir={'column'} w={'fit-content'} pl={pl} pr={pr}>
         <Flex
           w={'100%'}
