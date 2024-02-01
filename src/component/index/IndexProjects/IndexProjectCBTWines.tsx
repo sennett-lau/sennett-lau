@@ -24,6 +24,7 @@ const IndexProjectCBTWines = () => {
       stack={'NuxtJs · VueJs · Vuetify · MongoDB'}
       type={'right'}
       isTriggerAnimation={subsectionId === 'projects-duo'}
+      url='https://cbtwines.co'
     />
   )
 }

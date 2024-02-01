@@ -24,6 +24,7 @@ const IndexProjectCityUGE = () => {
       stack={'NuxtJs · TailwindCSS · Fastify · MongoDB'}
       type={'left'}
       isTriggerAnimation={subsectionId === 'projects-duo'}
+      url='https://cityuge.com'
     />
   )
 }

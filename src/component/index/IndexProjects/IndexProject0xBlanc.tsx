@@ -24,6 +24,7 @@ const IndexProject0xBlanc = () => {
         lg: '48px',
       }}
       isTriggerAnimation={subsectionId === 'projects-hero'}
+      url='https://0xblanc.io/'
     />
   )
 }
