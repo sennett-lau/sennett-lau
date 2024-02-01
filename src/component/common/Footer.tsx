@@ -17,8 +17,22 @@ const Footer = () => {
         my={'24px'}
         mx={'auto'}
         alignContent={'center'}
+        flexDir={{
+          base: 'column',
+          lg: 'row',
+        }}
+        gap={{
+          base: '24px',
+          lg: '0',
+        }}
       >
-        <Flex flex={1} justifyContent={'flex-start'}>
+        <Flex
+          flex={1}
+          justifyContent={{
+            base: 'center',
+            lg: 'flex-start',
+          }}
+        >
           <Text
             fontSize={'20px'}
             lineHeight={'20px'}
@@ -38,7 +52,13 @@ const Footer = () => {
             Site designed and developed by Sennett Lau
           </Text>
         </Flex>
-        <Flex flex={1} justifyContent={'flex-end'}>
+        <Flex
+          flex={1}
+          justifyContent={{
+            base: 'center',
+            lg: 'flex-end',
+          }}
+        >
           <Text
             fontSize={'20px'}
             lineHeight={'20px'}
