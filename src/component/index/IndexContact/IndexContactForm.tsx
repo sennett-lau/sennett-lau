@@ -41,7 +41,15 @@ const IndexContactForm = () => {
 
   return (
     <Flex w={'100%'} flexDir={'column'}>
-      <Flex w={'100%'} gap={'34px'} mb={'72px'}>
+      <Flex
+        w={'100%'}
+        gap={'34px'}
+        mb={'72px'}
+        flexDir={{
+          base: 'column',
+          lg: 'row',
+        }}
+      >
         <Flex flex={1}>
           <IndexContactFormTextInput
             label={'Your name'}
