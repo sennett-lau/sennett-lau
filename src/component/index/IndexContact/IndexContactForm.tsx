@@ -27,7 +27,7 @@ const IndexContactForm = () => {
 
     setFunctionState('loading')
 
-    let content = `Name: ${name}\n\nEmail: ${email}\n\nMessage:\n${message}`
+    const content = `Name: ${name}\n\nEmail: ${email}\n\nMessage:\n${message}`
 
     try {
       await discordHookMessageSend(content)

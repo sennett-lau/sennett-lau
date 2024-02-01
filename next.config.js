@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
+  jsconfigPaths: true,
+  tsconfigPath: true,
   sassOptions: {
     includePaths: [require('path').join(__dirname, 'styles')],
   },
-  output: 'standalone',
 }
 
 module.exports = nextConfig

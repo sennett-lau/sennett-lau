@@ -195,8 +195,8 @@ const IndexAbout: React.FC = () => {
               transform={transitionStep >= 1 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
             >
-              I&apos;m <Highlight>Sennett Lau</Highlight>, a full-stack developer
-              based in Hong Kong.
+              I&apos;m <Highlight>Sennett Lau</Highlight>, a full-stack
+              developer based in Hong Kong.
             </Text>
             <Text
               h={{
@@ -265,8 +265,9 @@ const IndexAbout: React.FC = () => {
               transform={transitionStep >= 6 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
             >
-              I&apos;m dedicated to pushing the envelope in tech, blending a solid
-              technical base with a keen interest in emerging technologies.
+              I&apos;m dedicated to pushing the envelope in tech, blending a
+              solid technical base with a keen interest in emerging
+              technologies.
             </Text>
           </Flex>
         </Flex>

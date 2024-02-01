@@ -10,15 +10,16 @@
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-unused-vars": [
-      "warn",
+      "off",
       { "argsIgnorePattern": "^_" }
     ],
     "eqeqeq": ["error", "always"],
-    "no-console": "warn",
-    "no-unused-vars": "warn",
-    "no-unreachable": "warn",
+    "no-console": "off",
+    "no-unused-vars": "off",
+    "no-unreachable": "off",
     "prefer-const": "warn",
-    "no-debugger": "warn",
+    "no-debugger": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "jsx-a11y/anchor-is-valid": [
       "warn",
       {
