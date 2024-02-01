@@ -81,7 +81,7 @@ const IndexProjectSectionExtra = () => {
             triggerAnimation={subsectionId === 'projects-extra'}
           />
         </Flex>
-        <Flex w={'fit-content'}>
+        <Flex w={'fit-content'} mx={'auto'}>
           <IndexProjectExtraLCSD
             triggerAnimation={subsectionId === 'projects-extra'}
           />

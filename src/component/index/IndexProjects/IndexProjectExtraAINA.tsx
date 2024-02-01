@@ -22,6 +22,7 @@ const IndexProjectExtraAINA = (props: Props) => {
       opacity={isAnimationTriggered ? 1 : 0}
       transform={isAnimationTriggered ? 'none' : 'translateX(-100px)'}
       transition={'all .5s ease-in-out'}
+      mx={'auto'}
     >
       <IndexProjectSectionExtraItemFrame
         name={'Project AINA'}

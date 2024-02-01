@@ -28,6 +28,11 @@ const IndexProjectSectionExtraTopFrame = (props: Props) => {
       position={'relative'}
       justifyContent={'space-between'}
       mb={'35px'}
+      maxW={{
+        base: '580px',
+        lg: 'auto',
+      }}
+      mx={'auto'}
     >
       <Text fontSize={'20px'} fontStyle={'italic'}>
         {text.split('').map((c, i) => (

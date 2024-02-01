@@ -5,7 +5,7 @@ type Props = {
   year: string
   stack: string
   description: string
-  maxW?: string
+  maxW?: string | { base: string; lg: string }
   link?: string
   isReverse?: boolean
 }
@@ -32,11 +32,7 @@ const IndexProjectSectionExtraItemFrame = (props: Props) => {
         }}
         mb={'8px'}
       >
-        <Text
-          fontSize={'24px'}
-          lineHeight={'24px'}
-          fontWeight={'semibold'}
-        >
+        <Text fontSize={'24px'} lineHeight={'24px'} fontWeight={'semibold'}>
           {name}
         </Text>
         <Text fontSize={'16px'} lineHeight={'16px'}>
