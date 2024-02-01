@@ -24,8 +24,12 @@ const IndexContact = () => {
       alignItems={'center'}
       minH={'100vh'}
       transition={'all 0.3s ease-in-out'}
-      pb={{
-        base: '120px',
+      py={{
+        base: '60px',
+        lg: '0',
+      }}
+      mb={{
+        base: '60px',
         lg: '0',
       }}
     >

@@ -40,7 +40,7 @@ const IndexCerts = () => {
         lg: '100px',
       }}
       mb={{
-        base: '120px',
+        base: '60px',
         lg: '0',
       }}
       minH={{
