@@ -1,5 +1,9 @@
 import { RootState } from '@/store'
-import { getBackgroundColorScheme, getContentColorScheme, getIconColorScheme } from '@/utils'
+import {
+  getBackgroundColorScheme,
+  getContentColorScheme,
+  getIconColorScheme,
+} from '@/utils'
 import { Flex, Image, Text } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import IndexContactDescription from './IndexContactDescription'
@@ -20,6 +24,10 @@ const IndexContact = () => {
       alignItems={'center'}
       minH={'100vh'}
       transition={'all 0.3s ease-in-out'}
+      pb={{
+        base: '120px',
+        lg: '0',
+      }}
     >
       <Flex
         w={'100%'}
@@ -27,22 +35,61 @@ const IndexContact = () => {
         mx={'auto'}
         flexDir={'column'}
         color={getContentColorScheme(colorScheme)}
+        px={{
+          base: '8px',
+          lg: '0',
+        }}
       >
         <Flex>
-          <Flex pr={'30px'} position={'relative'} mb={'56px'}>
-            <Text fontSize={'96px'} fontWeight={'bold'}>
+          <Flex
+            pr={'30px'}
+            position={'relative'}
+            mb={{
+              base: '40px',
+              lg: '56px',
+            }}
+          >
+            <Text
+              fontSize={{
+                base: '72px',
+                lg: '96px',
+              }}
+              fontWeight={'bold'}
+            >
               Contact
             </Text>
             <Image
               src={getIconColorScheme('square', colorScheme)}
               position={'absolute'}
-              bottom={'38px'}
-              right={'-30px'}
+              bottom={{
+                base: '28px',
+                lg: '38px',
+              }}
+              right={{
+                base: '-20px',
+                lg: '-30px',
+              }}
             />
           </Flex>
         </Flex>
-        <Flex w={'100%'} justifyContent={'space-between'}>
-          <Flex w={'580px'} flexDir={'column'} gap={'72px'}>
+        <Flex
+          w={'100%'}
+          justifyContent={'space-between'}
+          flexDir={{
+            base: 'column',
+            lg: 'row',
+          }}
+        >
+          <Flex
+            w={'580px'}
+            maxW={'100%'}
+            flexDir={'column'}
+            gap={'72px'}
+            mb={{
+              base: '72px',
+              lg: '0',
+            }}
+          >
             <IndexContactDescription />
             <IndexContactForm />
           </Flex>
