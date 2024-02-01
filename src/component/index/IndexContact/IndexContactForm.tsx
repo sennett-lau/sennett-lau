@@ -1,6 +1,6 @@
 import { RootState } from '@/store'
 import { discordHookMessageSend, getContentColorScheme } from '@/utils'
-import { Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import IndexContactFormTextInput from './IndexContactFormTextInput'
@@ -13,15 +13,39 @@ const IndexContactForm = () => {
     'idle' | 'loading' | 'error' | 'done'
   >('idle')
 
+  const [nameError, setNameError] = useState<string>('')
+  const [emailError, setEmailError] = useState<string>('')
+  const [messageError, setMessageError] = useState<string>('')
+
   const colorScheme = useSelector(
     (state: RootState) => state.controlSlice.colorScheme,
   )
 
   const onMessageSend = async () => {
-    if (!name || !email || !message) {
+    if (functionState === 'loading' || functionState === 'done') {
       return
     }
-    if (functionState === 'loading') {
+
+    if (!name || !email || !message) {
+      if (!name) {
+        setNameError('Name is required')
+      }
+
+      if (!email) {
+        setEmailError('Email is required')
+      }
+
+      if (!message) {
+        setMessageError('Message is required')
+      }
+
+      const emailRegex = new RegExp(
+        '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$',
+      )
+
+      if (email && !emailRegex.test(email)) {
+        setEmailError('Email is invalid')
+      }
       return
     }
 
@@ -36,6 +60,73 @@ const IndexContactForm = () => {
       console.log(err)
       setFunctionState('error')
       return
+    }
+  }
+
+  const getButtonText = () => {
+    switch (functionState) {
+      case 'idle':
+        return 'Send'
+      case 'loading':
+        return 'Sending...'
+      case 'error':
+        return 'Error'
+      case 'done':
+        return 'Sent'
+    }
+  }
+
+  const getButtonColorScheme = () => {
+    switch (functionState) {
+      case 'idle':
+        return getContentColorScheme(colorScheme)
+      case 'loading':
+        return getContentColorScheme(colorScheme)
+      case 'error':
+        return 'red.500'
+      case 'done':
+        return 'green.500'
+    }
+  }
+
+  const getButtonBackgroundProgress = () => {
+    switch (functionState) {
+      case 'idle':
+        return '0'
+      case 'loading':
+        return '0'
+      case 'error':
+        return '100%'
+      case 'done':
+        return '100%'
+    }
+  }
+
+  const onNameChange = (s: string) => {
+    setName(s)
+    if (s) {
+      setNameError('')
+    }
+  }
+
+  const onEmailChange = (s: string) => {
+    setEmail(s)
+
+    const emailRegex = new RegExp(
+      '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$',
+    )
+
+    if (s && !emailRegex.test(s)) {
+      setEmailError('Email is invalid')
+    } else if (s) {
+      setEmailError('')
+    }
+  }
+
+  const onMessageChange = (s: string) => {
+    setMessage(s)
+    if (s) {
+      setMessageError('')
     }
   }
 
@@ -54,16 +145,18 @@ const IndexContactForm = () => {
           <IndexContactFormTextInput
             label={'Your name'}
             data={name}
-            setData={setName}
+            setData={onNameChange}
             type={'text'}
+            errorText={nameError}
           />
         </Flex>
         <Flex flex={1}>
           <IndexContactFormTextInput
             label={'Your email'}
             data={email}
-            setData={setEmail}
+            setData={onEmailChange}
             type={'text'}
+            errorText={emailError}
           />
         </Flex>
       </Flex>
@@ -71,8 +164,9 @@ const IndexContactForm = () => {
         <IndexContactFormTextInput
           label={'Your message'}
           data={message}
-          setData={setMessage}
+          setData={onMessageChange}
           type={'textarea'}
+          errorText={messageError}
         />
       </Flex>
       <Flex>
@@ -80,10 +174,9 @@ const IndexContactForm = () => {
           w={'120px'}
           h={'40px'}
           border={'1px solid'}
-          borderColor={getContentColorScheme(colorScheme)}
+          borderColor={getButtonColorScheme()}
           borderRadius={'24px'}
           cursor={'pointer'}
-          justifyContent={'center'}
           alignItems={'center'}
           color={getContentColorScheme(colorScheme)}
           _hover={{
@@ -91,9 +184,28 @@ const IndexContactForm = () => {
             color: 'themeDark.500',
           }}
           transition={'all 0.2s ease'}
+          position={'relative'}
         >
-          <Text fontSize={'16px'} lineHeight={'16px'} onClick={onMessageSend}>
-            Send
+          <Box
+            w={'100%'}
+            maxW={getButtonBackgroundProgress()}
+            h={'40px'}
+            borderRadius={'24px'}
+            bg={getButtonColorScheme()}
+            transition={'all 0.2s ease'}
+            zIndex={1}
+          />
+          <Text
+            fontSize={'16px'}
+            lineHeight={'16px'}
+            onClick={onMessageSend}
+            position={'absolute'}
+            top={'50%'}
+            left={'50%'}
+            transform={'translate(-50%, -50%)'}
+            zIndex={2}
+          >
+            {getButtonText()}
           </Text>
         </Flex>
       </Flex>

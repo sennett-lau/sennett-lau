@@ -1,4 +1,4 @@
-import { Flex, FormLabel, Input, Textarea } from '@chakra-ui/react'
+import { Flex, FormLabel, Input, Text, Textarea } from '@chakra-ui/react'
 import { useState } from 'react'
 
 type Props = {
@@ -6,10 +6,11 @@ type Props = {
   data: string
   setData: (data: string) => void
   type: 'text' | 'textarea'
+  errorText?: string
 }
 
 const IndexContactFormTextInput = (props: Props) => {
-  const { label, data, setData, type } = props
+  const { label, data, setData, type, errorText } = props
 
   const [onFocus, setOnFocus] = useState<boolean>(false)
 
@@ -26,13 +27,25 @@ const IndexContactFormTextInput = (props: Props) => {
       >
         {label}
       </FormLabel>
+      <Text
+        opacity={errorText}
+        position={'absolute'}
+        right={'0px'}
+        top={'0px'}
+        fontSize={'14px'}
+        transition={'all 0.2s ease'}
+        fontWeight={'normal'}
+        color={'red'}
+      >
+        {errorText}
+      </Text>
       {type === 'text' ? (
         <Input
           type='text'
           borderRadius={'0px'}
           border={'none'}
           borderBottom={'1px solid'}
-          borderColor={'themeLight.500'}
+          borderColor={errorText ? 'red' : 'themeLight.500'}
           variant={'flushed'}
           focusBorderColor='themeLight.500'
           onFocus={() => setOnFocus(true)}
@@ -45,7 +58,7 @@ const IndexContactFormTextInput = (props: Props) => {
           borderRadius={'0px'}
           border={'none'}
           borderBottom={'1px solid'}
-          borderColor={'themeLight.500'}
+          borderColor={errorText ? 'red' : 'themeLight.500'}
           variant={'flushed'}
           focusBorderColor='themeLight.500'
           onFocus={() => setOnFocus(true)}
