@@ -185,6 +185,7 @@ const IndexContactForm = () => {
           }}
           transition={'all 0.2s ease'}
           position={'relative'}
+          onClick={onMessageSend}
         >
           <Box
             w={'100%'}
@@ -198,7 +199,6 @@ const IndexContactForm = () => {
           <Text
             fontSize={'16px'}
             lineHeight={'16px'}
-            onClick={onMessageSend}
             position={'absolute'}
             top={'50%'}
             left={'50%'}
