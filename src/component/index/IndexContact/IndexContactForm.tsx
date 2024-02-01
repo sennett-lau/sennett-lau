@@ -185,13 +185,13 @@ const IndexContactForm = () => {
           }}
           transition={'all 0.2s ease'}
           position={'relative'}
+          overflow={'hidden'}
           onClick={onMessageSend}
         >
           <Box
             w={'100%'}
             maxW={getButtonBackgroundProgress()}
             h={'40px'}
-            borderRadius={'24px'}
             bg={getButtonColorScheme()}
             transition={'all 0.2s ease'}
             zIndex={1}
