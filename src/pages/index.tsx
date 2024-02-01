@@ -15,18 +15,10 @@ import {
 } from '@/store/controlSlice'
 import { ColorScheme } from '@/types'
 import { Flex } from '@chakra-ui/react'
-import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getBackgroundColorScheme } from '../utils/color'
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  // for api call in server side
-  return {
-    props: {},
-  }
-}
 
 type Props = {
   // server side api call's props can be defined here
