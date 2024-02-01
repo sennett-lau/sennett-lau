@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint --ext .ts src",
     "lint:fix": "eslint --ext .ts src --fix",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\"",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\"",
+    "fmt": "npm run lint:fix && npm run prettier",
     "prepare": "husky install",
     "tsc:noEmit": "tsc --noEmit"
   },

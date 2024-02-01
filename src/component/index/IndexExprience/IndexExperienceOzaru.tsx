@@ -42,15 +42,24 @@ const IndexExperienceOzaru = () => {
         transform={transitionSteps >= 1 ? 'none' : 'translateX(30px)'}
         transition={'all 0.3s ease-in-out'}
       >
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Dapp
         </Highlight>{' '}
         frontends using{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           React
         </Highlight>{' '}
         and{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           TypeScript
         </Highlight>
         .
@@ -60,11 +69,17 @@ const IndexExperienceOzaru = () => {
         transform={transitionSteps >= 2 ? 'none' : 'translateX(30px)'}
         transition={'all 0.3s ease-in-out'}
       >
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Mobile app
         </Highlight>{' '}
         development with{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           React Native
         </Highlight>
         .
@@ -74,15 +89,24 @@ const IndexExperienceOzaru = () => {
         transform={transitionSteps >= 3 ? 'none' : 'translateX(30px)'}
         transition={'all 0.3s ease-in-out'}
       >
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Smart contract
         </Highlight>{' '}
         development in{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Solidity
         </Highlight>{' '}
         &{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Hardhat
         </Highlight>
         .
@@ -92,19 +116,31 @@ const IndexExperienceOzaru = () => {
         transform={transitionSteps >= 4 ? 'none' : 'translateX(30px)'}
         transition={'all 0.3s ease-in-out'}
       >
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Testing
         </Highlight>{' '}
         with{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           mocha
         </Highlight>{' '}
         and{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           chai
         </Highlight>{' '}
         in{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Javascript
         </Highlight>
         .
@@ -115,11 +151,17 @@ const IndexExperienceOzaru = () => {
         transition={'all 0.3s ease-in-out'}
       >
         Proficiency in{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           web development
         </Highlight>{' '}
         and{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           blockchain
         </Highlight>
         technologies.
@@ -129,11 +171,17 @@ const IndexExperienceOzaru = () => {
         transform={transitionSteps >= 6 ? 'none' : 'translateX(30px)'}
         transition={'all 0.3s ease-in-out'}
       >
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Serverless backend
         </Highlight>{' '}
         architecture with using{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           AWS
         </Highlight>
         .
@@ -143,7 +191,10 @@ const IndexExperienceOzaru = () => {
         transform={transitionSteps >= 7 ? 'none' : 'translateX(30px)'}
         transition={'all 0.3s ease-in-out'}
       >
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Docker
         </Highlight>{' '}
         application with ECR, ECR.
@@ -153,15 +204,24 @@ const IndexExperienceOzaru = () => {
         transform={transitionSteps >= 8 ? 'none' : 'translateX(30px)'}
         transition={'all 0.3s ease-in-out'}
       >
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Data scraping
         </Highlight>{' '}
         using{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           Python
         </Highlight>{' '}
         and{' '}
-        <Highlight fontSize={{ base: '20px', lg: '24px'}} fontWeight={'semibold'}>
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
           selenium
         </Highlight>
         tools.

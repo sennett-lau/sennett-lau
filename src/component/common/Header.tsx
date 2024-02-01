@@ -88,7 +88,7 @@ const Header = () => {
               color: getBackgroundColorScheme(colorScheme),
             }}
           >
-            Let's talk
+            Let&apos;s talk
           </Link>
         </Flex>
       </Flex>

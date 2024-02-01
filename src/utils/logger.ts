@@ -24,7 +24,10 @@ const getLinePair = (): { top: string; bottom: string } => {
   return { top: topLine, bottom: bottomLine }
 }
 
-export const simpleLogger = (message?: any, ...optionalParams: any[]): string => {
+export const simpleLogger = (
+  message?: any,
+  ...optionalParams: any[]
+): string => {
   const date = new Date()
   const dateStr = date.toLocaleString('en-US', { timeZone: 'Asia/Taipei' })
 
@@ -66,7 +69,10 @@ const moduleLogger = (moduleName: string, log: string): string => {
   return logStr
 }
 
-const wrappedModuleLogger = (moduleName: string, messages: string[]): string => {
+const wrappedModuleLogger = (
+  moduleName: string,
+  messages: string[],
+): string => {
   let logStr = ''
 
   logStr += getLinePair().top
@@ -101,7 +107,10 @@ export const verboseModuleLogger = (moduleName: string, log: string) => {
   }
 }
 
-export const verboseWrappedModuleLogger = (moduleName: string, messages: string[]) => {
+export const verboseWrappedModuleLogger = (
+  moduleName: string,
+  messages: string[],
+) => {
   if (logLevels[logLevel] <= logLevels.verbose) {
     wrappedModuleLogger(moduleName, messages)
   }
@@ -125,7 +134,10 @@ export const debugModuleLogger = (moduleName: string, log: string) => {
   }
 }
 
-export const debugWrappedModuleLogger = (moduleName: string, messages: string[]) => {
+export const debugWrappedModuleLogger = (
+  moduleName: string,
+  messages: string[],
+) => {
   if (logLevels[logLevel] <= logLevels.debug) {
     wrappedModuleLogger(moduleName, messages)
   }
@@ -155,7 +167,10 @@ export const errorModuleLogger = (moduleName: string, log: string) => {
   }
 }
 
-export const errorWrappedModuleLogger = (moduleName: string, messages: string[]) => {
+export const errorWrappedModuleLogger = (
+  moduleName: string,
+  messages: string[],
+) => {
   if (logLevels[logLevel] <= logLevels.error) {
     const content = wrappedModuleLogger(moduleName, messages)
 
@@ -181,7 +196,10 @@ export const infoModuleLogger = (moduleName: string, log: string) => {
   }
 }
 
-export const infoWrappedModuleLogger = (moduleName: string, messages: string[]) => {
+export const infoWrappedModuleLogger = (
+  moduleName: string,
+  messages: string[],
+) => {
   if (logLevels[logLevel] <= logLevels.info) {
     wrappedModuleLogger(moduleName, messages)
   }
@@ -205,7 +223,10 @@ export const durationModuleLogger = (moduleName: string, log: string) => {
   }
 }
 
-export const durationWrappedModuleLogger = (moduleName: string, messages: string[]) => {
+export const durationWrappedModuleLogger = (
+  moduleName: string,
+  messages: string[],
+) => {
   if (logLevels[logLevel] <= logLevels.duration) {
     wrappedModuleLogger(moduleName, messages)
   }

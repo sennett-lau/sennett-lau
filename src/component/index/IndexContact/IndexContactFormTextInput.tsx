@@ -19,11 +19,7 @@ const IndexContactFormTextInput = (props: Props) => {
         position={'absolute'}
         left={'0px'}
         top={'20px'}
-        transform={
-          onFocus || data
-            ? 'translateY(-20px)'
-            : 'translateY(0%)'
-        }
+        transform={onFocus || data ? 'translateY(-20px)' : 'translateY(0%)'}
         fontSize={onFocus || data ? '14px' : '20px'}
         transition={'all 0.2s ease'}
         fontWeight={'normal'}

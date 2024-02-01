@@ -24,7 +24,9 @@ const IndexProjectImageSelf = (props: Props) => {
         h={'212px'}
         mt={'33px'}
         opacity={isAnimationTriggered ? 1 : 0}
-        transform={isAnimationTriggered ? 'translateY(0px)' : 'translateY(100px)'}
+        transform={
+          isAnimationTriggered ? 'translateY(0px)' : 'translateY(100px)'
+        }
         transition={'all .5s ease-in-out'}
       />
       <Image
@@ -33,7 +35,9 @@ const IndexProjectImageSelf = (props: Props) => {
         h={'212px'}
         mt={'52px'}
         opacity={isAnimationTriggered ? 1 : 0}
-        transform={isAnimationTriggered ? 'translateY(0px)' : 'translateY(-100px)'}
+        transform={
+          isAnimationTriggered ? 'translateY(0px)' : 'translateY(-100px)'
+        }
         transition={'all .5s ease-in-out'}
       />
       <Image
@@ -42,7 +46,9 @@ const IndexProjectImageSelf = (props: Props) => {
         h={'212px'}
         mt={'19px'}
         opacity={isAnimationTriggered ? 1 : 0}
-        transform={isAnimationTriggered ? 'translateY(0px)' : 'translateY(100px)'}
+        transform={
+          isAnimationTriggered ? 'translateY(0px)' : 'translateY(100px)'
+        }
         transition={'all .5s ease-in-out'}
       />
       <Image
@@ -51,7 +57,9 @@ const IndexProjectImageSelf = (props: Props) => {
         h={'212px'}
         mt={'40px'}
         opacity={isAnimationTriggered ? 1 : 0}
-        transform={isAnimationTriggered ? 'translateY(0px)' : 'translateY(-100px)'}
+        transform={
+          isAnimationTriggered ? 'translateY(0px)' : 'translateY(-100px)'
+        }
         transition={'all .5s ease-in-out'}
       />
       <Image
@@ -60,7 +68,9 @@ const IndexProjectImageSelf = (props: Props) => {
         h={'212px'}
         mt={'0px'}
         opacity={isAnimationTriggered ? 1 : 0}
-        transform={isAnimationTriggered ? 'translateY(0px)' : 'translateY(100px)'}
+        transform={
+          isAnimationTriggered ? 'translateY(0px)' : 'translateY(100px)'
+        }
         transition={'all .5s ease-in-out'}
       />
       <Image
@@ -69,7 +79,9 @@ const IndexProjectImageSelf = (props: Props) => {
         h={'212px'}
         mt={'40px'}
         opacity={isAnimationTriggered ? 1 : 0}
-        transform={isAnimationTriggered ? 'translateY(0px)' : 'translateY(-100px)'}
+        transform={
+          isAnimationTriggered ? 'translateY(0px)' : 'translateY(-100px)'
+        }
         transition={'all .5s ease-in-out'}
       />
     </Flex>
