@@ -1,12 +1,13 @@
 import { RootState } from '@/store'
 import {
-  getBackgroundColorScheme,
-  getContentColorScheme,
-  getIconColorScheme,
+getBackgroundColorScheme,
+getContentColorScheme,
+getIconColorScheme,
 } from '@/utils'
-import { Flex, Image, Text } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { Flex,Image,Text } from '@chakra-ui/react'
+import { useEffect,useState } from 'react'
 import { useSelector } from 'react-redux'
+import IndexExperience9Gag from './IndexExperience9Gag'
 import IndexExperienceKRGlobal from './IndexExperienceKRGlobal'
 import IndexExperienceOzaru from './IndexExperienceOzaru'
 import IndexExperienceQookia from './IndexExperienceQookia'
@@ -69,6 +70,7 @@ const IndexExperience = () => {
           </Text>
           <Image src={getIconColorScheme('square', colorScheme)} />
         </Flex>
+        <IndexExperience9Gag />
         <IndexExperienceQookia />
         <IndexExperienceOzaru />
         <IndexExperienceKRGlobal />

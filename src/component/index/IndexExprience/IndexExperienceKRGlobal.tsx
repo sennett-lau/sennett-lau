@@ -1,7 +1,7 @@
 import Highlight from '@/component/common/Highlight'
 import { RootState } from '@/store'
 import { Text } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useEffect,useState } from 'react'
 import { useSelector } from 'react-redux'
 import IndexExperienceItem from './IndexExperienceItem'
 
@@ -34,6 +34,7 @@ const IndexExperienceKRGlobal = () => {
       date={'July, 2021 - July, 2022'}
       company={'KR Global (Ecosa)'}
       industry={'E-commerce'}
+      isReverse={true}
       isTriggerAnimation={subsectionId === 'experience-krglobal-t1'}
     >
       <Text

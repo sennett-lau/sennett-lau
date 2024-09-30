@@ -8,16 +8,16 @@ import IndexQuote from '@/component/index/IndexQuote/IndexQuote'
 import useScroll from '@/hook/useScroll'
 import { RootState } from '@/store'
 import {
-  setColorScheme,
-  setCurrSectionId,
-  setShowHeader,
-  setSubsectionId,
+setColorScheme,
+setCurrSectionId,
+setShowHeader,
+setSubsectionId,
 } from '@/store/controlSlice'
 import { ColorScheme } from '@/types'
 import { Flex } from '@chakra-ui/react'
 import Head from 'next/head'
-import { FC, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { FC,useEffect } from 'react'
+import { useDispatch,useSelector } from 'react-redux'
 import { getBackgroundColorScheme } from '../utils/color'
 
 type Props = {
@@ -136,6 +136,9 @@ const Home: FC<Props> = (props) => {
     const experienceQookiaPosition =
       experienceQookia?.getBoundingClientRect().top
 
+    const experience9gag = document.getElementById('experience-9gag')
+    const experience9gagPosition = experience9gag?.getBoundingClientRect().top
+
     const experienceOzaru = document.getElementById('experience-ozaru')
     const experienceOzaruPosition = experienceOzaru?.getBoundingClientRect().top
 
@@ -151,6 +154,16 @@ const Home: FC<Props> = (props) => {
 
     const projectExtra = document.getElementById('projects-extra')
     const projectExtraPosition = projectExtra?.getBoundingClientRect().top
+
+    subSectionPositions.push({
+      id: 'experience-9gag-t1',
+      position: experience9gagPosition! - 400,
+    })
+
+    subSectionPositions.push({
+      id: 'experience-9gag-t2',
+      position: experience9gagPosition! - 300,
+    })
 
     subSectionPositions.push({
       id: 'experience-qookia-t1',

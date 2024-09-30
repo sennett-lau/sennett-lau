@@ -1,7 +1,7 @@
 import Highlight from '@/component/common/Highlight'
 import { RootState } from '@/store'
 import { Text } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useEffect,useState } from 'react'
 import { useSelector } from 'react-redux'
 import IndexExperienceItem from './IndexExperienceItem'
 
@@ -31,9 +31,10 @@ const IndexExperienceQookia = () => {
     <IndexExperienceItem
       id={'experience-qookia'}
       title={'FullStack Developer'}
-      date={'Feb, 2023 - Present'}
+      date={'Feb, 2023 - May, 2024'}
       company={'Qookia Limited'}
       industry={'Mobile Game'}
+      isReverse={true}
       isTriggerAnimation={subsectionId === 'experience-qookia-t1'}
     >
       <Text
@@ -53,7 +54,7 @@ const IndexExperienceQookia = () => {
           fontSize={{ base: '20px', lg: '24px' }}
           fontWeight={'semibold'}
         >
-          VueTerraformJS
+          Terraform
         </Highlight>
         ,{' '}
         <Highlight

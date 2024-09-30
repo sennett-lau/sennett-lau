@@ -1,7 +1,7 @@
 import Highlight from '@/component/common/Highlight'
 import { RootState } from '@/store'
 import { Text } from '@chakra-ui/react'
-import { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import IndexExperienceItem from './IndexExperienceItem'
 
@@ -18,7 +18,7 @@ const IndexExperienceOzaru = () => {
       clearInterval(tid)
     }
 
-    if (subsectionId === 'experience-ozaru-t2' && !tid) {
+    if (subsectionId === 'experience-9gag-t2' && !tid) {
       const interval = setInterval(() => {
         setTransitionSteps((prev) => prev + 1)
       }, 50)
@@ -29,12 +29,12 @@ const IndexExperienceOzaru = () => {
 
   return (
     <IndexExperienceItem
-      id={'experience-ozaru'}
-      title={'Analyst Programmer'}
-      date={'Jan, 2022 - Jan, 2023'}
-      company={'Ozaru Limited'}
+      id={'experience-9gag'}
+      title={'FullStack Developer'}
+      date={'May, 2024 - Present'}
+      company={'9GAG | Memeland'}
       industry={'Web3 & Blockchain'}
-      isTriggerAnimation={subsectionId === 'experience-ozaru-t1'}
+      isTriggerAnimation={subsectionId === 'experience-9gag-t1'}
     >
       <Text
         opacity={transitionSteps >= 1 ? 1 : 0}
@@ -45,23 +45,16 @@ const IndexExperienceOzaru = () => {
           fontSize={{ base: '20px', lg: '24px' }}
           fontWeight={'semibold'}
         >
-          Dapp
+          TypeScript, React
         </Highlight>{' '}
-        frontends using{' '}
+        based{' '}
         <Highlight
           fontSize={{ base: '20px', lg: '24px' }}
           fontWeight={'semibold'}
         >
-          React
+          fullstack
         </Highlight>{' '}
-        and{' '}
-        <Highlight
-          fontSize={{ base: '20px', lg: '24px' }}
-          fontWeight={'semibold'}
-        >
-          TypeScript
-        </Highlight>
-        .
+        applications.
       </Text>
       <Text
         opacity={transitionSteps >= 2 ? 1 : 0}
@@ -72,14 +65,14 @@ const IndexExperienceOzaru = () => {
           fontSize={{ base: '20px', lg: '24px' }}
           fontWeight={'semibold'}
         >
-          Mobile app
+          Develop and design{' '}
         </Highlight>{' '}
-        development with{' '}
+        backend solutions with{' '}
         <Highlight
           fontSize={{ base: '20px', lg: '24px' }}
           fontWeight={'semibold'}
         >
-          React Native
+          CloudFlare edge services
         </Highlight>
         .
       </Text>
@@ -92,21 +85,21 @@ const IndexExperienceOzaru = () => {
           fontSize={{ base: '20px', lg: '24px' }}
           fontWeight={'semibold'}
         >
-          Smart contract
+          Data tracking
         </Highlight>{' '}
-        development in{' '}
+        ,{' '}
         <Highlight
           fontSize={{ base: '20px', lg: '24px' }}
           fontWeight={'semibold'}
         >
-          Solidity
+          scraping
         </Highlight>{' '}
-        &{' '}
+        , and{' '}
         <Highlight
           fontSize={{ base: '20px', lg: '24px' }}
           fontWeight={'semibold'}
         >
-          Hardhat
+          cleaning
         </Highlight>
         .
       </Text>
@@ -119,111 +112,50 @@ const IndexExperienceOzaru = () => {
           fontSize={{ base: '20px', lg: '24px' }}
           fontWeight={'semibold'}
         >
-          Testing
+          Design
+        </Highlight>{' '}
+        and{' '}
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
+          develop testing strategies
+        </Highlight>{' '}
+        to ensure{' '}
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
+          software reliability
+        </Highlight>
+        .
+      </Text>
+      <Text
+        opacity={transitionSteps >= 4 ? 1 : 0}
+        transform={transitionSteps >= 4 ? 'none' : 'translateX(30px)'}
+        transition={'all 0.3s ease-in-out'}
+      >
+        <Highlight
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+        >
+          Logging pipeline
         </Highlight>{' '}
         with{' '}
         <Highlight
           fontSize={{ base: '20px', lg: '24px' }}
           fontWeight={'semibold'}
         >
-          mocha
+          Datadog
         </Highlight>{' '}
-        and{' '}
+        for software{' '}
         <Highlight
           fontSize={{ base: '20px', lg: '24px' }}
           fontWeight={'semibold'}
         >
-          chai
-        </Highlight>{' '}
-        in{' '}
-        <Highlight
-          fontSize={{ base: '20px', lg: '24px' }}
-          fontWeight={'semibold'}
-        >
-          Javascript
+          monitoring
         </Highlight>
         .
-      </Text>
-      <Text
-        opacity={transitionSteps >= 5 ? 1 : 0}
-        transform={transitionSteps >= 5 ? 'none' : 'translateX(30px)'}
-        transition={'all 0.3s ease-in-out'}
-      >
-        Proficiency in{' '}
-        <Highlight
-          fontSize={{ base: '20px', lg: '24px' }}
-          fontWeight={'semibold'}
-        >
-          web development
-        </Highlight>{' '}
-        and{' '}
-        <Highlight
-          fontSize={{ base: '20px', lg: '24px' }}
-          fontWeight={'semibold'}
-        >
-          blockchain
-        </Highlight>{' '}
-        technologies.
-      </Text>
-      <Text
-        opacity={transitionSteps >= 6 ? 1 : 0}
-        transform={transitionSteps >= 6 ? 'none' : 'translateX(30px)'}
-        transition={'all 0.3s ease-in-out'}
-      >
-        <Highlight
-          fontSize={{ base: '20px', lg: '24px' }}
-          fontWeight={'semibold'}
-        >
-          Serverless backend
-        </Highlight>{' '}
-        architecture with using{' '}
-        <Highlight
-          fontSize={{ base: '20px', lg: '24px' }}
-          fontWeight={'semibold'}
-        >
-          AWS
-        </Highlight>
-        .
-      </Text>
-      <Text
-        opacity={transitionSteps >= 7 ? 1 : 0}
-        transform={transitionSteps >= 7 ? 'none' : 'translateX(30px)'}
-        transition={'all 0.3s ease-in-out'}
-      >
-        <Highlight
-          fontSize={{ base: '20px', lg: '24px' }}
-          fontWeight={'semibold'}
-        >
-          Docker
-        </Highlight>{' '}
-        application with ECR, ECR.
-      </Text>
-      <Text
-        opacity={transitionSteps >= 8 ? 1 : 0}
-        transform={transitionSteps >= 8 ? 'none' : 'translateX(30px)'}
-        transition={'all 0.3s ease-in-out'}
-      >
-        <Highlight
-          fontSize={{ base: '20px', lg: '24px' }}
-          fontWeight={'semibold'}
-        >
-          Data scraping
-        </Highlight>{' '}
-        using{' '}
-        <Highlight
-          fontSize={{ base: '20px', lg: '24px' }}
-          fontWeight={'semibold'}
-        >
-          Python
-        </Highlight>{' '}
-        and{' '}
-        <Highlight
-          fontSize={{ base: '20px', lg: '24px' }}
-          fontWeight={'semibold'}
-        >
-          Selenium
-        </Highlight>{' '}
-        tools.
       </Text>
     </IndexExperienceItem>
   )
