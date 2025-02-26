@@ -1,8 +1,11 @@
-import { RootState } from '@/store'
-import { getBackgroundColorScheme, getContentColorScheme, range } from '@/utils'
-import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
+
+import { RootState } from '@/store'
+import { getBackgroundColorScheme, getContentColorScheme, range } from '@/utils'
+
 import IndexHeroNav from './IndexHeroNav'
 import ScrollHint from './ScrollHint'
 
@@ -114,6 +117,7 @@ const IndexHeroDesktop = () => {
             src='/assets/me.png'
             opacity={transitionStep >= 3 ? 1 : 0}
             transition={'all 1s ease-in-out'}
+            alt='me'
           />
           <Flex flexDir={'column'} justifyContent={'space-between'}>
             <Flex flexDir={'column'} gap={'14px'}>
@@ -125,6 +129,7 @@ const IndexHeroDesktop = () => {
                   h={'46px'}
                   opacity={transitionStep >= i + 4 ? 1 : 0}
                   transition={'all 0.5s ease-in-out'}
+                  alt='cross'
                 />
               ))}
             </Flex>

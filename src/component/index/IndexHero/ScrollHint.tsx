@@ -1,8 +1,10 @@
-import { RootState } from '@/store'
-import { getContentColorScheme } from '@/utils'
-import { Box, Flex, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+
+import { Box, Flex, Text } from '@chakra-ui/react'
+
+import { RootState } from '@/store'
+import { getContentColorScheme } from '@/utils'
 
 type Props = {
   triggerAnimation: boolean
@@ -46,7 +48,7 @@ const ScrollHint = (prop: Props) => {
 
       setTid(interval)
     }
-  }, [triggerAnimation, tid])
+  }, [triggerAnimation, tid, classSuffix])
 
   return (
     <Flex

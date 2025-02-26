@@ -1,11 +1,14 @@
+import { useSelector } from 'react-redux'
+
+import { Flex, Image, Text } from '@chakra-ui/react'
+
 import { RootState } from '@/store'
 import {
   getBackgroundColorScheme,
   getContentColorScheme,
   getIconColorScheme,
 } from '@/utils'
-import { Flex, Image, Text } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
+
 import IndexContactDescription from './IndexContactDescription'
 import IndexContactDetail from './IndexContactDetail'
 import IndexContactDigitalSpaces from './IndexContactDigitalSpaces'
@@ -81,6 +84,7 @@ const IndexContact = () => {
                 base: '300px',
                 lg: 'auto',
               }}
+              alt='square'
             />
           </Flex>
         </Flex>

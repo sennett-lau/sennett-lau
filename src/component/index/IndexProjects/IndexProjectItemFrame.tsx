@@ -1,5 +1,6 @@
-import { Flex, Image, Link, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
+
+import { Flex, Image, Link, Text } from '@chakra-ui/react'
 
 type Props = {
   year: number
@@ -76,6 +77,7 @@ const IndexProjectItemFrame = (props: Props) => {
           mb={'16px'}
           opacity={transitionStep >= 1 ? 1 : 0}
           transition={'all 0.3s ease-in-out'}
+          alt='project image'
         />
         <Flex
           w={'100%'}

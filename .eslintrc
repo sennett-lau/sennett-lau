@@ -6,13 +6,15 @@
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "simple-import-sort",
+    "unused-imports"
+  ],
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "off",
-      { "argsIgnorePattern": "^_" }
-    ],
+    "@typescript-eslint/no-unused-vars": ["off", { "argsIgnorePattern": "^_" }],
     "eqeqeq": ["error", "always"],
     "no-console": "off",
     "no-unused-vars": "off",
@@ -27,6 +29,8 @@
         "specialLink": ["hrefLeft", "hrefRight"],
         "aspects": ["invalidHref", "preferButton"]
       }
-    ]
+    ],
+    "unused-imports/no-unused-imports": "error",
+    "simple-import-sort/exports": "error"
   }
 }

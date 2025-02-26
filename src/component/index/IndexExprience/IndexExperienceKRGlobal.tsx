@@ -1,8 +1,11 @@
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+
+import { Text } from '@chakra-ui/react'
+
 import Highlight from '@/component/common/Highlight'
 import { RootState } from '@/store'
-import { Text } from '@chakra-ui/react'
-import { useEffect,useState } from 'react'
-import { useSelector } from 'react-redux'
+
 import IndexExperienceItem from './IndexExperienceItem'
 
 const IndexExperienceKRGlobal = () => {
@@ -25,7 +28,7 @@ const IndexExperienceKRGlobal = () => {
 
       setTid(interval)
     }
-  }, [subsectionId, transitionSteps])
+  }, [subsectionId, transitionSteps, tid])
 
   return (
     <IndexExperienceItem

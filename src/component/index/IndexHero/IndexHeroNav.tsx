@@ -1,7 +1,9 @@
+import { useSelector } from 'react-redux'
+
+import { Flex } from '@chakra-ui/react'
+
 import CustomLink from '@/component/common/CustomLink'
 import { RootState } from '@/store'
-import { Flex } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
 
 const navs = ['about', 'experience', 'projects', 'certs', 'contact']
 

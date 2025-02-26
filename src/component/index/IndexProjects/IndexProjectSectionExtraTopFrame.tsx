@@ -1,5 +1,6 @@
-import { Flex, Image, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
+
+import { Flex, Image, Text } from '@chakra-ui/react'
 
 type Props = {
   triggerAnimation: boolean
@@ -50,6 +51,7 @@ const IndexProjectSectionExtraTopFrame = (props: Props) => {
         src={'/assets/icons/square.svg'}
         transform={transitionStep >= 1 ? 'none' : 'rotate(225deg) scale(2.5)'}
         transition={'all 1s ease-in-out'}
+        alt='square'
       />
     </Flex>
   )

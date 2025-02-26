@@ -1,6 +1,9 @@
-import { RootState } from '@/store'
-import { Flex } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
+
+import { Flex } from '@chakra-ui/react'
+
+import { RootState } from '@/store'
+
 import IndexProjectExtraAINA from './IndexProjectExtraAINA'
 import IndexProjectExtraLCSD from './IndexProjectExtraLCSD'
 import IndexProjectExtraSCL from './IndexProjectExtraSCL'

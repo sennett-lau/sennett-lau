@@ -1,8 +1,11 @@
-import { RootState } from '@/store'
-import { getIconColorScheme } from '@/utils'
-import { Flex, Image, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+
+import { Flex, Image, Text } from '@chakra-ui/react'
+
+import { RootState } from '@/store'
+import { getIconColorScheme } from '@/utils'
+
 import IndexProject0xBlanc from './IndexProject0xBlanc'
 
 const IndexProjectsSectionHero = () => {

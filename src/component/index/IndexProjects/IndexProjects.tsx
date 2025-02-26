@@ -1,7 +1,10 @@
+import { useSelector } from 'react-redux'
+
+import { Flex } from '@chakra-ui/react'
+
 import { RootState } from '@/store'
 import { getBackgroundColorScheme, getContentColorScheme } from '@/utils'
-import { Flex } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
+
 import IndexProjectQuote from './IndexProjectQuote'
 import IndexProjectSectionDuo from './IndexProjectSectionDuo'
 import IndexProjectSectionExtra from './IndexProjectSectionExtra'

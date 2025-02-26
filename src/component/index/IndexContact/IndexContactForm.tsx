@@ -1,8 +1,11 @@
-import { RootState } from '@/store'
-import { discordHookMessageSend, getContentColorScheme } from '@/utils'
-import { Box, Flex, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+
+import { Box, Flex, Text } from '@chakra-ui/react'
+
+import { RootState } from '@/store'
+import { discordHookMessageSend, getContentColorScheme } from '@/utils'
+
 import IndexContactFormTextInput from './IndexContactFormTextInput'
 
 const IndexContactForm = () => {

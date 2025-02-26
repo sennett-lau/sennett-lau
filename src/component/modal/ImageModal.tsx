@@ -1,4 +1,6 @@
-import { setImageModalOpen } from '@/store/controlSlice'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import {
   Image,
   Modal,
@@ -7,8 +9,8 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+
+import { setImageModalOpen } from '@/store/controlSlice'
 
 const ImageModal = () => {
   const isModalOpen = useSelector(

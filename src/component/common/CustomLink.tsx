@@ -1,7 +1,9 @@
+import { useState } from 'react'
+
+import { Flex, Text } from '@chakra-ui/react'
+
 import { ColorScheme } from '@/types'
 import { getContentColorScheme } from '@/utils'
-import { Flex, Text } from '@chakra-ui/react'
-import { useState } from 'react'
 
 type Props = {
   colorScheme: ColorScheme

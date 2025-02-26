@@ -1,12 +1,15 @@
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+
+import { Flex, Image, Text } from '@chakra-ui/react'
+
 import { RootState } from '@/store'
 import {
   getBackgroundColorScheme,
   getContentColorScheme,
   getIconColorScheme,
 } from '@/utils'
-import { Flex, Image, Text } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+
 import IndexCertItem from './IndexCertItem'
 
 const IndexCerts = () => {
@@ -107,6 +110,7 @@ const IndexCerts = () => {
                 transitionStep >= 1 ? 'none' : 'rotate(225deg) scale(2.5)'
               }
               transition={'all 1s ease-in-out'}
+              alt='square'
             />
           </Flex>
         </Flex>

@@ -1,7 +1,9 @@
-import { RootState } from '@/store'
-import { Flex, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+
+import { Flex, Text } from '@chakra-ui/react'
+
+import { RootState } from '@/store'
 
 const description =
   'Also as a member of technical solution team 0xBlanc. Provides web3, tranditional web and AI solutions, since 2022.'

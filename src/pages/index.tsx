@@ -1,3 +1,9 @@
+import Head from 'next/head'
+import { FC, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { Flex } from '@chakra-ui/react'
+
 import IndexAbout from '@/component/index/IndexAbout/IndexAbout'
 import IndexCerts from '@/component/index/IndexCerts/IndexCerts'
 import IndexContact from '@/component/index/IndexContact/IndexContact'
@@ -8,16 +14,13 @@ import IndexQuote from '@/component/index/IndexQuote/IndexQuote'
 import useScroll from '@/hook/useScroll'
 import { RootState } from '@/store'
 import {
-setColorScheme,
-setCurrSectionId,
-setShowHeader,
-setSubsectionId,
+  setColorScheme,
+  setCurrSectionId,
+  setShowHeader,
+  setSubsectionId,
 } from '@/store/controlSlice'
 import { ColorScheme } from '@/types'
-import { Flex } from '@chakra-ui/react'
-import Head from 'next/head'
-import { FC,useEffect } from 'react'
-import { useDispatch,useSelector } from 'react-redux'
+
 import { getBackgroundColorScheme } from '../utils/color'
 
 type Props = {

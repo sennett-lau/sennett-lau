@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react'
+
 import IndexProjectCBTWines from './IndexProjectCBTWines'
 import IndexProjectCityUGE from './IndexProjectCityUGE'
 

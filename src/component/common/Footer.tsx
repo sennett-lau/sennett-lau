@@ -1,7 +1,10 @@
+import { useSelector } from 'react-redux'
+
+import { Flex, Text } from '@chakra-ui/react'
+
 import { RootState } from '@/store'
 import { getBackgroundColorScheme, getContentColorScheme } from '@/utils'
-import { Flex, Text } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
+
 import Highlight from '../common/Highlight'
 
 const Footer = () => {

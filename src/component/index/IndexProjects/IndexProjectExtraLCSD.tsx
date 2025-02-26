@@ -1,5 +1,7 @@
-import { Box, Link } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
+
+import { Box, Link } from '@chakra-ui/react'
+
 import IndexProjectSectionExtraItemFrame from './IndexProjectSectionExtraItemFrame'
 
 type Props = {

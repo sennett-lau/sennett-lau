@@ -1,8 +1,10 @@
-import { RootState } from '@/store'
-import { getContentColorScheme, getIconColorScheme } from '@/utils'
-import { Box, Image } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+
+import { Box, Image } from '@chakra-ui/react'
+
+import { RootState } from '@/store'
+import { getContentColorScheme, getIconColorScheme } from '@/utils'
 
 const IndexProjectsTopFrame = () => {
   const colorScheme = useSelector(
@@ -29,6 +31,7 @@ const IndexProjectsTopFrame = () => {
         left={'0'}
         transform={transitionStep >= 1 ? 'scale(1)' : 'scale(6.5)'}
         transition={'all 1.0s ease-in-out'}
+        alt='square'
       />
       <Box
         w={transitionStep >= 1 ? '44px' : '1000px'}

@@ -1,5 +1,6 @@
-import { Flex, Image } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
+
+import { Flex, Image } from '@chakra-ui/react'
 
 type Props = {
   triggerAnimation: boolean
@@ -28,6 +29,7 @@ const IndexProjectImageSelf = (props: Props) => {
           isAnimationTriggered ? 'translateY(0px)' : 'translateY(100px)'
         }
         transition={'all .5s ease-in-out'}
+        alt='self image shard'
       />
       <Image
         src={'/assets/me/b.png'}
@@ -39,6 +41,7 @@ const IndexProjectImageSelf = (props: Props) => {
           isAnimationTriggered ? 'translateY(0px)' : 'translateY(-100px)'
         }
         transition={'all .5s ease-in-out'}
+        alt='self image shard'
       />
       <Image
         src={'/assets/me/c.png'}
@@ -50,6 +53,7 @@ const IndexProjectImageSelf = (props: Props) => {
           isAnimationTriggered ? 'translateY(0px)' : 'translateY(100px)'
         }
         transition={'all .5s ease-in-out'}
+        alt='self image shard'
       />
       <Image
         src={'/assets/me/d.png'}
@@ -61,6 +65,7 @@ const IndexProjectImageSelf = (props: Props) => {
           isAnimationTriggered ? 'translateY(0px)' : 'translateY(-100px)'
         }
         transition={'all .5s ease-in-out'}
+        alt='self image shard'
       />
       <Image
         src={'/assets/me/e.png'}
@@ -72,6 +77,7 @@ const IndexProjectImageSelf = (props: Props) => {
           isAnimationTriggered ? 'translateY(0px)' : 'translateY(100px)'
         }
         transition={'all .5s ease-in-out'}
+        alt='self image shard'
       />
       <Image
         src={'/assets/me/f.png'}
@@ -83,6 +89,7 @@ const IndexProjectImageSelf = (props: Props) => {
           isAnimationTriggered ? 'translateY(0px)' : 'translateY(-100px)'
         }
         transition={'all .5s ease-in-out'}
+        alt='self image shard'
       />
     </Flex>
   )

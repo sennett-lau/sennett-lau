@@ -1,7 +1,10 @@
+import { useSelector } from 'react-redux'
+
+import { Flex, Link } from '@chakra-ui/react'
+
 import { RootState } from '@/store'
 import { getBackgroundColorScheme, getContentColorScheme } from '@/utils'
-import { Flex, Link } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
+
 import CustomLink from './CustomLink'
 import Highlight from './Highlight'
 

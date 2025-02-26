@@ -1,7 +1,9 @@
+import { useSelector } from 'react-redux'
+
+import { Flex, Image, Link, Text } from '@chakra-ui/react'
+
 import { RootState } from '@/store'
 import { getIconColorScheme } from '@/utils'
-import { Flex, Image, Link, Text } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
 
 const IndexContactDigitalSpaces = () => {
   const colorScheme = useSelector(
@@ -25,6 +27,7 @@ const IndexContactDigitalSpaces = () => {
           src={getIconColorScheme('linkedin', colorScheme)}
           w={'24px'}
           h={'24px'}
+          alt='linkedin'
         />
         <Text fontSize={'24px'} lineHeight={'24px'}>
           sennett-lau
@@ -42,6 +45,7 @@ const IndexContactDigitalSpaces = () => {
           src={getIconColorScheme('github', colorScheme)}
           w={'24px'}
           h={'24px'}
+          alt='github'
         />
         <Text fontSize={'24px'} lineHeight={'24px'}>
           sennett-lau

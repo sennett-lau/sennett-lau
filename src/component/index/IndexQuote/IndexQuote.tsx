@@ -1,8 +1,10 @@
-import { RootState } from '@/store'
-import { getBackgroundColorScheme, getContentColorScheme } from '@/utils'
-import { Box, Flex, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+
+import { Box, Flex, Text } from '@chakra-ui/react'
+
+import { RootState } from '@/store'
+import { getBackgroundColorScheme, getContentColorScheme } from '@/utils'
 
 const quote =
   'I develop digital experiences that inspire, infused with cutting-edge technology.'

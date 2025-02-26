@@ -1,7 +1,9 @@
+import { FC, ReactNode } from 'react'
+
+import { Flex } from '@chakra-ui/react'
+
 import Footer from '@/component/common/Footer'
 import Header from '@/component/common/Header'
-import { Flex } from '@chakra-ui/react'
-import { FC, ReactNode } from 'react'
 
 type Props = {
   children: ReactNode
