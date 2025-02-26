@@ -230,10 +230,9 @@ const IndexAbout: React.FC = () => {
               transition={'all 0.5s ease-in-out'}
             >
               With a strong foundation in <Highlight>web development</Highlight>{' '}
-              specialized in <Highlight>JavaScript</Highlight> and{' '}
-              <Highlight>Web3</Highlight>, and growing proficiency in{' '}
-              <Highlight>cloud computing</Highlight>, particularly{' '}
-              <Highlight>AWS</Highlight> and{' '}
+              specialized in <Highlight>JavaScript</Highlight>, and growing
+              proficiency in <Highlight>cloud computing</Highlight>,
+              particularly <Highlight>AWS</Highlight> and{' '}
               <Highlight>CloudFlare Edge Services</Highlight>, dedicated to
               building scalable and efficient backend applications.
             </Text>
@@ -248,8 +247,22 @@ const IndexAbout: React.FC = () => {
             >
               Technically proficient in <Highlight>TypeScript</Highlight>,{' '}
               <Highlight>Terraform</Highlight>,{' '}
-              <Highlight>Kubernetes</Highlight>, <Highlight>ReactJS</Highlight>,
-              and more.
+              <Highlight>Kubernetes</Highlight>, <Highlight>ReactJS</Highlight>,{' '}
+              <Highlight>Web3</Highlight>, and more.
+            </Text>
+            <Text
+              h={{
+                base: 'fit-content',
+                lg: '84px',
+              }}
+              opacity={transitionStep >= 6 ? 1 : 0}
+              transform={transitionStep >= 6 ? 'none' : 'translateX(-20px)'}
+              transition={'all 0.5s ease-in-out'}
+            >
+              A <Highlight>fast learner</Highlight> and an effective{' '}
+              <Highlight>team player</Highlight>. Dedicated to pushing the
+              envelope in tech, blending a solid technical base with a keen
+              interest in emerging technologies.
             </Text>
             <Text
               h={{
@@ -260,21 +273,8 @@ const IndexAbout: React.FC = () => {
               transform={transitionStep >= 5 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
             >
-              I am a <Highlight>fast learner</Highlight> and an effective{' '}
-              <Highlight>team player</Highlight>.
-            </Text>
-            <Text
-              h={{
-                base: 'fit-content',
-                lg: '56px',
-              }}
-              opacity={transitionStep >= 6 ? 1 : 0}
-              transform={transitionStep >= 6 ? 'none' : 'translateX(-20px)'}
-              transition={'all 0.5s ease-in-out'}
-            >
-              I&apos;m dedicated to pushing the envelope in tech, blending a
-              solid technical base with a keen interest in emerging
-              technologies.
+              Currently exploring opportunities on the{' '}
+              <Highlight>Artificial Intelligence</Highlight> field.
             </Text>
           </Flex>
         </Flex>
