@@ -214,11 +214,11 @@ const IndexAbout: React.FC = () => {
               transform={transitionStep >= 2 ? 'none' : 'translateX(-20px)'}
               transition={'all 0.5s ease-in-out'}
             >
-              Holding a Bachelor of Science in{' '}
-              <Highlight>Computer Science</Highlight> with a focus on Artificial
-              Intelligence and Data Science from the{' '}
-              <Highlight>City University of Hong Kong</Highlight>, graduated on{' '}
-              <Highlight>June, 2022</Highlight>.
+              Studying <Highlight>Master of Artificial Intelligence</Highlight>{' '}
+              at <Highlight>The University of Hong Kong</Highlight>, holding a
+              Bachelor of Science in <Highlight>Computer Science</Highlight>{' '}
+              from <Highlight>City University of Hong Kong</Highlight> that
+              graduated back on <Highlight>June, 2022</Highlight>.
             </Text>
             <Text
               h={{
@@ -230,12 +230,12 @@ const IndexAbout: React.FC = () => {
               transition={'all 0.5s ease-in-out'}
             >
               With a strong foundation in <Highlight>web development</Highlight>{' '}
-              specialized in <Highlight>JavaScript</Highlight>, a year of
-              experience in <Highlight>Solidity</Highlight> and{' '}
+              specialized in <Highlight>JavaScript</Highlight> and{' '}
               <Highlight>Web3</Highlight>, and growing proficiency in{' '}
               <Highlight>cloud computing</Highlight>, particularly{' '}
-              <Highlight>AWS</Highlight>, <Highlight>GoLang</Highlight> backend
-              application and <Highlight>system design</Highlight>.
+              <Highlight>AWS</Highlight> and{' '}
+              <Highlight>CloudFlare Edge Services</Highlight>, dedicated to
+              building scalable and efficient backend applications.
             </Text>
             <Text
               h={{
