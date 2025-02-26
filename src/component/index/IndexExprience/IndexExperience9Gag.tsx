@@ -6,6 +6,7 @@ import { Text } from '@chakra-ui/react'
 import Highlight from '@/component/common/Highlight'
 import { RootState } from '@/store'
 
+import HigtlightedLink from '@/component/common/HigtlightedLink'
 import IndexExperienceItem from './IndexExperienceItem'
 
 const IndexExperienceOzaru = () => {
@@ -57,7 +58,22 @@ const IndexExperienceOzaru = () => {
         >
           fullstack
         </Highlight>{' '}
-        applications.
+        applications including{' '}
+        <HigtlightedLink
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+          href='https://stakeland.com'
+        >
+          Stakeland
+        </HigtlightedLink>{' '}
+        and{' '}
+        <HigtlightedLink
+          fontSize={{ base: '20px', lg: '24px' }}
+          fontWeight={'semibold'}
+          href='https://paintoken.com'
+        >
+          Pain
+        </HigtlightedLink>
       </Text>
       <Text
         opacity={transitionSteps >= 2 ? 1 : 0}
