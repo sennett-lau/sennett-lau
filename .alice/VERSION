@@ -1,0 +1,4 @@
+version: 1.4.0
+upstream: https://github.com/sennett-lau/alice
+commit: 61ab2df
+bootstrapped: 2026-05-13T13:10:57Z
