@@ -16,16 +16,20 @@ const IndexContact = () => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!name || !email || !message) return
+    // Discord caps webhook content at 2000 chars; clamp on the client so the request
+    // doesn't 400. Leaves room for the "name/email/..." prefix.
+    const clampedMessage = message.slice(0, 1800)
     setStatus('sending')
     try {
       await discordHookMessageSend(
-        `**New contact from website**\nName: ${name}\nEmail: ${email}\n\n${message}`,
+        `**New contact from website**\nName: ${name}\nEmail: ${email}\n\n${clampedMessage}`,
       )
       setStatus('sent')
       setName('')
       setEmail('')
       setMessage('')
-    } catch {
+    } catch (err) {
+      console.error('Contact form send failed:', err)
       setStatus('error')
     }
   }

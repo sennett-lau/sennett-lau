@@ -21,6 +21,7 @@ Last update: 2026-05-13
 
 ## Blocked / known regressions
 
+- **No `pnpm-lock.yaml` committed yet.** Until the user runs `pnpm install` locally and commits the resulting lockfile, Cloudflare Pages and new clones will resolve `^` ranges freshly each build (non-reproducible). **Action:** run `pnpm install` then `git add pnpm-lock.yaml && git commit`.
 - **No pre-commit hook.** Husky archived; nothing replaces it yet. Manual `pnpm check` runs. Followup: wire `lefthook`.
 - **Bundle size target.** 200KB gzipped main JS target asserted but not yet measured. Run `pnpm build && gzip -c dist/assets/index-*.js | wc -c` after first `pnpm install`.
 
