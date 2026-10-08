@@ -67,7 +67,7 @@ const featherMask: CSSProperties = {
 // that shows the photo underneath, toned like the ASCII (grayscale, inverted
 // when the tone is) and dissolving behind the cursor; a click or tap floods the
 // frame with the full-colour photo. See useRevealTrail and
-// docs/plans/active/2026-10-07_ascii-redesign/decision.md DR-1, DR-2.
+// docs/plans/archive/2026-10-07_ascii-redesign/decision.md DR-1, DR-2.
 const AsciiImage = ({
   src,
   alt,

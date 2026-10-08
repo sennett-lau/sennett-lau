@@ -14,7 +14,7 @@ One entry per non-obvious choice. Query-only.
 
 **Revisit when:** Stack reaches end-of-life or a new feature genuinely needs SSR.
 
-**Pointers:** `docs/plans/active/2026-05-13_vite-cloudflare-migration/spec.md`, `docs/wiki/architecture.md`.
+**Pointers:** `docs/plans/archive/2026-05-13_vite-cloudflare-migration/spec.md`, `docs/wiki/architecture.md`.
 
 ---
 
@@ -80,7 +80,7 @@ Makes "meaningfully smaller" falsifiable. If a build exceeds, framer-motion or R
 
 ## 2026-10-07 — ascii-redesign DR-1: Render ASCII art in the browser with an in-repo converter
 
-Python `ascii_magic` (the reference Sennett gave) would need a Python build step and a fixed grid. Chose a ~100-line TypeScript converter (`src/lib/ascii.ts`, same downsample → luminance → ramp algorithm), run client-side for responsive grids and the decode animation. Full entry: `docs/plans/active/2026-10-07_ascii-redesign/decision.md`.
+Python `ascii_magic` (the reference Sennett gave) would need a Python build step and a fixed grid. Chose a ~100-line TypeScript converter (`src/lib/ascii.ts`, same downsample → luminance → ramp algorithm), run client-side for responsive grids and the decode animation. Full entry: `docs/plans/archive/2026-10-07_ascii-redesign/decision.md`.
 
 ---
 
@@ -110,10 +110,16 @@ Martian Mono Variable + IBM Plex Mono via `@fontsource`, latin subsets only. Tho
 
 ## 2026-10-07 — ascii-redesign DR-6: Liquid reveal trail on a 2D canvas, not a WebGL fluid sim
 
-Image hover modelled on landonorris.com (which uses a WebGL fluid sim). It's faked on a low-res 2D canvas: pointer-stamped blobs, exponential fade, noisy near-binary threshold, `destination-in` over the photo. No dependency; the maths is unit-tested in `src/lib/reveal.ts`. Replaces the CSS-mask circular lens. Full entry: `docs/plans/active/2026-10-07_ascii-redesign/decision.md`.
+Image hover modelled on landonorris.com (which uses a WebGL fluid sim). It's faked on a low-res 2D canvas: pointer-stamped blobs, exponential fade, noisy near-binary threshold, `destination-in` over the photo. No dependency; the maths is unit-tested in `src/lib/reveal.ts`. Replaces the CSS-mask circular lens. Full entry: `docs/plans/archive/2026-10-07_ascii-redesign/decision.md`.
 
 ---
 
 ## 2026-10-08 — ascii-redesign DR-7: Workers static assets, CLI upload to the personal account
 
-Wrangler 4 delegated an agent-run `wrangler pages project create` to Workers static assets; Sennett chose Workers over `--force` Pages, because a CLI-uploaded Pages project can never switch to Git integration and a Worker can. Assets-only Worker, `not_found_handling = "404-page"`, `account_id` pinned to the personal account, auth via Wrangler's `personal` profile. Supersedes DR-10's Pages 404 defaults. Full entry: `docs/plans/active/2026-10-07_ascii-redesign/decision.md`.
+Wrangler 4 delegated an agent-run `wrangler pages project create` to Workers static assets; Sennett chose Workers over `--force` Pages, because a CLI-uploaded Pages project can never switch to Git integration and a Worker can. Assets-only Worker, `not_found_handling = "404-page"`, `account_id` pinned to the personal account, auth via Wrangler's `personal` profile. Supersedes DR-10's Pages 404 defaults. Full entry: `docs/plans/archive/2026-10-07_ascii-redesign/decision.md`.
+
+---
+
+## 2026-10-08 — ascii-redesign DR-8: DNS on Cloudflare, registrar stays Porkbun
+
+Workers custom domains need an active Cloudflare zone, so `sennettlau.me` DNS moved from Porkbun to the personal Cloudflare account ("connect", not "transfer"; registration can move later). Records kept: `typelite` CNAME to GitHub Pages (DNS only, so GitHub keeps renewing its cert), Porkbun email-forwarding MX + SPF, Search Console TXT. Dropped: Porkbun's `*` catch-all. `www` redirects to the apex with a Redirect Rule rather than a second canonical host.

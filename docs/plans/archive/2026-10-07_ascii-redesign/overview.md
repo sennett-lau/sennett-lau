@@ -1,7 +1,7 @@
 # ASCII redesign — overview
 
-**Status:** building
-**Folder:** docs/plans/active/2026-10-07_ascii-redesign/
+**Status:** shipped 2026-10-08 (live on sennettlau.me, merged to main)
+**Folder:** docs/plans/archive/2026-10-07_ascii-redesign/
 **Started:** 2026-10-07
 **Owner:** Claude Code (with Sennett)
 
@@ -23,4 +23,4 @@ Spec locked. Branch `feat/ascii-redesign`, cut from `feat/vite-cloudflare-migrat
 - Decisions: [decision.md](decision.md)
 - Implementation log: [implementation.md](implementation.md)
 - TODO item: `docs/todos/overview.md` under In flight (entry `ascii-redesign`)
-- Related: `docs/plans/active/2026-05-13_vite-cloudflare-migration/` (scaffold this builds on)
+- Related: `docs/plans/archive/2026-05-13_vite-cloudflare-migration/` (scaffold this builds on)

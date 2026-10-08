@@ -2,7 +2,7 @@
 // downsample the image to one pixel per character cell, take each pixel's
 // luminance, and pick a glyph from a sparse-to-dense ramp. On a dark page a
 // dense glyph reads as bright, so bright pixels map to dense glyphs.
-// See docs/plans/active/2026-10-07_ascii-redesign/decision.md DR-1.
+// See docs/plans/archive/2026-10-07_ascii-redesign/decision.md DR-1.
 
 export const DEFAULT_RAMP = ' .:-=+*#%@'
 

@@ -1,7 +1,7 @@
 # Vite + Cloudflare migration — overview
 
-**Status:** spec in review
-**Folder:** docs/plans/active/2026-05-13_vite-cloudflare-migration/
+**Status:** closed 2026-10-08 — scaffold shipped; visual port superseded by ascii-redesign (merged together)
+**Folder:** docs/plans/archive/2026-05-13_vite-cloudflare-migration/
 **Started:** 2026-05-13
 **Owner:** diana (fully-auto / max effort)
 
@@ -15,7 +15,7 @@ Replace the platform with pnpm + Vite + React + Tailwind + Biome + framer-motion
 
 ## Current state
 
-> **2026-10-07:** the visual-port phase is superseded by `docs/plans/active/2026-10-07_ascii-redesign/`, which rebuilds every section in a new design instead of porting the Chakra one. This plan closes when that branch merges.
+> **2026-10-07:** the visual-port phase is superseded by `docs/plans/archive/2026-10-07_ascii-redesign/`, which rebuilds every section in a new design instead of porting the Chakra one. This plan closed when that branch merged (2026-10-08).
 
 Spec drafted (`spec.md`). Awaiting `/plan-eng-review` + outside-voice pass before lock. No code changes yet.
 

@@ -6,7 +6,7 @@ Append-only. One entry per shipped piece of work. Query-only.
 
 ## 2026-05-13 — Vite + Cloudflare migration (infrastructure, partial)
 
-**Run:** diana fully-auto / max effort. Run dir: `.alice/mem/diana/diana-vite-cloudflare-migration-20260513T135708Z/`. Plan: `docs/plans/active/2026-05-13_vite-cloudflare-migration/`.
+**Run:** diana fully-auto / max effort. Run dir: `.alice/mem/diana/diana-vite-cloudflare-migration-20260513T135708Z/`. Plan: `docs/plans/archive/2026-05-13_vite-cloudflare-migration/`.
 
 **What shipped:**
 
@@ -38,7 +38,94 @@ Append-only. One entry per shipped piece of work. Query-only.
 
 **Cross-references:**
 
-- Plan: `docs/plans/active/2026-05-13_vite-cloudflare-migration/`
+- Plan: `docs/plans/archive/2026-05-13_vite-cloudflare-migration/`
 - Decisions: `docs/ledger/decisions.md#2026-05-13`
 - TODO: `docs/todos/overview.md` (still In flight pending visual-port completion)
 - Diana run dir: `.alice/mem/diana/diana-vite-cloudflare-migration-20260513T135708Z/`
+
+---
+
+## 2026-10-08 — ASCII redesign + Cloudflare cutover (shipped)
+
+**Plan:** `docs/plans/archive/2026-10-07_ascii-redesign/` (closes `docs/plans/archive/2026-05-13_vite-cloudflare-migration/` too). Decisions: ascii-redesign DR-1..DR-8 in `docs/ledger/decisions.md`.
+
+**What shipped:** dark terminal / ASCII-art redesign of every section on the Vite scaffold (in-browser image → ASCII, liquid reveal trail, scramble text, content as typed data, Vitest); Redux removed. Hosted as an assets-only Cloudflare Worker on Sennett's personal account, `sennettlau.me` DNS moved from Porkbun to Cloudflare, www → apex redirect rule. Old Vercel auto-deploys and this repo's GitHub Pages switched off.
+
+**What worked:**
+- Content as data (`src/content/*.ts` + `**strong**` / `[label](url)`): a dozen copy rounds with Sennett touched almost no components.
+- Pure maths in `src/lib/` with tests written red-first (ASCII ramp, reveal noise / threshold / fade) — the visual bugs that remained were all in the DOM/rAF glue, not the maths.
+- Measuring instead of eyeballing: Playwright boxes for the "stat" label (6 px off), text-node rects, per-commit tsc/build in a scratch worktree.
+- For DNS, querying the newly assigned Cloudflare nameservers directly before switching the registrar caught nothing wrong — but it did prove the hand-added `typelite` record was right before it went live.
+
+**What burned:**
+- Copy rounds: Sennett rejected several About / manifesto drafts for voice ("who works AI-native", industry claims, "by default"). Asking for his structure first, then filling it, converged faster than drafting freely.
+- `biome ci | tail -1` printed an ANSI reset and hid a format failure; read the summary line.
+- `pnpm deploy` is pnpm's built-in workspace command; the documented deploy script never ran. Use `pnpm run deploy`.
+- First custom-domain deploy hit a Cloudflare 500 two minutes after the zone went active and left the apex without a record (~1 min outage). Wait a few minutes after activation, or delete the old records only after a successful dry run *and* zone age > 5 min.
+
+**Do differently next time:**
+- Before deleting live DNS records, have the replacement deploy command ready and run it immediately (it was), and keep the rollback (old records) written down (it was) — but also budget for a retry.
+- Ask which hosting product early when a CLI may delegate (Wrangler sends agent-created static sites to Workers).
+
+---
+
+## 2026-10-08 — Bug pattern: rAF loop never restarts under React StrictMode
+
+**Symptom:** pointer events queued stamps (19) but nothing drew (0); the trail canvas stayed empty in dev only.
+**Cause:** StrictMode runs effect cleanup then remount; cleanup cancelled the frame but left the stored rAF id non-zero, so the "is a loop running?" check skipped `requestAnimationFrame` forever.
+**Fix:** reset the ref to 0 in the cleanup (`src/hooks/useRevealTrail.ts`).
+**Recurs in:** any hook that keeps a rAF / timer id in a ref and guards on it.
+
+---
+
+## 2026-10-08 — Bug pattern: negative progress from the first rAF timestamp
+
+**Symptom:** `CanvasRenderingContext2D.arc` threw on a negative radius; a decode effect flashed full text (`slice(0, -1)`).
+**Cause:** the rAF timestamp of the first frame can be earlier than a `performance.now()` start captured in the event handler.
+**Fix:** clamp progress to `[0, 1]`.
+**Recurs in:** every animation that mixes event-time `performance.now()` with rAF timestamps.
+
+---
+
+## 2026-10-08 — Bug pattern: `backdrop-filter` traps `position: fixed`
+
+**Symptom:** the mobile menu overlay collapsed to the header's height.
+**Cause:** an element with `backdrop-filter` (Tailwind `backdrop-blur`) becomes the containing block for fixed descendants.
+**Fix:** render the overlay as a sibling of `<header>`, not inside it.
+**Recurs in:** any fixed overlay/modal nested under a blurred or transformed/filtered ancestor.
+
+---
+
+## 2026-10-08 — Bug pattern: glyph fallback breaks monospace ASCII
+
+**Symptom:** box-drawing frames and arrows (`█ ═ → ↵`) misaligned the figlet / ASCII grids.
+**Cause:** fontsource latin subsets cover U+0000–00FF and U+2000–206F only; missing glyphs fall back to another font with different advance widths.
+**Fix:** ASCII-only art (`-->`, `+`, `|`) and CSS borders (DR-4).
+**Recurs in:** any subsetted webfont used for character grids.
+
+---
+
+## 2026-10-08 — Bug pattern: words split at hyphens in narrow columns
+
+**Symptom:** "AI-/native" and "back-/end" broke across lines.
+**Cause:** browsers treat `-` as a break opportunity.
+**Fix:** `RichText` wraps hyphenated words in `whitespace-nowrap` spans (`keepHyphens`).
+**Recurs in:** any copy with compound terms in narrow layouts.
+
+---
+
+## 2026-10-08 — Bug pattern: Cloudflare's DNS scan misses records behind a wildcard
+
+**Symptom:** the import showed `*` → `pixie.porkbun.com` but not `typelite` → `sennett-lau.github.io`.
+**Cause:** the scan probes common names; a wildcard answers for everything, so explicit records it didn't probe are invisible.
+**Fix:** dig the known subdomains against the old nameservers and add missing records by hand before switching.
+**Recurs in:** every zone onboarding from a registrar with default catch-all records.
+
+---
+
+## 2026-10-08 — Bug pattern: Workers `routes` silently disable workers.dev
+
+**Symptom:** after adding custom domains, `sennettlau.laub1199.workers.dev` returned 404.
+**Cause:** with `routes` set and `workers_dev` unset, Wrangler 4 disables workers.dev (and preview URLs) on deploy.
+**Fix:** set `workers_dev` / `preview_urls` explicitly in `wrangler.toml` (both `false` here, on purpose).
+**Recurs in:** any Worker that gains routes after shipping on workers.dev.

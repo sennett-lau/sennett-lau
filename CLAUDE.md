@@ -56,7 +56,8 @@ pnpm-lock.yaml            Lockfile
 docs/                     Project operating manual (alice scaffold + content)
   README.md, todos/overview.md, todos/findings/
   wiki/{README,current-status,architecture,domain-model}.md
-  plans/active/{2026-05-13_vite-cloudflare-migration,2026-10-07_ascii-redesign}/{overview,spec,decision,implementation}.md
+  plans/active/            (empty: nothing in flight)
+  plans/archive/{2026-05-13_vite-cloudflare-migration,2026-10-07_ascii-redesign}/{overview,spec,decision,implementation}.md
   plans/archive/, ledger/{decisions,experiences}.md
 .alice/                   Vendored alice framework — DO NOT edit by hand; update via /sync
 .claude/                  Claude Code config — relative symlinks into .alice/

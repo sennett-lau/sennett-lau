@@ -1,8 +1,7 @@
 // Contact-form webhook. URL is hardcoded — already public in the shipped bundle
-// across all prior deploys; preview deploys on Cloudflare Pages multiply the
-// exposure surface (logged in CLAUDE.md > Critical gotchas). Long-term fix is a
-// server-side proxy (Cloudflare Worker) — see docs/plans/.../followups in the
-// active diana run dir.
+// across all prior deploys (logged in CLAUDE.md > Critical gotchas). Long-term
+// fix is a server-side proxy in the Worker holding it as a secret — see the
+// contact-webhook-proxy TODO in docs/todos/overview.md.
 const DISCORD_WEBHOOK_URL =
   'https://discord.com/api/webhooks/1189401699819986944/ENm4z6pB6LIk7E7cxWlP2kAXHQwVFdjRSaw6B5c-5IvfTMrXisScIHbUdDPCte6TAOq8'
 

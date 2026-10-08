@@ -84,7 +84,7 @@ Tailwind 3.4 utilities. Dark only. Tokens in `tailwind.config.ts`:
 | `bg` | `#0b0b0a` | page background |
 | `panel` | `#121210` | cards, panels |
 | `line` | `#2a2823` | borders, rules |
-| `dim` | `#7d786d` | secondary text |
+| `dim` | `#858075` | secondary text (5.0:1 on `bg`, WCAG AA) |
 | `ink` | `#e9e4d6` | primary text; `**strong**` renders bright ink |
 | `amber` | `#ffb000` | accent: links, prompts, figlet name, active tab |
 | `ok` / `err` | `#9fd36b` / `#ff6b57` | status lines, `+` bullets |
@@ -109,7 +109,7 @@ Reduced motion: `src/main.tsx` wraps the app in `<MotionConfig reducedMotion="us
 3. Vite bundles, hashes JS/CSS/fonts into `dist/assets/`.
 4. `public/` copies verbatim (`images/`, `404.html`, `_headers`, `favicon.ico`).
 
-Gates: `pnpm build`, `pnpm tsc`, `pnpm check`, `pnpm test`; `gzip -c dist/assets/index-*.js | wc -c` ≤ 200000 (≈95 KB at ascii-redesign).
+Gates: `pnpm build`, `pnpm tsc`, `pnpm check`, `pnpm test`; `gzip -c dist/assets/index-*.js | wc -c` ≤ 200000 (≈98 KB at the ascii-redesign ship).
 
 ## Caching
 
@@ -121,6 +121,6 @@ CLI upload to Cloudflare Workers static assets (ascii-redesign DR-7):
 1. `pnpm build` → `dist/`.
 2. `pnpm run deploy` (`wrangler deploy`) uploads `dist/` to the Worker `sennettlau` on the personal account (`account_id` in `wrangler.toml`), served on the custom domains `sennettlau.me` and `www.sennettlau.me` (workers.dev / preview URLs off).
 3. No git integration yet; the Worker can be connected to GitHub later (Workers Builds).
-4. DNS: zone `sennettlau.me` on the personal Cloudflare account; registrar Porkbun. Custom-domain records are created by Wrangler — don't add A/CNAME records for the apex or `www` by hand (a CNAME on the hostname blocks the custom domain). `www` → apex is a Cloudflare Redirect Rule.
+4. DNS: zone `sennettlau.me` on the personal Cloudflare account; registrar Porkbun. Custom-domain records are created by Wrangler — don't add A/CNAME records for the apex or `www` by hand (a CNAME on the hostname blocks the custom domain). `www` → apex is a Cloudflare Redirect Rule. The zone also serves other things; keep them when editing DNS: `typelite` CNAME → `sennett-lau.github.io` (DNS only, so GitHub keeps renewing its cert), Porkbun email-forwarding MX + SPF, and the Search Console TXT.
 
 Auth: Wrangler 4 `personal` profile, bound to `~/Documents/code/mine`. `pnpm deploy` (without `run`) is pnpm's built-in workspace command, not this script.
