@@ -31,9 +31,9 @@ export const simpleLogger = (message?: unknown, ...optionalParams: unknown[]): s
   console.log(`[${dateStr}]`, message, ...optionalParams)
 
   let logStr = `[${dateStr}] ${String(message)} \n`
-  optionalParams.forEach((param) => {
+  for (const param of optionalParams) {
     logStr += `${String(param)} \n`
-  })
+  }
   return logStr
 }
 
@@ -41,9 +41,9 @@ const wrappedLogger = (messages: string[]): string => {
   let logStr = ''
   logStr += getLinePair().top
   logStr += '\n'
-  messages.forEach((message) => {
+  for (const message of messages) {
     logStr += `${message}\n`
-  })
+  }
   logStr += getLinePair().bottom
   console.log(logStr)
   return logStr
@@ -62,9 +62,9 @@ const wrappedModuleLogger = (moduleName: string, messages: string[]): string => 
   logStr += getLinePair().top
   logStr += '\n'
   logStr += `[${moduleName}]\n`
-  messages.forEach((message) => {
+  for (const message of messages) {
     logStr += `${message}\n`
-  })
+  }
   logStr += getLinePair().bottom
   console.log(logStr)
   return logStr
