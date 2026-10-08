@@ -1,30 +1,27 @@
 # Current status
 
-Last update: 2026-05-13
+Last update: 2026-10-07
 
-## Shipped (post-migration)
+## Shipped (on branch, not yet merged)
 
-- Vite + pnpm + React + Tailwind + Biome + framer-motion scaffold at repo root.
-- Cloudflare Pages deploy artifacts: `wrangler.toml`, `public/_headers`, `public/404.html`.
-- Redux Toolkit `controlSlice` + `useScroll` hook + scroll-position-driven color scheme orchestration.
-- Discord-webhook contact form (working end-to-end on `IndexContact`).
-- Tailwind theme tokens mirror prior Chakra extension (`blanc`, `themeDark`, `themeLight`).
-- `archive/` preserves the entire prior project (Next.js + Chakra + npm + GH Pages publish-via-docs/).
-- alice framework adopted (commit 88ed86d on `version/v2`).
+- Vite + pnpm + React + Tailwind + Biome + framer-motion scaffold; Cloudflare Pages artifacts (`wrangler.toml`, `public/_headers`, `public/404.html`). `pnpm-lock.yaml` generated with the redesign (lands with its PR).
+- **ASCII redesign** (`feat/ascii-redesign`): dark terminal theme, every section rebuilt — hero (figlet name, boot log, ASCII portrait), about (new AI copy + `stack.log`), experience (`git log` timeline, copy verbatim), projects (Typelite, CityUGE, dklm.io), certs (table), contact (prompt-style form, still posting to the Discord webhook), footer.
+- `AsciiImage`: browser-side image → ASCII with a liquid hover trail (after landonorris.com), click/tap flood reveal, decode animation.
+- Vitest with unit tests for `src/lib/ascii.ts` and `src/lib/rich.ts`.
+- Redux, scroll-driven colour scheme and the Tailwind safelist removed.
+- `archive/` keeps the prior Next.js + Chakra project, including its assets.
 
 ## In flight
 
-- **Section visual ports** — each of the 7 section components is a placeholder shell with the right id anchors + framer-motion `fadeIn`. The full Chakra-era content (Hero desktop/mobile variants, Experience timeline w/ 4 jobs and per-job subsections, Projects grid, Certs grid, About copy, Quote, Contact subcomponents) lives at `archive/src/component/index/<Section>/*` and must be ported to Tailwind utilities. See `docs/plans/active/2026-05-13_vite-cloudflare-migration/implementation.md` for the per-section TODO list.
-- **Common component visual ports** — `Header` and `Footer` are minimal placeholders. `CustomLink`, `Highlight`, `HighlightedLink`, `TextLogo`, `ImageModal` not yet ported.
-- **DNS cutover to Cloudflare** — `sennettlau.me` still pointing at GH Pages until user moves DNS.
-- **Cloudflare Pages project setup** — user creates the project in the CF dashboard (build cmd `pnpm install && pnpm build`, output `dist`, `NODE_VERSION=20`).
+- **ascii-redesign** — awaiting review / PR. Plan: `docs/plans/active/2026-10-07_ascii-redesign/`.
+- **DNS cutover to Cloudflare** — `sennettlau.me` still points at the old host until the user moves DNS.
+- **Cloudflare Pages project setup** — user creates the project in the CF dashboard (build `pnpm install && pnpm build`, output `dist`, `NODE_VERSION=20`).
 
 ## Blocked / known regressions
 
-- **No `pnpm-lock.yaml` committed yet.** Until the user runs `pnpm install` locally and commits the resulting lockfile, Cloudflare Pages and new clones will resolve `^` ranges freshly each build (non-reproducible). **Action:** run `pnpm install` then `git add pnpm-lock.yaml && git commit`.
-- **No pre-commit hook.** Husky archived; nothing replaces it yet. Manual `pnpm check` runs. Followup: wire `lefthook`.
-- **Bundle size target.** 200KB gzipped main JS target asserted but not yet measured. Run `pnpm build && gzip -c dist/assets/index-*.js | wc -c` after first `pnpm install`.
+- **No pre-commit hook.** Husky archived; run `pnpm check` manually. Followup: `lefthook`.
+- **Contact webhook is public** in the client bundle (pre-existing). Followup: Cloudflare Pages Function proxy holding the webhook as a secret.
 
 ## Recent retros
 
-- [2026-05-13 — Vite + Cloudflare migration](../plans/active/2026-05-13_vite-cloudflare-migration/) (in flight; partial — infrastructure + scaffold shipped, visual port deferred).
+- [2026-05-13 — Vite + Cloudflare migration](../plans/active/2026-05-13_vite-cloudflare-migration/) — scaffold shipped; its visual-port phase is superseded by ascii-redesign.

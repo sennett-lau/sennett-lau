@@ -75,3 +75,39 @@ Makes "meaningfully smaller" falsifiable. If a build exceeds, framer-motion or R
 ## 2026-05-13 — DR-10 (revised): No `_redirects` — Cloudflare Pages defaults handle the single-page case
 
 `/* /index.html 200` would mask 404s; specific rules can't beat the catch-all. Cloudflare default behaviour serves `index.html` for `/` and `404.html` for unknown paths — exactly what this single-page anchor-navigation site needs.
+
+---
+
+## 2026-10-07 — ascii-redesign DR-1: Render ASCII art in the browser with an in-repo converter
+
+Python `ascii_magic` (the reference Sennett gave) would need a Python build step and a fixed grid. Chose a ~100-line TypeScript converter (`src/lib/ascii.ts`, same downsample → luminance → ramp algorithm), run client-side for responsive grids and the decode animation. Full entry: `docs/plans/active/2026-10-07_ascii-redesign/decision.md`.
+
+---
+
+## 2026-10-07 — ascii-redesign DR-2: `<pre>` text + CSS-mask lens instead of `<canvas>` glyphs
+
+Monochrome design needs no per-glyph colour; `<pre>` stays crisp at any DPR and is cheap to animate via `textContent`. The hover lens is two radial `mask-image`s driven by CSS variables.
+
+---
+
+## 2026-10-07 — ascii-redesign DR-3: Remove Redux and the scroll-driven colour scheme
+
+Dark-only theme removed Redux's only job. Active-section tracking moved to an `IntersectionObserver` hook. Supersedes migration DR-2 (safelist) and DR-8 (opacity-only fades) — nothing reads scroll positions now. Revisit when real cross-component state appears.
+
+---
+
+## 2026-10-07 — ascii-redesign DR-4: Fontsource fonts, ASCII-only text art
+
+Martian Mono Variable + IBM Plex Mono via `@fontsource`, latin subsets only. Those subsets lack box-drawing glyphs, so frames are CSS borders and figlet art uses the ASCII-only "Big Money-ne" font.
+
+---
+
+## 2026-10-07 — ascii-redesign DR-5: Content as typed data with a two-token inline markup
+
+`src/content/*.ts` + `**strong**` / `[label](url)` parsed by `src/lib/rich.ts`. Replaces ~900 lines of per-bullet JSX and makes copy diffable against the archive.
+
+---
+
+## 2026-10-07 — ascii-redesign DR-6: Liquid reveal trail on a 2D canvas, not a WebGL fluid sim
+
+Image hover modelled on landonorris.com (which uses a WebGL fluid sim). It's faked on a low-res 2D canvas: pointer-stamped blobs, exponential fade, noisy near-binary threshold, `destination-in` over the photo. No dependency; the maths is unit-tested in `src/lib/reveal.ts`. Replaces the CSS-mask circular lens. Full entry: `docs/plans/active/2026-10-07_ascii-redesign/decision.md`.

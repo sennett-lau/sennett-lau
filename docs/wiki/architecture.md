@@ -2,87 +2,124 @@
 
 ## System
 
-Static SPA. Build → `dist/` → Cloudflare Pages edge. No backend, no SSR, no API routes. One HTTP origin (the contact form) talks to a third-party Discord webhook from the user's browser.
+Static SPA. Build → `dist/` → Cloudflare Pages edge. No backend, no SSR, no API routes. The only outbound call is the contact form, which POSTs to a Discord webhook from the visitor's browser.
 
 ```
-LOCAL DEV                       BUILD                       DEPLOY
-  src/*.tsx                      pnpm build                 git push → CF webhook
-   │                              │                          │
-   ▼                              ▼                          ▼
-  vite dev (:5173) ──HMR──┐    vite build                CF Pages runner
-   │                      │     │                          │  (NODE_VERSION=20)
-   ▼                      │     ▼                          │  Corepack → pnpm@9.15.0
-  Tailwind JIT            │   dist/                        ▼
-   │  (sees color.ts      │    ├── index.html          pnpm install && pnpm build
-   │   literals via       │    ├── 404.html               │
-   │   content glob)      │    ├── _headers               ▼
-   ▼                      │    ├── assets/*.{js,css}    dist/ → CF edge → sennettlau.me
-  browser                 │    └── fonts/                (after DNS cutover — user-owned)
-                          │
-                          └── biome check ──────────▶
+LOCAL DEV                       BUILD                        DEPLOY
+  src/*.tsx                      pnpm build                  git push → CF webhook
+   │                              │                           │
+   ▼                              ▼                           ▼
+  vite dev (:5173) ──HMR       vite build                 CF Pages runner
+                                 │                           │  (NODE_VERSION=20)
+  pnpm test (vitest, node env)   ▼                           │  Corepack → pnpm@9.15.0
+  biome check                  dist/                         ▼
+                                ├── index.html            pnpm install && pnpm build
+                                ├── 404.html                 │
+                                ├── _headers                 ▼
+                                ├── assets/*  (hashed JS, CSS, fonts)   dist/ → CF edge
+                                └── images/*  (unhashed: portrait, project shots, og.png)
 ```
 
 ## Source layout
 
 See `CLAUDE.md > Repo layout`. Key modules:
 
-- `src/App.tsx` — page composition + scroll-position orchestration. Reads `scrollPosition` from `useScroll()`, computes the active section + color scheme via the `positionColors` array, dispatches `setColorScheme` / `setCurrSectionId` / `setShowHeader` / `setSubsectionId`.
-- `src/components/index/Section.tsx` — shared `<motion.section>` shell with opacity-only `fadeIn` (DR-8).
-- `src/store/controlSlice.ts` — single Redux slice. State: `colorScheme`, `showHeader`, `currSectionId`, `subsectionId`, `isImageModalOpen`, `imageModalSrc`.
-- `src/utils/color.ts` — `ColorScheme` → Tailwind class fragment (`bg-*`, `text-*`). Surface PINNED; safelist + grep gate enforce it.
-- `src/utils/discord.ts` — `fetch` POST to hardcoded Discord webhook. Explicit `if (!res.ok) throw`.
+- `src/App.tsx` — page composition only. No state.
+- `src/content/*.ts` — all copy as typed data (hero, about, experience, projects, certs, site). Inline emphasis uses `**strong**` / `[label](url)`.
+- `src/lib/ascii.ts` — DOM-free ASCII primitives: `gridSize`, `toAscii` (luminance → glyph ramp, with `invert` / `normalize` / `blackPoint` / `gamma`), `scramble` (decode-animation frame). Unit-tested.
+- `src/lib/rich.ts` — parser for the inline markup. Unit-tested.
+- `src/lib/reveal.ts` — DOM-free maths for the reveal trail: `valueNoise`, `thresholdMask`, `fadeFactor`, `strokePoints`. Unit-tested.
+- `src/hooks/useRevealTrail.ts` — canvas + rAF side of the reveal trail (see below).
+- `src/components/ascii/AsciiImage.tsx` — the DOM side of ASCII rendering (see below).
+- `src/components/index/Section.tsx` — `<motion.section>` shell with an optional terminal heading (`01 / about`, scrambled title, `$ command`).
+- `src/components/common/Header.tsx` — fixed status bar: prompt with the active section as cwd, section tabs, mobile menu overlay.
+- `src/hooks/useAnimatedText.ts` — writes animation frames (`scrambleFrame`) straight to `textContent` inside `requestAnimationFrame`; honours reduced motion.
+- `src/hooks/useActiveSection.ts` — `IntersectionObserver` over the section ids; returns the one crossing the viewport's middle band.
+- `src/utils/discord.ts` — `fetch` POST to the hardcoded Discord webhook; throws on `!res.ok`.
 
 ## State
 
-One Redux Toolkit slice. Single source of truth. State machine is described in [domain-model.md](domain-model.md).
+No global store. Each component owns its local state: header menu, contact form status, `AsciiImage` revealed flag (trail state lives in refs inside `useRevealTrail`). The active section comes from `useActiveSection` inside the header. Redux was removed in the ascii-redesign (plan DR-3).
+
+## ASCII image pipeline
 
 ```
-useScroll() ──scrollPosition──▶ App.tsx useEffect ──dispatch──▶ controlSlice
-                                                                    │
-                                                                    ▼
-                                                         useSelector in <Header>, <Section>,
-                                                         <Footer>, <App>'s outer div
+<AsciiImage src width height tone>
+  ResizeObserver ──frame width──┐
+  document.fonts.ready ──cell aspect (measureText)──┤
+  new Image().decode() ──image──┤
+                                ▼
+     cols = min(200, floor(width / (fontSize * aspect)))
+     rows = gridSize(...)        ─ glyph size grows so cols × advance = frame width
+     samplePixels(): halving downscale on canvas → ImageData (cols × rows)
+     toAscii(pixels, cols, rows, tone) → string
+                                ▼
+     useAnimatedText(scrambleFrame) once in view → <span class="ascii">
+     <canvas> on top draws the photo only where the reveal mask is (useRevealTrail):
+       mouse move  -> soft blobs stamped along the path into a low-res mask (1 px per 3 CSS px),
+                      bigger when faster; the mask fades exponentially (FADE_MS 1400)
+       every frame -> thresholdMask(): near-binary cutoff + drifting value noise = wobbly
+                      liquid edges that shrink as they fade; upscaled onto the canvas with
+                      destination-in over the photo
+       click/tap   -> flood: feathered circle grows from the pointer to the frame diagonal (700 ms)
+       click again -> drain: mask clipped to a circle shrinking back to the pointer (700 ms)
+     The rAF loop runs only while something is visible. Trail = photo toned like the ASCII
+     (grayscale; invert(0.92) for inverted tones); flood = true colour, re-toned after the drain.
+     Effect modelled on landonorris.com, which drives the same reveal with a WebGL fluid sim.
+     Blending: no frame border or fill. An inner wrapper carries a two-gradient feather mask
+     (edges fade over 9%), so the ASCII, trail and reveal all melt into the page; the focus ring
+     stays on the unmasked <button>. Behind it, an ambient glow <img> (124% size, blur 48px,
+     saturate 1.8, 20% opacity, darker for inverted tones) tints the page with the image's own
+     colours. Project cards clip that glow with overflow-hidden.
 ```
+
+Tone presets live with the content: the portrait uses `normalize`; light website screenshots use `invert` + `blackPoint` + `gamma < 1`.
 
 ## Styling
 
-Tailwind utility classes. Theme tokens in `tailwind.config.ts`:
+Tailwind 3.4 utilities. Dark only. Tokens in `tailwind.config.ts`:
 
 | Token | Hex | Use |
 |-------|-----|-----|
-| `blanc-100` | `#E7F2FF` | accent (light) |
-| `blanc-200` | `#054491` | accent (dark) |
-| `themeDark-500` | `#2E2A2A` | dark background |
-| `themeDark-900` | `#1F1F1F` | ultraDark background |
-| `themeLight-500` | `#EFE8DB` | light background |
-| `themeLight-900` | `#DAD6CB` | light accent |
+| `bg` | `#0b0b0a` | page background |
+| `panel` | `#121210` | cards, panels |
+| `line` | `#2a2823` | borders, rules |
+| `dim` | `#7d786d` | secondary text |
+| `ink` | `#e9e4d6` | primary text; `**strong**` renders bright ink |
+| `amber` | `#ffb000` | accent: links, prompts, figlet name, active tab |
+| `ok` / `err` | `#9fd36b` / `#ff6b57` | status lines, `+` bullets |
 
-**Safelist invariant:** `color.ts` returns 6 `bg-*` + 6 `text-*` literals. JIT detects them via the `content` glob; safelist re-lists them belt-and-suspenders. Any new prefix returned from `color.ts` (`border-*`, `from-*`, `ring-*`, ...) must update both safelist AND the P11 build-artifact grep gate, or production renders unstyled. See plan `decision.md` DR-2.
+Nothing builds class names at runtime, so there is no safelist.
 
-Fonts: `Raleway` (TTF, multiple weights) + `Zarathustra` (OTF). Loaded via `@font-face` with `font-display: swap`. Primary weights preloaded via `<link rel="preload">` in `index.html`. `public/_headers` caches them immutably.
+Fonts: Martian Mono Variable (`font-display`, `wdth`/`wght` axes, `[font-stretch:112.5%]` for headings) + IBM Plex Mono (`font-mono`, body + ASCII grids), both from `@fontsource`. Plex Mono is imported per weight from the latin subset; Martian Mono's `wdth.css` declares all four subsets, so their files land in `dist/assets/`, but `unicode-range` means browsers fetch only latin. Vite hashes them into `/assets/`. The latin subsets cover U+0000–00FF and U+2000–206F only — keep text art ASCII.
+
+`src/index.css` adds `.ascii` (line-height 1, no kerning/ligatures), `.term-btn`, and the `.crt` scanline/grain/vignette overlay on `<body>`.
 
 ## Animation
 
-framer-motion 11. Single shared variant `fadeIn = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } } }`. Applied per-section via `<Section>` (alias for `<motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeIn}>`). **No `y` transform** — would interfere with `useScroll`'s `getBoundingClientRect().top` reads that drive the color scheme.
+framer-motion 11: section fade-in, staggered reveals (hero boot log, about paragraphs, experience bullets), project card rise, mobile menu presence. Text effects (figlet + title scramble, ASCII decode) go through `useAnimatedText`, not framer-motion.
+
+Reduced motion: `src/main.tsx` wraps the app in `<MotionConfig reducedMotion="user">`, so framer-motion drops transforms and keeps fades; CSS blink/pulse/bounce are `motion-safe:` only; `useAnimatedText` writes the final text at once.
 
 ## Build pipeline
 
-`pnpm install` (Corepack ensures pnpm@9.15.0) → `vite build` runs:
-1. TS compilation via esbuild.
-2. Tailwind JIT scans `content` glob, emits CSS rules for detected classes + `safelist` entries.
-3. Vite bundles + tree-shakes; outputs to `dist/`.
-4. `public/` is copied verbatim into `dist/` (no hashing).
+`pnpm install` → `vite build`:
+1. esbuild compiles TS.
+2. Tailwind JIT scans `index.html` + `src/**/*.{ts,tsx}`.
+3. Vite bundles, hashes JS/CSS/fonts into `dist/assets/`.
+4. `public/` copies verbatim (`images/`, `404.html`, `_headers`, `favicon.ico`).
 
-Verify gates after build (per spec):
-- `grep -E 'themeLight|themeDark|blanc' dist/assets/*.css` → ≥6 hits (color rules landed).
-- `gzip -c dist/assets/index-*.js | wc -c` → ≤200000 (bundle budget).
-- `ls dist/{index.html,404.html,_headers}` → present.
+Gates: `pnpm build`, `pnpm tsc`, `pnpm check`, `pnpm test`; `gzip -c dist/assets/index-*.js | wc -c` ≤ 200000 (≈95 KB at ascii-redesign).
+
+## Caching
+
+`public/_headers` marks `/assets/*` immutable (hashed names only). `/images/*` is unhashed and keeps Cloudflare's default revalidation, so replacing a screenshot takes effect on the next deploy.
 
 ## Deploy pipeline
 
 Cloudflare Pages git integration:
-1. Push to `feat/<branch>` → CF creates a `*.pages.dev` preview deploy. Build runs on CF.
-2. Merge to main / production branch → CF promotes to the production project's primary domain.
-3. User maps `sennettlau.me` to CF via DNS (currently still on GH Pages; out of scope for this run).
+1. Push a branch → CF builds a `*.pages.dev` preview.
+2. Merge to the production branch → CF promotes to the primary domain.
+3. `sennettlau.me` DNS cutover is user-owned.
 
-Manual deploy fallback: `pnpm deploy` runs `wrangler pages deploy dist --project-name sennettlau`. Requires `wrangler login` and an existing CF Pages project.
+Manual fallback: `pnpm deploy` (`wrangler pages deploy dist --project-name sennettlau`).

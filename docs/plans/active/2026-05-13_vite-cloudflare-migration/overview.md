@@ -15,6 +15,8 @@ Replace the platform with pnpm + Vite + React + Tailwind + Biome + framer-motion
 
 ## Current state
 
+> **2026-10-07:** the visual-port phase is superseded by `docs/plans/active/2026-10-07_ascii-redesign/`, which rebuilds every section in a new design instead of porting the Chakra one. This plan closes when that branch merges.
+
 Spec drafted (`spec.md`). Awaiting `/plan-eng-review` + outside-voice pass before lock. No code changes yet.
 
 ## Links

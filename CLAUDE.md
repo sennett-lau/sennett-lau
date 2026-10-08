@@ -6,54 +6,57 @@ This file is the top-level briefing for any agent (Claude Code, Codex, etc.) wor
 
 ## What sennett-lau is
 
-Personal portfolio website for Sennett Lau, served at `sennettlau.me`. Single-page Vite + React + Tailwind SPA — Hero, Quote, About, Experience, Certs, Projects, Contact sections — with scroll-position-driven color scheme transitions and framer-motion reveal animations. No backend; contact form posts directly to a Discord webhook. Currently deploying to Cloudflare Pages (post-migration); prior Next.js + GitHub Pages stack archived under `archive/`.
+Personal portfolio website for Sennett Lau, served at `sennettlau.me`. Single-page Vite + React + Tailwind SPA in a dark, terminal / ASCII-art style — Hero, About, Experience, Projects, Certs, Contact sections. Images render as ASCII art in the browser (a liquid hover trail / tap shows the real image); text decodes in with framer-motion + `requestAnimationFrame` effects. No backend; contact form posts directly to a Discord webhook. Deploys to Cloudflare Pages; prior Next.js + GitHub Pages stack archived under `archive/`.
 
 ## Repo layout
 
 ```
 src/
-  main.tsx                React entry, mounts <App /> wrapped in Redux Provider
-  App.tsx                 Page composition + scroll-driven color-scheme orchestration
-  index.css               Tailwind directives + @font-face declarations
-  layout/Layout.tsx       Header + Footer wrapper
+  main.tsx                React entry; imports fontsource CSS (latin subsets) + index.css
+  App.tsx                 Page composition only (no state)
+  index.css               Tailwind layers + .ascii / .term-btn / .crt overlay
+  vite-env.d.ts           vite/client types (import.meta.env)
+  layout/Layout.tsx       Skip link + Header + main + Footer
+  content/                ALL COPY as typed data — site, hero, about, experience, projects, certs
+  lib/
+    ascii.ts (+ .test.ts) DOM-free: gridSize, toAscii (invert/normalize/blackPoint/gamma), scramble
+    rich.ts (+ .test.ts)  Inline markup parser: **strong**, [label](url)
+    reveal.ts (+ .test.ts) Reveal-trail maths: value noise, noisy threshold, fade, stroke points
+  hooks/
+    useAnimatedText.ts    rAF text frames (scrambleFrame) → textContent; reduced-motion aware
+    useRevealTrail.ts     Liquid reveal trail: low-res mask canvas + rAF loop (only while visible)
+    useActiveSection.ts   IntersectionObserver → id of section at viewport middle
   components/
-    common/{Header,Footer}.tsx        (port: archive — CustomLink, Highlight, HighlightedLink, TextLogo, ImageModal still TODO)
+    ascii/AsciiImage.tsx  Image → ASCII grid, liquid hover trail + click/tap flood reveal, decode animation
+    common/{Header,Footer,RichText,ScrambleText}.tsx
     index/
-      Section.tsx                     Shared <motion.section> shell (opacity-only fadeIn variant)
-      IndexHero/IndexHero.tsx         (visual port TODO — see archive/src/component/index/IndexHero/*)
-      IndexQuote/IndexQuote.tsx       (visual port TODO)
-      IndexAbout/IndexAbout.tsx       (visual port TODO)
-      IndexExperience/IndexExperience.tsx  (visual port TODO — full timeline w/ subsections)
-      IndexProjects/IndexProjects.tsx (visual port TODO — projects grid)
-      IndexCerts/IndexCerts.tsx       (visual port TODO)
-      IndexContact/IndexContact.tsx   (WORKING — form posts to Discord webhook)
-  hooks/useScroll.ts      window.scrollY observer
-  store/{index,controlSlice}.ts   Redux Toolkit (one slice: control)
-  types/{color,control,logger,index}.ts
-  utils/{color,common,discord,discord-error-alert,logger,index}.ts
+      Section.tsx         <motion.section> shell + optional terminal heading
+      Index{Hero,About,Experience,Projects,Certs,Contact}/*.tsx
+  types/{logger,index}.ts
+  utils/{common,discord,discord-error-alert,logger,index}.ts   (only discord.ts is imported today)
   config/{env,index}.ts   import.meta.env wrappers (LOG_LEVEL, DISCORD_ERROR_ALERT_URL)
 public/
-  fonts/Raleway/static/*.ttf, Zarathustra/static/*.otf
-  assets/{icons,me,projects}/*.{svg,png}
+  images/portrait.webp, images/projects/{typelite,cityuge,dklm}.webp, images/og.png   (unhashed)
   favicon.ico
-  404.html                Cloudflare Pages auto-serves on unmatched paths
-  _headers                Cache-Control: immutable for /fonts/* and /assets/*
-archive/                  Prior project (Next.js + Chakra + npm + GH Pages publish-via-docs/)
+  404.html                Self-contained dark 404; Cloudflare Pages auto-serves on unmatched paths
+  _headers                Cache-Control: immutable for /assets/* (Vite-hashed output only)
+archive/                  Prior project (Next.js + Chakra + npm + GH Pages publish-via-docs/), incl. its public/assets
   src/, public/, scripts/, next.config.js, tsconfig.json, package.json (old), .eslintrc, .prettierrc, .husky/, tailwind.config.js (old), postcss.config.js (old), README copy.md, next-env.d.ts
   docs-build-artifacts/   The build subset that used to live under docs/ for GH Pages
-index.html                Vite entry HTML (font preloads)
-vite.config.ts            React plugin + `@` → `src/` alias
-tsconfig.json             paths: { "@/*": ["src/*"] }
-tsconfig.node.json        for vite.config.ts
-tailwind.config.ts        Theme tokens (blanc, themeDark, themeLight); content glob includes src/utils/color.ts; safelist enumerates color combos
+index.html                Vite entry HTML (meta/OG tags, portrait preload, <body class="crt">)
+vite.config.ts            React plugin + `@` → `src/` alias (Vitest reads it too)
+tsconfig.json             paths: { "@/*": ["src/*"] }; includes src only
+tsconfig.node.json        composite project for vite.config.ts
+tailwind.config.ts        Dark theme tokens (bg, panel, line, dim, ink, amber, ok, err), font families, blink keyframes
 postcss.config.js         tailwindcss + autoprefixer
 biome.json                Lint + format config (replaces ESLint + Prettier + husky)
 wrangler.toml             Cloudflare Pages: pages_build_output_dir = "dist"
 package.json              packageManager: pnpm@9.15.0 (Corepack auto-detect)
+pnpm-lock.yaml            Lockfile
 docs/                     Project operating manual (alice scaffold + content)
-  README.md, todos/{overview,vite-cloudflare-migration}.md, todos/findings/
+  README.md, todos/overview.md, todos/findings/
   wiki/{README,current-status,architecture,domain-model}.md
-  plans/active/2026-05-13_vite-cloudflare-migration/{overview,spec,decision,implementation}.md
+  plans/active/{2026-05-13_vite-cloudflare-migration,2026-10-07_ascii-redesign}/{overview,spec,decision,implementation}.md
   plans/archive/, ledger/{decisions,experiences}.md
 .alice/                   Vendored alice framework — DO NOT edit by hand; update via /sync
 .claude/                  Claude Code config — relative symlinks into .alice/
@@ -65,15 +68,16 @@ CLAUDE.md (this file), LICENSE.txt, README.md
 - **Language:** TypeScript 5 (`strict: true`, target `ES2020`, `moduleResolution: Bundler`)
 - **Bundler / dev:** Vite 5 + `@vitejs/plugin-react`
 - **Frontend:** React 18 (SPA — no router; single page with section anchors)
-- **Styling:** Tailwind CSS 3.4 utility classes; theme tokens replace prior Chakra extension
-- **Animation:** framer-motion 11 (opacity-only `fadeIn` variant in `Section.tsx`)
-- **State:** Redux Toolkit 2 + react-redux 9 (single `controlSlice` — scroll-driven color scheme, header reveal, modal state)
+- **Styling:** Tailwind CSS 3.4 utility classes; dark-only token set in `tailwind.config.ts`
+- **Fonts:** `@fontsource-variable/martian-mono` (display, `wdth.css`) + `@fontsource/ibm-plex-mono` (body + ASCII, latin subset), Vite-hashed
+- **Animation:** framer-motion 11 (section fades, staggered reveals, menu presence) + `useAnimatedText` for scramble text
+- **State:** local component state only (Redux removed in ascii-redesign DR-3)
 - **HTTP:** native `fetch` (axios dropped — Discord webhook + sample API both single-shot)
-- **Test:** none configured (followup if surface grows)
+- **Test:** Vitest 3 (node env) — unit tests next to pure modules in `src/lib/`
 - **Lint / format:** Biome 1.9 — replaces ESLint + Prettier + husky
 - **Package manager:** pnpm 9.15.0 (exact pin via `"packageManager"`; Corepack auto-detects on local + Cloudflare)
 - **Deploy:** Cloudflare Pages — build via `pnpm install && pnpm build`, output dir `dist/`, project name `sennettlau`. Primary deploy is git-push via Cloudflare's GitHub integration (manual dashboard setup); `pnpm deploy` wraps `wrangler pages deploy dist`.
-- **Prior stack (archived under `archive/`)** — Next.js 13 + Chakra UI + npm + GH Pages publish-via-`docs/`. Retained for visual-port reference.
+- **Prior stack (archived under `archive/`)** — Next.js 13 + Chakra UI + npm + GH Pages publish-via-`docs/`. Retained for content reference.
 
 Commands:
 
@@ -86,6 +90,7 @@ pnpm lint           # biome lint .
 pnpm format         # biome format --write .
 pnpm check          # biome check --write . (lint + format combined)
 pnpm tsc            # tsc --noEmit
+pnpm test           # vitest run
 pnpm deploy         # wrangler pages deploy dist --project-name sennettlau (manual; primary is git-push integration)
 ```
 
@@ -142,22 +147,25 @@ Pipeline for every non-trivial task:
 
 ## Critical gotchas (project-specific)
 
-- **Tailwind safelist drift.** `src/utils/color.ts` returns Tailwind class fragments (`bg-themeLight-500`, etc.) as literal strings — JIT detects them via the `content` glob. `tailwind.config.ts` `safelist` redundantly lists the 12 combos. If you add a new prefix (`border-*`, `from-*`, `ring-*`) returned from `color.ts`, **you MUST update both safelist AND the P11 build-artifact grep gate**, or production will render unstyled (purge eats the rules). See plan `decision.md` DR-2.
-- **Hardcoded Discord webhook in `src/utils/discord.ts`.** Already public in the bundle on prior deploys. **Cloudflare Pages preview URLs (`*.pages.dev`) multiply the exposure surface.** Long-term fix is a server-side proxy (Cloudflare Worker holding the webhook). Logged as followup in `docs/plans/active/2026-05-13_vite-cloudflare-migration/.../followups`.
+- **ASCII-only text art.** The fontsource latin subsets cover U+0000–00FF and U+2000–206F — no box-drawing (`█╗═│`) or most arrows (`→ ↵`). Those glyphs fall back to another font and break monospace grids. Use ASCII (`-->`, `+`, `|`) and CSS borders. `↓ ↑ · — ©` are safe. See ascii-redesign DR-4.
+- **Experience copy needs Sennett's sign-off.** All four roles were updated with him on 2026-10-07 from his LinkedIn. Don't add claims, metrics or tools he hasn't given.
+- **Image dimensions are load-bearing.** `width`/`height` passed to `AsciiImage` (and in `src/content/projects.ts`) set the frame aspect ratio and the ASCII grid. Change them with the file. Light screenshots need a `tone` with `invert` + `blackPoint` + `gamma < 1`, or the ASCII comes out near-empty.
+- **`backdrop-filter` traps `position: fixed`.** An element with `backdrop-blur` becomes the containing block for fixed descendants. The mobile menu overlay lives outside `<header>` for this reason — keep it there.
+- **rAF loops under StrictMode.** A hook that keeps a `requestAnimationFrame` id in a ref must reset it to 0 in its unmount cleanup: StrictMode runs cleanup then remounts, and a stale non-zero id makes "is a loop running?" checks skip forever (`useRevealTrail` shipped this bug for one round). Also clamp progress computed from `performance.now()` start times — the first rAF timestamp can be earlier, giving negative progress (negative arc radius, `slice(0, -1)`).
+- **`useAnimatedText` owns `textContent`.** Elements it drives must render no React children; put accessible text in a sibling `sr-only` span and mark the animated node `aria-hidden`.
+- **Hardcoded Discord webhook in `src/utils/discord.ts`.** Already public in the bundle on prior deploys. **Cloudflare Pages preview URLs (`*.pages.dev`) multiply the exposure surface.** Long-term fix is a server-side proxy (Cloudflare Worker holding the webhook). Logged as `contact-webhook-proxy` in `docs/todos/overview.md`.
 - **Corepack expects an exact pnpm version.** `package.json#packageManager` is pinned to `pnpm@9.15.0`. Ranges (`pnpm@9.x`) break on Cloudflare's Corepack. Bump deliberately; update `NODE_VERSION=20` in the Cloudflare Pages dashboard if pnpm 10 lands.
-- **framer-motion + `useScroll` interaction.** `Section.tsx` uses opacity-only `fadeIn` (no `y` transform). A `y: 24` would shift `getBoundingClientRect().top` during the reveal, throwing off the scroll-position color logic. If you introduce a translate animation later, suppress `useScroll` reads until the animation settles. See DR-8.
 - **Biome ≠ ESLint+Prettier 1:1.** Dropped: `next/*` rules (no Next), `jsx-a11y` extension config (Biome has a subset under `a11y`). Kept: `eqeqeq`, `prefer-const`, organize-imports, `noUnusedImports`, `useExhaustiveDependencies`. Check `biome.json` before importing rules from the archived `.eslintrc`.
 - **Cloudflare Pages defaults handle the single-page case.** **No `_redirects` file.** `/` → `index.html`, unknown paths → `404.html`. Adding a `/* /index.html 200` catch-all would mask 404s. See DR-10.
-- **`public/` files are not Vite-hashed.** Fonts, `404.html`, `favicon.ico`, `_headers` keep their original paths. Don't reference them via Vite-import — use `/fonts/...` URLs.
+- **`public/` files are not Vite-hashed.** `images/*`, `404.html`, `favicon.ico`, `_headers` keep their original paths — reference them as `/images/...` URLs. Never put them under `/assets/`: `_headers` marks `/assets/*` immutable for a year, which is only safe for hashed names.
 - **`docs/` is alice content only.** No more publish-via-docs. The old build subset lives under `archive/docs-build-artifacts/`.
-- **Visual ports incomplete.** Section components are placeholder shells; full content lives at `archive/src/component/index/<Section>/*` and must be ported per-section. Header / Footer too. `IndexContact` is the exception — its Discord-webhook form is working.
 
 ## Migration-class files
 
 Files hard to revert or rebase-collide across PRs. `/pr-slicer` reads this and pushes matching files into a dedicated migration PR.
 
 - `wrangler.toml` — Cloudflare Pages config; one source of truth.
-- `tailwind.config.ts` — safelist drift breaks production rendering.
+- `tailwind.config.ts` — theme tokens every component depends on.
 - `package.json` + `pnpm-lock.yaml` — lockfile churn; merge conflict prone.
 - `vite.config.ts` — bundler config; affects every page.
 - `tsconfig.json` — path aliases load-bearing.
@@ -210,10 +218,9 @@ Skill scratch state goes to `<project-root>/.alice/mem/` (gitignored).
 
 ### Pre-PR
 
-- [ ] `pnpm build` green, `pnpm tsc --noEmit` clean, `pnpm check` clean.
+- [ ] `pnpm build` green, `pnpm tsc --noEmit` clean, `pnpm check` clean, `pnpm test` green.
 - [ ] For non-trivial change: plan folder exists, spec locked.
 - [ ] Wiki pages updated for any behavior / content / layout change.
-- [ ] Tailwind safelist + `color.ts` surface stay in sync if either changed.
 - [ ] Bundle size acceptable (target: ≤200KB gzipped main JS — verify with `gzip -c dist/assets/index-*.js | wc -c`).
 - [ ] Critical gotchas respected.
 
