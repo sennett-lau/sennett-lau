@@ -1,46 +1,36 @@
 import type { Config } from 'tailwindcss'
 
+// Dark-only terminal theme. Colours are static utilities — nothing builds class
+// names at runtime, so no safelist is needed.
 const config: Config = {
-  content: [
-    './index.html',
-    './src/**/*.{ts,tsx}',
-  ],
-  safelist: [
-    // color.ts surface is PINNED: getBackgroundColorScheme returns bg-*,
-    // getContentColorScheme returns text-*. Any new prefix MUST update both
-    // this safelist AND the build-artifact grep gate in P11.
-    'bg-blanc-100',
-    'bg-blanc-200',
-    'bg-themeDark-500',
-    'bg-themeDark-900',
-    'bg-themeLight-500',
-    'bg-themeLight-900',
-    'text-blanc-100',
-    'text-blanc-200',
-    'text-themeDark-500',
-    'text-themeDark-900',
-    'text-themeLight-500',
-    'text-themeLight-900',
-  ],
+  content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        blanc: {
-          100: '#E7F2FF',
-          200: '#054491',
+        bg: '#0b0b0a',
+        panel: '#121210',
+        line: '#2a2823',
+        dim: '#858075', // 5.0:1 on bg (WCAG AA)
+        ink: '#e9e4d6',
+        amber: {
+          DEFAULT: '#ffb000',
+          dim: '#a87400',
         },
-        themeDark: {
-          500: '#2E2A2A',
-          900: '#1F1F1F',
-        },
-        themeLight: {
-          500: '#EFE8DB',
-          900: '#DAD6CB',
-        },
+        ok: '#9fd36b',
+        err: '#ff6b57',
       },
       fontFamily: {
-        raleway: ['Raleway', 'system-ui', 'sans-serif'],
-        zarathustra: ['Zarathustra', 'serif'],
+        display: ['"Martian Mono Variable"', 'ui-monospace', 'monospace'],
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+      },
+      keyframes: {
+        blink: {
+          '0%, 49%': { opacity: '1' },
+          '50%, 100%': { opacity: '0' },
+        },
+      },
+      animation: {
+        blink: 'blink 1.1s steps(1) infinite',
       },
     },
   },
