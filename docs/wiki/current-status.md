@@ -15,7 +15,7 @@ Last update: 2026-10-08
 
 - **ascii-redesign** — awaiting review / PR. Plan: `docs/plans/active/2026-10-07_ascii-redesign/`.
 - **Live on `sennettlau.me` from the branch** — Worker `sennettlau` (static assets) on Sennett's personal Cloudflare account, custom domains `sennettlau.me` + `www`, uploaded from `feat/ascii-redesign` with `pnpm run deploy` on 2026-10-08 (ahead of the PR merge).
-- **DNS moved to Cloudflare (2026-10-08)** — nameservers `ezra`/`fiona.ns.cloudflare.com`, registrar still Porkbun. Pending: www → apex Redirect Rule (dashboard), remove the domains from the old Vercel project once resolvers have caught up (~48 h), test email forwarding.
+- **DNS moved to Cloudflare (2026-10-08)** — nameservers `ezra`/`fiona.ns.cloudflare.com`, registrar still Porkbun. `www` → apex is a Redirect Rule (`https://www.*` → `https://${1}`, 301, query kept). Pending: "Always Use HTTPS" (plain `http://` is served unredirected), remove the domains from the old Vercel project once resolvers have caught up (~48 h), test email forwarding.
 
 ## Blocked / known regressions
 
