@@ -71,3 +71,16 @@
 **Consequences:** About 20k mask pixels per frame are processed, and only while a trail is visible. There's no swirl or advection. Revisit if the site gains a WebGL layer for other reasons.
 
 Supersedes the lens part of DR-2 (the `<pre>`/text decision stands).
+
+## DR-7 — Host on Workers static assets, CLI upload to the personal account
+
+**Context:** Sennett asked to deploy to his personal Cloudflare account (laub1199@gmail.com), not the 9GAG login that Wrangler already held. He picked a CLI upload over GitHub auto-deploys. `wrangler pages project create` from an agent session was delegated by Wrangler 4.148 to Workers static assets and failed, with nothing created.
+
+**Options considered:**
+
+- **A: Pages, `--force`.** Matched the repo docs. A Pages project created by CLI upload can never be switched to Git integration.
+- **B: Workers static assets.** Cloudflare's current path for static sites. `_headers` and `404.html` carry over (`not_found_handling = "404-page"`), `account_id` is a valid config key, and the Worker can be connected to GitHub later.
+
+**Decision:** B (Sennett's call). Wrangler upgraded 3 → 4 so the `personal` auth profile is honoured; `account_id` in `wrangler.toml` pins the account.
+
+**Consequences:** URL is `sennettlau.laub1199.workers.dev` until `sennettlau.me` is attached. Deploys are manual (`pnpm build && pnpm run deploy`). The contact-webhook proxy becomes a Worker script rather than a Pages Function. Supersedes migration DR-10's reliance on Pages 404 defaults.

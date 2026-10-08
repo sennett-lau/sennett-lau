@@ -2,21 +2,21 @@
 
 ## System
 
-Static SPA. Build → `dist/` → Cloudflare Pages edge. No backend, no SSR, no API routes. The only outbound call is the contact form, which POSTs to a Discord webhook from the visitor's browser.
+Static SPA. Build → `dist/` → Cloudflare Workers static assets (an assets-only Worker, no script). No backend, no SSR, no API routes. The only outbound call is the contact form, which POSTs to a Discord webhook from the visitor's browser.
 
 ```
 LOCAL DEV                       BUILD                        DEPLOY
-  src/*.tsx                      pnpm build                  git push → CF webhook
-   │                              │                           │
+  src/*.tsx                      pnpm build                  pnpm run deploy
+   │                              │                           │  (wrangler deploy, personal profile)
    ▼                              ▼                           ▼
-  vite dev (:5173) ──HMR       vite build                 CF Pages runner
-                                 │                           │  (NODE_VERSION=20)
-  pnpm test (vitest, node env)   ▼                           │  Corepack → pnpm@9.15.0
+  vite dev (:5173) ──HMR       vite build                 Worker `sennettlau`
+                                 │                           │  [assets] directory = ./dist
+  pnpm test (vitest, node env)   ▼                           │  not_found_handling = 404-page
   biome check                  dist/                         ▼
-                                ├── index.html            pnpm install && pnpm build
-                                ├── 404.html                 │
-                                ├── _headers                 ▼
-                                ├── assets/*  (hashed JS, CSS, fonts)   dist/ → CF edge
+                                ├── index.html            dist/ → CF edge
+                                ├── 404.html
+                                ├── _headers
+                                ├── assets/*  (hashed JS, CSS, fonts)
                                 └── images/*  (unhashed: portrait, project shots, og.png)
 ```
 
@@ -117,9 +117,10 @@ Gates: `pnpm build`, `pnpm tsc`, `pnpm check`, `pnpm test`; `gzip -c dist/assets
 
 ## Deploy pipeline
 
-Cloudflare Pages git integration:
-1. Push a branch → CF builds a `*.pages.dev` preview.
-2. Merge to the production branch → CF promotes to the primary domain.
-3. `sennettlau.me` DNS cutover is user-owned.
+CLI upload to Cloudflare Workers static assets (ascii-redesign DR-7):
+1. `pnpm build` → `dist/`.
+2. `pnpm run deploy` (`wrangler deploy`) uploads `dist/` to the Worker `sennettlau` on the personal account (`account_id` in `wrangler.toml`). Live at `https://sennettlau.laub1199.workers.dev`.
+3. No git integration yet; the Worker can be connected to GitHub later (Workers Builds).
+4. Attaching `sennettlau.me` and the DNS move are user-owned.
 
-Manual fallback: `pnpm deploy` (`wrangler pages deploy dist --project-name sennettlau`).
+Auth: Wrangler 4 `personal` profile, bound to `~/Documents/code/mine`. `pnpm deploy` (without `run`) is pnpm's built-in workspace command, not this script.

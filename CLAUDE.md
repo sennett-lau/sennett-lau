@@ -6,7 +6,7 @@ This file is the top-level briefing for any agent (Claude Code, Codex, etc.) wor
 
 ## What sennett-lau is
 
-Personal portfolio website for Sennett Lau, served at `sennettlau.me`. Single-page Vite + React + Tailwind SPA in a dark, terminal / ASCII-art style — Hero, About, Experience, Projects, Certs, Contact sections. Images render as ASCII art in the browser (a liquid hover trail / tap shows the real image); text decodes in with framer-motion + `requestAnimationFrame` effects. No backend; contact form posts directly to a Discord webhook. Deploys to Cloudflare Pages; prior Next.js + GitHub Pages stack archived under `archive/`.
+Personal portfolio website for Sennett Lau, served at `sennettlau.me`. Single-page Vite + React + Tailwind SPA in a dark, terminal / ASCII-art style — Hero, About, Experience, Projects, Certs, Contact sections. Images render as ASCII art in the browser (a liquid hover trail / tap shows the real image); text decodes in with framer-motion + `requestAnimationFrame` effects. No backend; contact form posts directly to a Discord webhook. Deploys to Cloudflare Workers (static assets, Sennett's personal account); prior Next.js + GitHub Pages stack archived under `archive/`.
 
 ## Repo layout
 
@@ -38,7 +38,7 @@ src/
 public/
   images/portrait.webp, images/projects/{typelite,cityuge,dklm}.webp, images/og.png   (unhashed)
   favicon.ico
-  404.html                Self-contained dark 404; Cloudflare Pages auto-serves on unmatched paths
+  404.html                Self-contained dark 404; served for unmatched paths (`not_found_handling = "404-page"`)
   _headers                Cache-Control: immutable for /assets/* (Vite-hashed output only)
 archive/                  Prior project (Next.js + Chakra + npm + GH Pages publish-via-docs/), incl. its public/assets
   src/, public/, scripts/, next.config.js, tsconfig.json, package.json (old), .eslintrc, .prettierrc, .husky/, tailwind.config.js (old), postcss.config.js (old), README copy.md, next-env.d.ts
@@ -50,7 +50,7 @@ tsconfig.node.json        composite project for vite.config.ts
 tailwind.config.ts        Dark theme tokens (bg, panel, line, dim, ink, amber, ok, err), font families, blink keyframes
 postcss.config.js         tailwindcss + autoprefixer
 biome.json                Lint + format config (replaces ESLint + Prettier + husky)
-wrangler.toml             Cloudflare Pages: pages_build_output_dir = "dist"
+wrangler.toml             Assets-only Worker: [assets] directory = "./dist", account_id pinned to the personal account
 package.json              packageManager: pnpm@9.15.0 (Corepack auto-detect)
 pnpm-lock.yaml            Lockfile
 docs/                     Project operating manual (alice scaffold + content)
@@ -76,7 +76,7 @@ CLAUDE.md (this file), LICENSE.txt, README.md
 - **Test:** Vitest 3 (node env) — unit tests next to pure modules in `src/lib/`
 - **Lint / format:** Biome 1.9 — replaces ESLint + Prettier + husky
 - **Package manager:** pnpm 9.15.0 (exact pin via `"packageManager"`; Corepack auto-detects on local + Cloudflare)
-- **Deploy:** Cloudflare Pages — build via `pnpm install && pnpm build`, output dir `dist/`, project name `sennettlau`. Primary deploy is git-push via Cloudflare's GitHub integration (manual dashboard setup); `pnpm deploy` wraps `wrangler pages deploy dist`.
+- **Deploy:** Cloudflare Workers static assets (Wrangler 4), Worker `sennettlau` on Sennett's personal account, live at `https://sennettlau.laub1199.workers.dev`. CLI upload: `pnpm build && pnpm run deploy` (`wrangler deploy`). No git integration yet (a Worker can be connected to GitHub later). `sennettlau.me` is not attached yet.
 - **Prior stack (archived under `archive/`)** — Next.js 13 + Chakra UI + npm + GH Pages publish-via-`docs/`. Retained for content reference.
 
 Commands:
@@ -91,7 +91,7 @@ pnpm format         # biome format --write .
 pnpm check          # biome check --write . (lint + format combined)
 pnpm tsc            # tsc --noEmit
 pnpm test           # vitest run
-pnpm deploy         # wrangler pages deploy dist --project-name sennettlau (manual; primary is git-push integration)
+pnpm run deploy     # wrangler deploy (uploads dist/; run pnpm build first). Not `pnpm deploy`: that is pnpm's built-in
 ```
 
 Deep architecture: `docs/wiki/architecture.md`. Domain model: `docs/wiki/domain-model.md`.
@@ -131,7 +131,7 @@ Pipeline for every non-trivial task:
 5. **Verify.** Build green (`pnpm build`), types clean (`pnpm tsc`), Biome clean (`pnpm check`). UI work → `/qa` (or `browse`).
 6. **Review the diff.** `/review` against base — fresh sub-agent.
 7. **Document.** Wiki updates in the same PR per `.claude/rules/documentation-updates.md`.
-8. **Ship.** PR + merge + Cloudflare deploys via git integration.
+8. **Ship.** PR + merge, then `pnpm build && pnpm run deploy` from `main` (ask first: it publishes).
 9. **Retro.** `.claude/rules/post-feature-retro.md` — archive plan + wiki + experiences + decisions + todo.
 
 ## Working style
@@ -153,10 +153,11 @@ Pipeline for every non-trivial task:
 - **`backdrop-filter` traps `position: fixed`.** An element with `backdrop-blur` becomes the containing block for fixed descendants. The mobile menu overlay lives outside `<header>` for this reason — keep it there.
 - **rAF loops under StrictMode.** A hook that keeps a `requestAnimationFrame` id in a ref must reset it to 0 in its unmount cleanup: StrictMode runs cleanup then remounts, and a stale non-zero id makes "is a loop running?" checks skip forever (`useRevealTrail` shipped this bug for one round). Also clamp progress computed from `performance.now()` start times — the first rAF timestamp can be earlier, giving negative progress (negative arc radius, `slice(0, -1)`).
 - **`useAnimatedText` owns `textContent`.** Elements it drives must render no React children; put accessible text in a sibling `sr-only` span and mark the animated node `aria-hidden`.
-- **Hardcoded Discord webhook in `src/utils/discord.ts`.** Already public in the bundle on prior deploys. **Cloudflare Pages preview URLs (`*.pages.dev`) multiply the exposure surface.** Long-term fix is a server-side proxy (Cloudflare Worker holding the webhook). Logged as `contact-webhook-proxy` in `docs/todos/overview.md`.
-- **Corepack expects an exact pnpm version.** `package.json#packageManager` is pinned to `pnpm@9.15.0`. Ranges (`pnpm@9.x`) break on Cloudflare's Corepack. Bump deliberately; update `NODE_VERSION=20` in the Cloudflare Pages dashboard if pnpm 10 lands.
+- **Hardcoded Discord webhook in `src/utils/discord.ts`.** Already public in the bundle on prior deploys. **Every public URL (`*.workers.dev`, preview URLs) multiplies the exposure surface.** Long-term fix is a server-side proxy (Cloudflare Worker holding the webhook). Logged as `contact-webhook-proxy` in `docs/todos/overview.md`.
+- **Corepack expects an exact pnpm version.** `package.json#packageManager` is pinned to `pnpm@9.15.0`. Ranges (`pnpm@9.x`) break on Cloudflare's Corepack. Bump deliberately; if Cloudflare builds are connected later, set `NODE_VERSION=20` there when pnpm 10 lands.
 - **Biome ≠ ESLint+Prettier 1:1.** Dropped: `next/*` rules (no Next), `jsx-a11y` extension config (Biome has a subset under `a11y`). Kept: `eqeqeq`, `prefer-const`, organize-imports, `noUnusedImports`, `useExhaustiveDependencies`. Check `biome.json` before importing rules from the archived `.eslintrc`.
-- **Cloudflare Pages defaults handle the single-page case.** **No `_redirects` file.** `/` → `index.html`, unknown paths → `404.html`. Adding a `/* /index.html 200` catch-all would mask 404s. See DR-10.
+- **404 handling lives in `wrangler.toml`.** `not_found_handling = "404-page"` serves `dist/404.html` with a 404 status. **No `_redirects` file** and never `"single-page-application"`: an `index.html` fallback would mask 404s. See ascii-redesign DR-7 (supersedes DR-10's Pages defaults).
+- **Two Cloudflare logins on this Mac.** Wrangler's `default` profile is the 9GAG login; the `personal` profile (laub1199@gmail.com) is bound to `~/Documents/code/mine` (`wrangler auth list`). `account_id` in `wrangler.toml` makes a deploy under the wrong login fail rather than land on the company account. Check `pnpm exec wrangler whoami` before anything that writes. When an agent runs `wrangler pages ...` on a new static project, Wrangler 4.108+ delegates to Workers; that's why this is a Worker, not a Pages project.
 - **`public/` files are not Vite-hashed.** `images/*`, `404.html`, `favicon.ico`, `_headers` keep their original paths — reference them as `/images/...` URLs. Never put them under `/assets/`: `_headers` marks `/assets/*` immutable for a year, which is only safe for hashed names.
 - **`docs/` is alice content only.** No more publish-via-docs. The old build subset lives under `archive/docs-build-artifacts/`.
 
@@ -164,7 +165,7 @@ Pipeline for every non-trivial task:
 
 Files hard to revert or rebase-collide across PRs. `/pr-slicer` reads this and pushes matching files into a dedicated migration PR.
 
-- `wrangler.toml` — Cloudflare Pages config; one source of truth.
+- `wrangler.toml` — Cloudflare Workers config (assets dir, 404 handling, account pin); one source of truth.
 - `tailwind.config.ts` — theme tokens every component depends on.
 - `package.json` + `pnpm-lock.yaml` — lockfile churn; merge conflict prone.
 - `vite.config.ts` — bundler config; affects every page.

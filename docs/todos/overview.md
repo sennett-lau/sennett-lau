@@ -9,7 +9,7 @@ Live backlog. Auto-loaded each session. Per-TODO detail lives in `docs/todos/<sl
 
 ## Backlog
 
-- **contact-webhook-proxy** — Move the Discord webhook behind a Cloudflare Pages Function (`functions/api/contact.ts`) holding it as a secret; rotate the current webhook after. It has been public in every bundle. (P1, M)
+- **contact-webhook-proxy** — Move the Discord webhook behind the Worker (a `main` script for `/api/contact` with `run_worker_first = ["/api/*"]`, webhook as a secret); rotate the current webhook after. It has been public in every bundle. (P1, M)
 - **pre-commit-hook** — Wire `lefthook` to run `pnpm check` + `pnpm test` (Husky was archived). (P3, S)
 - **dead-utils** — `src/utils/logger.ts`, `discord-error-alert.ts`, `common.ts` and `src/config/` have no importers (pre-existing). Delete or wire up. (P3, S)
 
