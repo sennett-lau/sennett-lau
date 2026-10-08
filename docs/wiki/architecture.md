@@ -119,8 +119,8 @@ Gates: `pnpm build`, `pnpm tsc`, `pnpm check`, `pnpm test`; `gzip -c dist/assets
 
 CLI upload to Cloudflare Workers static assets (ascii-redesign DR-7):
 1. `pnpm build` → `dist/`.
-2. `pnpm run deploy` (`wrangler deploy`) uploads `dist/` to the Worker `sennettlau` on the personal account (`account_id` in `wrangler.toml`). Live at `https://sennettlau.laub1199.workers.dev`.
+2. `pnpm run deploy` (`wrangler deploy`) uploads `dist/` to the Worker `sennettlau` on the personal account (`account_id` in `wrangler.toml`), served on the custom domains `sennettlau.me` and `www.sennettlau.me` (workers.dev / preview URLs off).
 3. No git integration yet; the Worker can be connected to GitHub later (Workers Builds).
-4. Attaching `sennettlau.me` and the DNS move are user-owned.
+4. DNS: zone `sennettlau.me` on the personal Cloudflare account; registrar Porkbun. Custom-domain records are created by Wrangler — don't add A/CNAME records for the apex or `www` by hand (a CNAME on the hostname blocks the custom domain). `www` → apex is a Cloudflare Redirect Rule.
 
 Auth: Wrangler 4 `personal` profile, bound to `~/Documents/code/mine`. `pnpm deploy` (without `run`) is pnpm's built-in workspace command, not this script.

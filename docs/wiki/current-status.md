@@ -14,8 +14,8 @@ Last update: 2026-10-08
 ## In flight
 
 - **ascii-redesign** — awaiting review / PR. Plan: `docs/plans/active/2026-10-07_ascii-redesign/`.
-- **Deployed (preview of the branch)** — Worker `sennettlau` (static assets) on Sennett's personal Cloudflare account, `https://sennettlau.laub1199.workers.dev`, uploaded from `feat/ascii-redesign` with `pnpm run deploy` on 2026-10-08.
-- **Custom domain** — `sennettlau.me` still points at the old host; attaching it to the Worker (and the DNS move) is user-owned.
+- **Live on `sennettlau.me` from the branch** — Worker `sennettlau` (static assets) on Sennett's personal Cloudflare account, custom domains `sennettlau.me` + `www`, uploaded from `feat/ascii-redesign` with `pnpm run deploy` on 2026-10-08 (ahead of the PR merge).
+- **DNS moved to Cloudflare (2026-10-08)** — nameservers `ezra`/`fiona.ns.cloudflare.com`, registrar still Porkbun. Pending: www → apex Redirect Rule (dashboard), remove the domains from the old Vercel project once resolvers have caught up (~48 h), test email forwarding.
 
 ## Blocked / known regressions
 

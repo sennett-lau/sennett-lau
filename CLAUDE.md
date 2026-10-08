@@ -50,7 +50,7 @@ tsconfig.node.json        composite project for vite.config.ts
 tailwind.config.ts        Dark theme tokens (bg, panel, line, dim, ink, amber, ok, err), font families, blink keyframes
 postcss.config.js         tailwindcss + autoprefixer
 biome.json                Lint + format config (replaces ESLint + Prettier + husky)
-wrangler.toml             Assets-only Worker: [assets] directory = "./dist", account_id pinned to the personal account
+wrangler.toml             Assets-only Worker: [assets] directory = "./dist", account_id pinned, custom domains sennettlau.me + www
 package.json              packageManager: pnpm@9.15.0 (Corepack auto-detect)
 pnpm-lock.yaml            Lockfile
 docs/                     Project operating manual (alice scaffold + content)
@@ -76,7 +76,7 @@ CLAUDE.md (this file), LICENSE.txt, README.md
 - **Test:** Vitest 3 (node env) — unit tests next to pure modules in `src/lib/`
 - **Lint / format:** Biome 1.9 — replaces ESLint + Prettier + husky
 - **Package manager:** pnpm 9.15.0 (exact pin via `"packageManager"`; Corepack auto-detects on local + Cloudflare)
-- **Deploy:** Cloudflare Workers static assets (Wrangler 4), Worker `sennettlau` on Sennett's personal account, live at `https://sennettlau.laub1199.workers.dev`. CLI upload: `pnpm build && pnpm run deploy` (`wrangler deploy`). No git integration yet (a Worker can be connected to GitHub later). `sennettlau.me` is not attached yet.
+- **Deploy:** Cloudflare Workers static assets (Wrangler 4), Worker `sennettlau` on Sennett's personal account, served on the custom domains `sennettlau.me` + `www.sennettlau.me` (workers.dev and preview URLs off). CLI upload: `pnpm build && pnpm run deploy` (`wrangler deploy`). No git integration yet (a Worker can be connected to GitHub later). DNS: zone `sennettlau.me` on the personal Cloudflare account (registrar stays Porkbun); `typelite` CNAME → GitHub Pages (DNS only) and Porkbun email-forwarding MX/SPF live there too.
 - **Prior stack (archived under `archive/`)** — Next.js 13 + Chakra UI + npm + GH Pages publish-via-`docs/`. Retained for content reference.
 
 Commands:
