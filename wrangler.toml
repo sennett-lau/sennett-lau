@@ -6,8 +6,21 @@ name = "sennettlau"
 # instead of touching that account.
 account_id = "10396c878441feb82a28c26e51de039c"
 compatibility_date = "2026-10-08"
+# Served only on the custom domains below; no *.workers.dev or preview URLs.
+workers_dev = false
+preview_urls = false
 
 [assets]
 directory = "./dist"
 # Unknown paths get dist/404.html with a 404 status (no SPA fallback).
 not_found_handling = "404-page"
+
+# sennettlau.me and www on the personal account's zone. www is redirected
+# to the bare domain by a Cloudflare Redirect Rule (dashboard).
+[[routes]]
+pattern = "sennettlau.me"
+custom_domain = true
+
+[[routes]]
+pattern = "www.sennettlau.me"
+custom_domain = true
