@@ -129,3 +129,83 @@ Append-only. One entry per shipped piece of work. Query-only.
 **Cause:** with `routes` set and `workers_dev` unset, Wrangler 4 disables workers.dev (and preview URLs) on deploy.
 **Fix:** set `workers_dev` / `preview_urls` explicitly in `wrangler.toml` (both `false` here, on purpose).
 **Recurs in:** any Worker that gains routes after shipping on workers.dev.
+
+---
+
+## 2026-10-09 — Contact webhook proxy (shipped)
+
+**Plan:** `docs/plans/archive/2026-10-09_contact-webhook-proxy/`. Decisions: contact-webhook-proxy DR-1..DR-3 in `docs/ledger/decisions.md`.
+
+**What shipped:** `POST /api/contact` on the site's Worker (`run_worker_first = ["/api/*"]`). It validates the payload (`src/lib/contact.ts`), verifies a Cloudflare Turnstile token, then forwards one embed to a new Discord webhook ("Contact.Me"). The webhook and the Turnstile secret are Worker secrets. The form loads Turnstile on first focus (managed, `interaction-only`). The hardcoded webhook, scraped from the bundle and used for spam, was deleted on Discord and removed from `src/`.
+
+**What worked:**
+- Shared parser for the form and the Worker: one set of limits, and the client rejects bad fields before spending a single-use token.
+- Testing the Worker through `worker.fetch()` with only global `fetch` stubbed (Turnstile and Discord are the boundary), plus mutation checks (always-pass Turnstile, no `allowed_mentions`, no escaping) to prove the tests bite.
+- Local end to end with Turnstile's dummy keys and a 15-line Python webhook stub, then headless Chromium for the lazy load, double send, blocked-script retry and the forced-interactive widget at 360 px.
+- Two fresh reviewers (code + security) in parallel found five real issues the tests didn't: streamed body cap, markdown and masked links, URL in fetch errors, a one-shot failure that disabled the form for good, and the dummy key on `http://www`.
+- Secrets never touched the transcript:
+  - The Turnstile secret went from the `wrangler turnstile widget create --json` output into `wrangler secret put` through a private temp file.
+  - The Discord URL went from Sennett's clipboard, after a match/no-match format check, via `pbpaste | wrangler secret put`.
+
+**What burned:**
+- I gave Sennett dashboard steps for the Turnstile widget before checking the CLI. `wrangler turnstile widget create` exists (alpha), and the personal OAuth token has `challenge-widgets.write`. He had to ask "could you create it yourself?"
+- The spec claimed asset misses would reach the script; they don't (see bug pattern below). The comments, DR-1 and CLAUDE.md had to be corrected after review.
+- A code reviewer reported a "doubled gap" from an empty widget div; measuring showed 32 px either way (the margin collapses through the empty box). Measure before acting on layout claims.
+
+**Do differently next time:**
+- Before writing setup steps for the user, check `wrangler --help` and the token scopes (`wrangler whoami`) for a CLI path.
+- Verify routing assumptions with a throwaway Worker under `wrangler dev` before writing them into the spec.
+
+---
+
+## 2026-10-09 — Bug pattern: `run_worker_first` list keeps asset misses off the Worker
+
+**Symptom:** an `env.ASSETS.fetch` fallback "for 404s" and its unit test described a path production never takes.
+**Cause:** with `run_worker_first = ["/api/*"]`, the asset layer applies `not_found_handling` itself. Only matching paths reach the script; misses get `404.html` without running it.
+**Fix:** checked with a throwaway Worker answering 299 under `wrangler dev` (`/nope` → 404 from assets, `/api/x` → 299). The fallback is kept as a labelled safety net.
+**Recurs in:** any Workers static-assets project that mixes a script with `not_found_handling`.
+
+---
+
+## 2026-10-09 — Bug pattern: `request.arrayBuffer()` defeats a body-size cap
+
+**Symptom:** the 16 KB cap rejected a chunked body only after reading all of it (a reviewer read 8 MiB before the 413).
+**Cause:** a chunked body has no Content-Length, so the header check passes, and `arrayBuffer()` / `text()` / `json()` buffer everything before any size check.
+**Fix:** read `request.body.getReader()`, count bytes, `reader.cancel()` past the cap (`worker/index.ts` `readBody`). Test: an endless `ReadableStream` gets a 413 after fewer than 40 pulls; it hung before.
+**Recurs in:** every Worker or fetch handler that caps request bodies.
+
+---
+
+## 2026-10-09 — Bug pattern: Discord webhooks render visitor markdown and masked links
+
+**Symptom:** a reviewer showed that an email like `[invoice.pdf](https://evil.example/x)@a.co` passes the email check and renders as a disguised link in the embed.
+**Cause:** embed descriptions and field values support markdown, including masked links. `allowed_mentions: { parse: [] }` stops pings but not formatting.
+**Fix:** message in a code block (any ``` inside is broken with a zero-width space); name and email are backslash-escaped for `` \`*_~|>#<[]()- ``.
+**Recurs in:** any webhook or bot that posts user-supplied text to Discord (Slack mrkdwn has the same issue with `<url|label>`).
+
+---
+
+## 2026-10-09 — Bug pattern: fetch errors can quote a secret URL into logs
+
+**Symptom:** the plan said "never log the webhook URL", but `console.error(err)` on a failed `fetch(webhookUrl)` can include it. workerd's "Fetch API cannot load: <url>" does.
+**Cause:** a webhook URL is itself the credential, and network errors carry the URL.
+**Fix:** catch the fetch and rethrow `new Error(\`Discord webhook unreachable: ${err.name}\`)`; bad responses log the status only. A test asserts the URL never reaches `console.error`.
+**Recurs in:** anything that calls a capability URL (webhooks, presigned URLs, tokens in query strings).
+
+---
+
+## 2026-10-09 — Bug pattern: one-shot lazy loader leaves the form disabled forever
+
+**Symptom:** with `challenges.cloudflare.com` blocked, the form showed "try again", but the submit button stayed disabled with no way back.
+**Cause:** the effect that loads Turnstile depends only on `[container, enabled]`; after a failure neither changes and the component never unmounts, so "a later mount retries" never happened.
+**Fix:** an `attempt` counter in the effect deps, bumped by `retry()` on the form's next focus (`useTurnstile.ts`); browser-checked by blocking, then allowing, the script.
+**Recurs in:** any lazily loaded third-party script (maps, payments, captcha) behind a "load once" promise.
+
+---
+
+## 2026-10-09 — Bug pattern: zsh mangles unquoted URLs and `=` words
+
+**Symptom:** `curl … https://www.sennettlau.me/about?x=1` failed with "no matches found"; `echo =====` failed with "==== not found".
+**Cause:** zsh globs `?` and fails on no match by default; a word starting with `=` triggers `=cmd` path expansion.
+**Fix:** quote URLs with `?`, `&` or `*`; use `-----` for separators. Also: macOS has no `timeout`, so a hung `timeout 60 vitest …` printed nothing; use the Bash tool's own timeout.
+**Recurs in:** every shell one-liner on this Mac.

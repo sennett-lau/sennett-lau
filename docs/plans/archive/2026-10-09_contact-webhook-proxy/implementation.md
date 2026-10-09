@@ -48,3 +48,23 @@ Running log. Append-only while the feature is active. Freezes on archive.
   - Guarding against the dummy secret in production (needs someone to type it into `wrangler secret put`).
   - The dead webhook token in `archive/`: `GET` on it returns 404 "Unknown Webhook".
 - **Checks:** `pnpm biome ci .`, `pnpm tsc`, `pnpm test` (63), `pnpm build` (98.6 KB gzipped) green; browser e2e rerun green.
+
+## 2026-10-09 — ship
+
+- PR: https://github.com/sennett-lau/sennett-lau/pull/2 (merge `e76a521`); deployed from `main`, Worker version `63837a6f-d3d9-4490-820f-f6f8c0a8a9ff`.
+- Turnstile widget "sennettlau.me contact" (managed, domain `sennettlau.me`) created with `wrangler turnstile widget create` (alpha); the personal OAuth token has `challenge-widgets.write`. Its secret was piped from the create output into `wrangler secret put TURNSTILE_SECRET_KEY` and never printed.
+- New Discord webhook "Contact.Me" created by Sennett. He copied it; it was format-checked from the clipboard and piped with `pbpaste | wrangler secret put DISCORD_WEBHOOK_URL`, never printed.
+- Live checks:
+  - `/` 200; `/nope` → `404.html`/404; `/assets/*` immutable
+  - the bundle has the sitekey and no webhook URL
+  - GET `/api/contact` → 405 `Allow: POST`; `/api/nope` → JSON 404; bad body → 400
+  - before the webhook secret: valid shape → 500 "not configured"; after: fake token → 403
+  - `www` → 301 apex; `typelite` 200
+- Sennett sent a real message from sennettlau.me and confirmed it arrived in Discord.
+- Post-feature retro:
+  - [x] Archive move (folder → `docs/plans/archive/`)
+  - [x] `docs/wiki/current-status.md` updated (wiki-maintainer)
+  - [x] Other wiki pages updated: `architecture.md` (wiki-maintainer pass)
+  - [x] `docs/ledger/experiences.md` appended
+  - [x] `docs/ledger/decisions.md` appended
+  - [x] `docs/todos/overview.md` struck

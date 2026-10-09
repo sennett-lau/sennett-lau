@@ -1,6 +1,6 @@
 # Domain model
 
-The site's "domain" is its content. All copy lives in `src/content/*.ts` as typed data; components only render it.
+The site's "domain" is its content. All copy lives in `src/content/*.ts` as typed data; components only render it. The one piece of visitor input is the [contact payload](#contact-payload).
 
 ## Content files
 
@@ -47,3 +47,22 @@ Width/height in content must match the file — they set the frame's aspect rati
 ## Anchor ids
 
 Sections: `hero`, `about`, `experience`, `projects`, `certs`, `contact` (header tabs and in-page links target these). Per-item: `experience-<id>`, `project-<slug>`.
+
+## Contact payload
+
+`src/lib/contact.ts` exports `Contact`, `CONTACT_LIMITS` and `parseContact`. The form and `worker/index.ts` both run `parseContact`, so they always agree. Nothing is stored: Discord is the only sink ([Contact API](architecture.md#contact-api)).
+
+```ts
+type Contact = { name: string; email: string; message: string; token: string }  // token = Turnstile response
+```
+
+| Field | Rule (`CONTACT_LIMITS`) |
+|-------|------|
+| `name` | trimmed, 1–100 chars |
+| `email` | trimmed, ≤ 254 chars, `x@y` shape (a browser's `type="email"` rule) |
+| `message` | trimmed, 1–2000 chars |
+| `token` | trimmed, 1–2048 chars |
+
+`parseContact` returns the trimmed `Contact`, or `null` if the body isn't an object (arrays and `null` fail too) or any field is missing, not a string, empty after trimming or too long. Lengths are JS `.length` (UTF-16 code units), the same unit as the inputs' `maxLength`, which come from `CONTACT_LIMITS`.
+
+Discord's embed caps bound the limits. The Worker escapes name and email markdown (worst case 2× length, field cap 1024). It wraps the message in a code block and adds a zero-width space after each backtick (worst case 2× + 8 = 4008, description cap 4096). Raise a limit only if its worst case still fits.
