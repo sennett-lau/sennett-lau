@@ -6,7 +6,7 @@ This file is the top-level briefing for any agent (Claude Code, Codex, etc.) wor
 
 ## What sennett-lau is
 
-Personal portfolio website for Sennett Lau, served at `sennettlau.me`. Single-page Vite + React + Tailwind SPA in a dark, terminal / ASCII-art style — Hero, About, Experience, Projects, Certs, Contact sections. Images render as ASCII art in the browser (a liquid hover trail / tap shows the real image); text decodes in with framer-motion + `requestAnimationFrame` effects. No backend; contact form posts directly to a Discord webhook. Deploys to Cloudflare Workers (static assets, Sennett's personal account); prior Next.js + GitHub Pages stack archived under `archive/`.
+Personal portfolio website for Sennett Lau, served at `sennettlau.me`. Single-page Vite + React + Tailwind SPA in a dark, terminal / ASCII-art style — Hero, About, Experience, Projects, Certs, Contact sections. Images render as ASCII art in the browser (a liquid hover trail / tap shows the real image); text decodes in with framer-motion + `requestAnimationFrame` effects. One API route: the contact form posts to `/api/contact` on the site's Worker, which checks a Cloudflare Turnstile token and forwards to Discord (webhook held as a Worker secret). Deploys to Cloudflare Workers (static assets + that script, Sennett's personal account); prior Next.js + GitHub Pages stack archived under `archive/`.
 
 ## Repo layout
 
@@ -22,10 +22,12 @@ src/
     ascii.ts (+ .test.ts) DOM-free: gridSize, toAscii (invert/normalize/blackPoint/gamma), scramble
     rich.ts (+ .test.ts)  Inline markup parser: **strong**, [label](url)
     reveal.ts (+ .test.ts) Reveal-trail maths: value noise, noisy threshold, fade, stroke points
+    contact.ts (+ .test.ts) Contact payload limits + parseContact; shared by the form and worker/
   hooks/
     useAnimatedText.ts    rAF text frames (scrambleFrame) → textContent; reduced-motion aware
     useRevealTrail.ts     Liquid reveal trail: low-res mask canvas + rAF loop (only while visible)
     useActiveSection.ts   IntersectionObserver → id of section at viewport middle
+    useTurnstile.ts       Loads Turnstile on demand, renders the widget, exposes token + reset
   components/
     ascii/AsciiImage.tsx  Image → ASCII grid, liquid hover trail + click/tap flood reveal, decode animation
     common/{Header,Footer,RichText,ScrambleText}.tsx
@@ -33,8 +35,11 @@ src/
       Section.tsx         <motion.section> shell + optional terminal heading
       Index{Hero,About,Experience,Projects,Certs,Contact}/*.tsx
   types/{logger,index}.ts
-  utils/{common,discord,discord-error-alert,logger,index}.ts   (only discord.ts is imported today)
+  utils/{common,discord-error-alert,logger,index}.ts   (no importers today: dead-utils TODO)
   config/{env,index}.ts   import.meta.env wrappers (LOG_LEVEL, DISCORD_ERROR_ALERT_URL)
+worker/
+  index.ts (+ .test.ts)   Worker script: POST /api/contact (validate → Turnstile siteverify → Discord), else env.ASSETS
+  tsconfig.json           WebWorker lib, no generated types (contact-webhook-proxy DR-3)
 public/
   images/portrait.webp, images/projects/{typelite,cityuge,dklm}.webp, images/og.png   (unhashed)
   favicon.ico
@@ -50,13 +55,13 @@ tsconfig.node.json        composite project for vite.config.ts
 tailwind.config.ts        Dark theme tokens (bg, panel, line, dim, ink, amber, ok, err), font families, blink keyframes
 postcss.config.js         tailwindcss + autoprefixer
 biome.json                Lint + format config (replaces ESLint + Prettier + husky)
-wrangler.toml             Assets-only Worker: [assets] directory = "./dist", account_id pinned, custom domains sennettlau.me + www
+wrangler.toml             Worker: main = worker/index.ts, [assets] ./dist with run_worker_first = ["/api/*"], account_id pinned, custom domains sennettlau.me + www
 package.json              packageManager: pnpm@9.15.0 (Corepack auto-detect)
 pnpm-lock.yaml            Lockfile
 docs/                     Project operating manual (alice scaffold + content)
   README.md, todos/overview.md, todos/findings/
   wiki/{README,current-status,architecture,domain-model}.md
-  plans/active/            (empty: nothing in flight)
+  plans/active/2026-10-09_contact-webhook-proxy/
   plans/archive/{2026-05-13_vite-cloudflare-migration,2026-10-07_ascii-redesign}/{overview,spec,decision,implementation}.md
   plans/archive/, ledger/{decisions,experiences}.md
 .alice/                   Vendored alice framework — DO NOT edit by hand; update via /sync
@@ -73,11 +78,12 @@ CLAUDE.md (this file), LICENSE.txt, README.md
 - **Fonts:** `@fontsource-variable/martian-mono` (display, `wdth.css`) + `@fontsource/ibm-plex-mono` (body + ASCII, latin subset), Vite-hashed
 - **Animation:** framer-motion 11 (section fades, staggered reveals, menu presence) + `useAnimatedText` for scramble text
 - **State:** local component state only (Redux removed in ascii-redesign DR-3)
-- **HTTP:** native `fetch` (axios dropped — Discord webhook + sample API both single-shot)
-- **Test:** Vitest 3 (node env) — unit tests next to pure modules in `src/lib/`
+- **HTTP:** native `fetch` (axios dropped). Browser → `/api/contact`; Worker → Turnstile siteverify + Discord webhook
+- **Bot check:** Cloudflare Turnstile (managed, `interaction-only`), rendered on first focus in the contact form
+- **Test:** Vitest 3 (node env) — unit tests next to pure modules in `src/lib/`, and `worker/index.test.ts` driving `worker.fetch()` with `fetch` stubbed
 - **Lint / format:** Biome 1.9 — replaces ESLint + Prettier + husky
 - **Package manager:** pnpm 9.15.0 (exact pin via `"packageManager"`; Corepack auto-detects on local + Cloudflare)
-- **Deploy:** Cloudflare Workers static assets (Wrangler 4), Worker `sennettlau` on Sennett's personal account, served on the custom domains `sennettlau.me` + `www.sennettlau.me` (workers.dev and preview URLs off). CLI upload: `pnpm build && pnpm run deploy` (`wrangler deploy`). No git integration yet (a Worker can be connected to GitHub later). DNS: zone `sennettlau.me` on the personal Cloudflare account (registrar stays Porkbun); `typelite` CNAME → GitHub Pages (DNS only) and Porkbun email-forwarding MX/SPF live there too.
+- **Deploy:** Cloudflare Workers static assets + a script for `/api/*` (Wrangler 4), Worker `sennettlau` on Sennett's personal account, served on the custom domains `sennettlau.me` + `www.sennettlau.me` (workers.dev and preview URLs off). CLI upload: `pnpm build && pnpm run deploy` (`wrangler deploy`). Secrets `DISCORD_WEBHOOK_URL` + `TURNSTILE_SECRET_KEY` via `wrangler secret put`. No git integration yet (a Worker can be connected to GitHub later). DNS: zone `sennettlau.me` on the personal Cloudflare account (registrar stays Porkbun); `typelite` CNAME → GitHub Pages (DNS only) and Porkbun email-forwarding MX/SPF live there too.
 - **Prior stack (archived under `archive/`)** — Next.js 13 + Chakra UI + npm + GH Pages publish-via-`docs/`. Retained for content reference.
 
 Commands:
@@ -90,9 +96,10 @@ pnpm preview        # serve built dist/
 pnpm lint           # biome lint .
 pnpm format         # biome format --write .
 pnpm check          # biome check --write . (lint + format combined)
-pnpm tsc            # tsc --noEmit
+pnpm tsc            # tsc --noEmit for src/ and worker/
 pnpm test           # vitest run
-pnpm run deploy     # wrangler deploy (uploads dist/; run pnpm build first). Not `pnpm deploy`: that is pnpm's built-in
+pnpm run deploy     # wrangler deploy (uploads dist/ + worker; run pnpm build first). Not `pnpm deploy`: that is pnpm's built-in
+pnpm build && pnpm exec wrangler dev   # full stack at :8787 (needs .dev.vars; `pnpm dev` has no /api)
 ```
 
 Deep architecture: `docs/wiki/architecture.md`. Domain model: `docs/wiki/domain-model.md`.
@@ -154,10 +161,11 @@ Pipeline for every non-trivial task:
 - **`backdrop-filter` traps `position: fixed`.** An element with `backdrop-blur` becomes the containing block for fixed descendants. The mobile menu overlay lives outside `<header>` for this reason — keep it there.
 - **rAF loops under StrictMode.** A hook that keeps a `requestAnimationFrame` id in a ref must reset it to 0 in its unmount cleanup: StrictMode runs cleanup then remounts, and a stale non-zero id makes "is a loop running?" checks skip forever (`useRevealTrail` shipped this bug for one round). Also clamp progress computed from `performance.now()` start times — the first rAF timestamp can be earlier, giving negative progress (negative arc radius, `slice(0, -1)`).
 - **`useAnimatedText` owns `textContent`.** Elements it drives must render no React children; put accessible text in a sibling `sr-only` span and mark the animated node `aria-hidden`.
-- **Hardcoded Discord webhook in `src/utils/discord.ts`.** Already public in the bundle on prior deploys. **Every public URL (`*.workers.dev`, preview URLs) multiplies the exposure surface.** Long-term fix is a server-side proxy (Cloudflare Worker holding the webhook). Logged as `contact-webhook-proxy` in `docs/todos/overview.md`.
+- **Contact secrets live only in the Worker.** `DISCORD_WEBHOOK_URL` and `TURNSTILE_SECRET_KEY` are Worker secrets (`pnpm exec wrangler secret put <NAME>`); locally they come from `.dev.vars` (gitignored). Never put a webhook URL in `src/`: the old hardcoded one was scraped from the bundle and used for spam (2026-10). Errors log status codes only, never the URL.
+- **Turnstile keys by host.** `useTurnstile` uses Cloudflare's always-pass dummy sitekey on `localhost` / `127.0.0.1` and the real one everywhere else (it covers `sennettlau.me` and subdomains). The dummy key pairs with the dummy secret `1x0000000000000000000000000000000AA` in `.dev.vars`. The production secret rejects dummy tokens. Tokens are single-use, so the form calls `reset()` after every send.
 - **Corepack expects an exact pnpm version.** `package.json#packageManager` is pinned to `pnpm@9.15.0`. Ranges (`pnpm@9.x`) break on Cloudflare's Corepack. Bump deliberately; if Cloudflare builds are connected later, set `NODE_VERSION=20` there when pnpm 10 lands.
 - **Biome ≠ ESLint+Prettier 1:1.** Dropped: `next/*` rules (no Next), `jsx-a11y` extension config (Biome has a subset under `a11y`). Kept: `eqeqeq`, `prefer-const`, organize-imports, `noUnusedImports`, `useExhaustiveDependencies`. Check `biome.json` before importing rules from the archived `.eslintrc`.
-- **404 handling lives in `wrangler.toml`.** `not_found_handling = "404-page"` serves `dist/404.html` with a 404 status. **No `_redirects` file** and never `"single-page-application"`: an `index.html` fallback would mask 404s. See ascii-redesign DR-7 (supersedes DR-10's Pages defaults).
+- **404 handling lives in `wrangler.toml`.** `not_found_handling = "404-page"` serves `dist/404.html` with a 404 status. Only `/api/*` runs the Worker script (`run_worker_first`); misses stay on the asset layer and get the 404 page. If the script ever handles other paths, it must pass them to `env.ASSETS.fetch(request)`. **No `_redirects` file** and never `"single-page-application"`: an `index.html` fallback would mask 404s. See ascii-redesign DR-7 (supersedes DR-10's Pages defaults).
 - **Two Cloudflare logins on this Mac.** Wrangler's `default` profile is the 9GAG login; the `personal` profile (laub1199@gmail.com) is bound to `~/Documents/code/mine` (`wrangler auth list`). `account_id` in `wrangler.toml` makes a deploy under the wrong login fail rather than land on the company account. Check `pnpm exec wrangler whoami` before anything that writes. When an agent runs `wrangler pages ...` on a new static project, Wrangler 4.108+ delegates to Workers; that's why this is a Worker, not a Pages project.
 - **`public/` files are not Vite-hashed.** `images/*`, `404.html`, `favicon.ico`, `_headers` keep their original paths — reference them as `/images/...` URLs. Never put them under `/assets/`: `_headers` marks `/assets/*` immutable for a year, which is only safe for hashed names.
 - **`docs/` is alice content only.** No more publish-via-docs. The old build subset lives under `archive/docs-build-artifacts/`.
@@ -166,7 +174,7 @@ Pipeline for every non-trivial task:
 
 Files hard to revert or rebase-collide across PRs. `/pr-slicer` reads this and pushes matching files into a dedicated migration PR.
 
-- `wrangler.toml` — Cloudflare Workers config (assets dir, 404 handling, account pin); one source of truth.
+- `wrangler.toml` — Cloudflare Workers config (script entry, assets dir, `run_worker_first`, 404 handling, account pin); one source of truth.
 - `tailwind.config.ts` — theme tokens every component depends on.
 - `package.json` + `pnpm-lock.yaml` — lockfile churn; merge conflict prone.
 - `vite.config.ts` — bundler config; affects every page.
