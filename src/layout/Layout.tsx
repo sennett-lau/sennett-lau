@@ -1,30 +1,26 @@
-import { FC, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
-import { Flex } from '@chakra-ui/react'
-
-import Footer from '@/component/common/Footer'
-import Header from '@/component/common/Header'
+import Footer from '@/components/common/Footer'
+import Header from '@/components/common/Header'
 
 type Props = {
   children: ReactNode
 }
 
-const AppLayout: FC<Props> = ({ children }) => {
-  return (
-    <Flex
-      minH={'100vh'}
-      direction={'column'}
-      position={'relative'}
-      overflow={'hidden'}
+const Layout = ({ children }: Props) => (
+  <div className="relative flex min-h-screen flex-col overflow-x-clip">
+    <a
+      href="#main"
+      className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-14 focus:z-[70] focus:bg-amber focus:px-3 focus:py-1 focus:text-bg"
     >
-      <Header />
-      <Flex flex={1} direction={'column'} align={'center'} justify={'center'}>
-        {children}
-      </Flex>
+      Skip to content
+    </a>
+    <Header />
+    <main id="main" className="flex flex-1 flex-col">
+      {children}
+    </main>
+    <Footer />
+  </div>
+)
 
-      <Footer />
-    </Flex>
-  )
-}
-
-export default AppLayout
+export default Layout

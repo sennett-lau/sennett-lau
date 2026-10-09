@@ -1,4 +1,3 @@
-export * from './color'
 export * from './common'
 export * from './discord'
 export * from './discord-error-alert'

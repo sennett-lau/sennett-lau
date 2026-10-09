@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0b0a" />
+    <title>404 — Sennett Lau</title>
+    <meta name="description" content="Page not found." />
+    <meta name="robots" content="noindex" />
+    <style>
+      /* Mirrors the tokens in tailwind.config.ts; this page ships without the app bundle. */
+      :root {
+        --bg: #0b0b0a;
+        --ink: #e9e4d6;
+        --dim: #858075;
+        --amber: #ffb000;
+        color-scheme: dark;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      main {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+        max-width: 40rem;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        box-sizing: border-box;
+      }
+      pre {
+        margin: 0;
+        color: var(--amber);
+        font-size: clamp(0.55rem, 2.4vw, 1rem);
+        line-height: 1;
+      }
+      p {
+        margin: 0;
+        color: var(--dim);
+      }
+      span {
+        color: var(--amber);
+      }
+      a {
+        color: var(--ink);
+      }
+      a:hover {
+        color: var(--amber);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <pre aria-hidden="true">
+ /$$   /$$  /$$$$$$  /$$   /$$
+| $$  | $$ /$$$_  $$| $$  | $$
+| $$  | $$| $$$$\ $$| $$  | $$
+| $$$$$$$$| $$ $$ $$| $$$$$$$$
+|_____  $$| $$\ $$$$|_____  $$
+      | $$| $$ \ $$$      | $$
+      | $$|  $$$$$$/      | $$
+      |__/ \______/       |__/</pre>
+      <h1 style="position: absolute; left: -9999px">404 — page not found</h1>
+      <p><span>$</span> cd <span id="path"></span></p>
+      <p>cd: no such file or directory</p>
+      <p><a href="/">[ cd ~ ]</a></p>
+    </main>
+    <script>
+      document.getElementById('path').textContent = location.pathname
+    </script>
+  </body>
+</html>
