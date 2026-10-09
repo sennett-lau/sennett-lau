@@ -11,7 +11,7 @@
     "lint": "biome lint .",
     "format": "biome format --write .",
     "check": "biome check --write .",
-    "tsc": "tsc --noEmit",
+    "tsc": "tsc --noEmit && tsc --noEmit -p worker",
     "deploy": "wrangler deploy",
     "test": "vitest run",
     "test:watch": "vitest"
