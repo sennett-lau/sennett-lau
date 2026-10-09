@@ -1,7 +1,8 @@
-# Assets-only Worker (Workers static assets). Build with `pnpm build` first;
-# `pnpm run deploy` uploads dist/. dist/_headers and dist/404.html come from
-# public/.
+# Workers static assets + a small script for /api/*. Build with `pnpm build`
+# first; `pnpm run deploy` uploads dist/ and bundles worker/index.ts.
+# dist/_headers and dist/404.html come from public/.
 name = "sennettlau"
+main = "worker/index.ts"
 # Sennett's personal account. Commands run under any other login fail
 # instead of touching that account.
 account_id = "10396c878441feb82a28c26e51de039c"
@@ -10,8 +11,15 @@ compatibility_date = "2026-10-08"
 workers_dev = false
 preview_urls = false
 
+# Secrets (not in this file): DISCORD_WEBHOOK_URL, TURNSTILE_SECRET_KEY.
+# Set with `pnpm exec wrangler secret put <NAME>`; locally from .dev.vars.
+
 [assets]
 directory = "./dist"
+binding = "ASSETS"
+# Only /api/* runs the script. Everything else, misses included, stays on the
+# asset layer (the 404 page below), so static traffic never runs code.
+run_worker_first = ["/api/*"]
 # Unknown paths get dist/404.html with a 404 status (no SPA fallback).
 not_found_handling = "404-page"
 

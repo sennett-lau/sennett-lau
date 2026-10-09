@@ -336,3 +336,7 @@ fabric.properties
 
 # Vite build output
 dist/
+
+# Wrangler local secrets and state
+.dev.vars*
+.wrangler/

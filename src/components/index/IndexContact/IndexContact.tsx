@@ -1,10 +1,11 @@
-import { type FormEvent, useState } from 'react'
+import { type FormEvent, useRef, useState } from 'react'
 
 import Section from '@/components/index/Section'
 import { CONTACT_PITCH, EMAIL, SOCIALS } from '@/content/site'
-import { discordHookMessageSend } from '@/utils/discord'
+import { useTurnstile } from '@/hooks/useTurnstile'
+import { CONTACT_LIMITS, parseContact } from '@/lib/contact'
 
-type Status = 'idle' | 'sending' | 'sent' | 'error'
+type Status = 'idle' | 'invalid' | 'sending' | 'sent' | 'error'
 
 const fieldClass =
   'w-full border-0 border-b border-line bg-transparent px-0 py-2 text-ink placeholder:text-dim/60 focus:border-amber focus:outline-none focus:ring-0'
@@ -20,18 +21,29 @@ const IndexContact = () => {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState<Status>('idle')
+  // The bot check loads on first focus inside the form, not on page load.
+  const [armed, setArmed] = useState(false)
+  const turnstileRef = useRef<HTMLDivElement>(null)
+  const turnstile = useTurnstile(turnstileRef, armed)
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!name || !email || !message) return
-    // Discord caps webhook content at 2000 chars; clamp on the client so the request
-    // doesn't 400. Leaves room for the "name/email/..." prefix.
-    const clampedMessage = message.slice(0, 1800)
+    if (!turnstile.token) return
+    // Same rules as the Worker, so a bad field doesn't spend the token.
+    const contact = parseContact({ name, email, message, token: turnstile.token })
+    if (!contact) {
+      setStatus('invalid')
+      return
+    }
     setStatus('sending')
     try {
-      await discordHookMessageSend(
-        `**New contact from website**\nName: ${name}\nEmail: ${email}\n\n${clampedMessage}`,
-      )
+      // worker/index.ts verifies the token and forwards to Discord.
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(contact),
+      })
+      if (!res.ok) throw new Error(`Contact API failed: ${res.status}`)
       setStatus('sent')
       setName('')
       setEmail('')
@@ -39,6 +51,8 @@ const IndexContact = () => {
     } catch (err) {
       console.error('Contact form send failed:', err)
       setStatus('error')
+    } finally {
+      turnstile.reset()
     }
   }
 
@@ -85,7 +99,14 @@ const IndexContact = () => {
           </dl>
         </div>
 
-        <form className="border border-line bg-panel/60" onSubmit={onSubmit}>
+        <form
+          className="border border-line bg-panel/60"
+          onSubmit={onSubmit}
+          onFocus={() => {
+            setArmed(true)
+            if (turnstile.failed) turnstile.retry()
+          }}
+        >
           <div className="flex items-center gap-2 border-b border-line px-4 py-2 text-xs text-dim">
             <span className="h-2 w-2 rounded-full bg-err/80" />
             <span className="h-2 w-2 rounded-full bg-amber/80" />
@@ -102,6 +123,7 @@ const IndexContact = () => {
                 autoComplete="name"
                 placeholder="Ada Lovelace"
                 required
+                maxLength={CONTACT_LIMITS.name}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -115,6 +137,7 @@ const IndexContact = () => {
                 autoComplete="email"
                 placeholder="you@example.com"
                 required
+                maxLength={CONTACT_LIMITS.email}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -126,22 +149,31 @@ const IndexContact = () => {
                 className={`${fieldClass} min-h-[9rem] resize-y`}
                 placeholder="Tell me about the idea..."
                 required
-                maxLength={1800}
+                maxLength={CONTACT_LIMITS.message}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               />
             </div>
+            {/* Turnstile renders here; empty unless Cloudflare asks for a click. */}
+            <div ref={turnstileRef} />
             <div className="flex flex-wrap items-center gap-4">
               <button
                 type="submit"
-                disabled={status === 'sending'}
+                disabled={status === 'sending' || !turnstile.token}
                 className="term-btn term-btn-primary disabled:opacity-50"
               >
-                {status === 'sending' ? '[ sending... ]' : '[ send -> ]'}
+                {status === 'sending'
+                  ? '[ sending... ]'
+                  : armed && !turnstile.token && !turnstile.failed
+                    ? '[ verifying... ]'
+                    : '[ send -> ]'}
               </button>
               <output aria-live="polite" className="text-xs">
                 {status === 'sent' && <span className="text-ok">[ ok ] message sent. thanks!</span>}
-                {status === 'error' && (
+                {status === 'invalid' && (
+                  <span className="text-err">[ err ] fill in a name, an email and a message.</span>
+                )}
+                {(status === 'error' || turnstile.failed) && (
                   <span className="text-err">
                     [ err ] send failed. try again, or email {EMAIL}.
                   </span>

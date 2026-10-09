@@ -1,4 +1,3 @@
 export * from './common'
-export * from './discord'
 export * from './discord-error-alert'
 export * from './logger'

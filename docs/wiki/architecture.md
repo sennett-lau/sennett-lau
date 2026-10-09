@@ -2,7 +2,7 @@
 
 ## System
 
-Static SPA. Build → `dist/` → Cloudflare Workers static assets (an assets-only Worker, no script). No backend, no SSR, no API routes. The only outbound call is the contact form, which POSTs to a Discord webhook from the visitor's browser.
+Static SPA plus one API route. Build → `dist/` → Cloudflare Workers static assets, with a small Worker script (`worker/index.ts`) for `/api/*`. No SSR. The contact form POSTs to `/api/contact`; the Worker verifies a Turnstile token and forwards the message to Discord. Static requests never run the script.
 
 ```
 LOCAL DEV                       BUILD                        DEPLOY
@@ -10,9 +10,11 @@ LOCAL DEV                       BUILD                        DEPLOY
    │                              │                           │  (wrangler deploy, personal profile)
    ▼                              ▼                           ▼
   vite dev (:5173) ──HMR       vite build                 Worker `sennettlau`
-                                 │                           │  [assets] directory = ./dist
-  pnpm test (vitest, node env)   ▼                           │  not_found_handling = 404-page
-  biome check                  dist/                         ▼
+                                 │                           │  main = worker/index.ts
+  pnpm test (vitest, node env)   ▼                           │  [assets] directory = ./dist
+  biome check                  dist/                         │  run_worker_first = ["/api/*"]
+  wrangler dev (:8787)          │                            │  not_found_handling = 404-page
+                                │                            ▼
                                 ├── index.html            dist/ → CF edge
                                 ├── 404.html
                                 ├── _headers
@@ -35,11 +37,27 @@ See `CLAUDE.md > Repo layout`. Key modules:
 - `src/components/common/Header.tsx` — fixed status bar: prompt with the active section as cwd, section tabs, mobile menu overlay.
 - `src/hooks/useAnimatedText.ts` — writes animation frames (`scrambleFrame`) straight to `textContent` inside `requestAnimationFrame`; honours reduced motion.
 - `src/hooks/useActiveSection.ts` — `IntersectionObserver` over the section ids; returns the one crossing the viewport's middle band.
-- `src/utils/discord.ts` — `fetch` POST to the hardcoded Discord webhook; throws on `!res.ok`.
+- `src/lib/contact.ts` — contact payload limits (`CONTACT_LIMITS`) and `parseContact` (trim, length, email shape). Shared by the form and the Worker. Unit-tested.
+- `src/hooks/useTurnstile.ts` — loads the Turnstile script once on demand, renders the widget (dark, `interaction-only`), exposes `token`, `failed` and `reset()`.
+- `worker/index.ts` — the Worker script (see [Contact API](#contact-api)). Tested through `worker.fetch()`.
 
 ## State
 
 No global store. Each component owns its local state: header menu, contact form status, `AsciiImage` revealed flag (trail state lives in refs inside `useRevealTrail`). The active section comes from `useActiveSection` inside the header. Redux was removed in the ascii-redesign (plan DR-3).
+
+## Contact API
+
+`POST /api/contact` with JSON `{ name, email, message, token }`:
+
+1. Body over 16 KB → 413 (read as a stream, cut off at the cap). Bad JSON or fields failing `parseContact` → 400.
+2. Missing secret → 500 (logged by name).
+3. Turnstile siteverify (`secret`, `response`, `remoteip` from `CF-Connecting-IP`); rejected → 403. Hostname and action aren't checked, since the sitekey only works on `sennettlau.me` and only this form uses it.
+4. Discord webhook: one embed with `allowed_mentions: { parse: [] }`, so nothing in a message can ping. The message goes in a code block (any ``` inside is broken up with a zero-width space); name and email are markdown-escaped. That stops masked links like `[invoice.pdf](https://evil…)` rendering. Siteverify or Discord failing → 502; logs carry status codes and error names, never the webhook URL.
+5. 200 `{ ok: true }`.
+
+Other methods → 405 (`Allow: POST`); other `/api/*` paths → JSON 404. Nothing outside `/api/*` reaches the script; its `env.ASSETS.fetch` fallback is a safety net. Secrets: `DISCORD_WEBHOOK_URL`, `TURNSTILE_SECRET_KEY` (Worker secrets; `.dev.vars` locally with Turnstile's dummy keys).
+
+The form arms Turnstile on its first `focus` event, so the script never loads for visitors who don't use it. Submit stays disabled (`[ verifying... ]`) until a token arrives; after each attempt the widget resets, since tokens are single-use and last 300 s. If the script fails to load, the error line shows and the next focus retries. The form runs `parseContact` before sending, so a bad field shows `[ err ] fill in…` without spending the token. The email rule is a browser's `type="email"` rule (`x@y`).
 
 ## ASCII image pipeline
 
@@ -119,7 +137,7 @@ Gates: `pnpm build`, `pnpm tsc`, `pnpm check`, `pnpm test`; `gzip -c dist/assets
 
 CLI upload to Cloudflare Workers static assets (ascii-redesign DR-7):
 1. `pnpm build` → `dist/`.
-2. `pnpm run deploy` (`wrangler deploy`) uploads `dist/` to the Worker `sennettlau` on the personal account (`account_id` in `wrangler.toml`), served on the custom domains `sennettlau.me` and `www.sennettlau.me` (workers.dev / preview URLs off).
+2. `pnpm run deploy` (`wrangler deploy`) bundles `worker/index.ts` and uploads it with `dist/` to the Worker `sennettlau` on the personal account (`account_id` in `wrangler.toml`), served on the custom domains `sennettlau.me` and `www.sennettlau.me` (workers.dev / preview URLs off).
 3. No git integration yet; the Worker can be connected to GitHub later (Workers Builds).
 4. DNS: zone `sennettlau.me` on the personal Cloudflare account; registrar Porkbun. Custom-domain records are created by Wrangler — don't add A/CNAME records for the apex or `www` by hand (a CNAME on the hostname blocks the custom domain). `www` → apex is a Cloudflare Redirect Rule. The zone also serves other things; keep them when editing DNS: `typelite` CNAME → `sennett-lau.github.io` (DNS only, so GitHub keeps renewing its cert), Porkbun email-forwarding MX + SPF, and the Search Console TXT.
 
