@@ -27,7 +27,7 @@ src/
     useAnimatedText.ts    rAF text frames (scrambleFrame) → textContent; reduced-motion aware
     useRevealTrail.ts     Liquid reveal trail: low-res mask canvas + rAF loop (only while visible)
     useActiveSection.ts   IntersectionObserver → id of section at viewport middle
-    useTurnstile.ts       Loads Turnstile on demand, renders the widget, exposes token + reset
+    useTurnstile.ts       Loads Turnstile on demand, renders the widget; token, failed, reset, retry
   components/
     ascii/AsciiImage.tsx  Image → ASCII grid, liquid hover trail + click/tap flood reveal, decode animation
     common/{Header,Footer,RichText,ScrambleText}.tsx
@@ -61,8 +61,8 @@ pnpm-lock.yaml            Lockfile
 docs/                     Project operating manual (alice scaffold + content)
   README.md, todos/overview.md, todos/findings/
   wiki/{README,current-status,architecture,domain-model}.md
-  plans/active/2026-10-09_contact-webhook-proxy/
-  plans/archive/{2026-05-13_vite-cloudflare-migration,2026-10-07_ascii-redesign}/{overview,spec,decision,implementation}.md
+  plans/active/            (empty: nothing in flight)
+  plans/archive/{2026-05-13_vite-cloudflare-migration,2026-10-07_ascii-redesign,2026-10-09_contact-webhook-proxy}/{overview,spec,decision,implementation}.md
   plans/archive/, ledger/{decisions,experiences}.md
 .alice/                   Vendored alice framework — DO NOT edit by hand; update via /sync
 .claude/                  Claude Code config — relative symlinks into .alice/

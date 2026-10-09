@@ -1,7 +1,7 @@
 # Contact webhook proxy — overview
 
-**Status:** building
-**Folder:** docs/plans/active/2026-10-09_contact-webhook-proxy/
+**Status:** shipped 2026-10-09 (live on sennettlau.me, merged to main)
+**Folder:** docs/plans/archive/2026-10-09_contact-webhook-proxy/
 **Started:** 2026-10-09
 **Owner:** Claude Code (with Sennett)
 
@@ -15,12 +15,12 @@ The form posts to `/api/contact` on the site's own Worker, which checks a Cloudf
 
 ## Current state
 
-Spec locked 2026-10-09. Building; waiting on a Turnstile widget and a new Discord webhook from Sennett. Branch `feat/contact-webhook-proxy`, cut from `main` at `21b4612`.
+Shipped 2026-10-09: PR #2 (merge `e76a521`), deployed from `main`, both secrets set, and a real message confirmed in Discord. The plan is frozen.
 
 ## Links
 
 - Spec: [spec.md](spec.md)
 - Decisions: [decision.md](decision.md)
 - Implementation log: [implementation.md](implementation.md)
-- TODO item: `docs/todos/overview.md` under In flight (entry `contact-webhook-proxy`)
+- TODO item: `docs/todos/overview.md` under Done recent (entry `contact-webhook-proxy`)
 - Related: ascii-redesign DR-7 (Workers static assets) in `docs/plans/archive/2026-10-07_ascii-redesign/decision.md`

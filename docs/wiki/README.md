@@ -3,7 +3,7 @@
 Auto-loaded each session. Use this as the map; pages are loaded on demand.
 
 - [current-status](current-status.md) — what's shipped / in flight / blocked. Auto-loaded.
-- [architecture](architecture.md) — layout, ASCII pipeline, theme, fonts, animation, build/cache/deploy/DNS. Query before UI, build or deploy work.
-- [domain-model](domain-model.md) — content files + types, inline markup, images + ASCII tones, anchor ids. Query before editing copy or images.
+- [architecture](architecture.md) — layout, contact API, ASCII pipeline, styling, build/deploy/secrets/DNS. Query before UI, API or deploy work.
+- [domain-model](domain-model.md) — content + types, markup, images + tones, anchors, contact payload. Query before editing copy, images or the form.
 
 (Add new wiki pages here as the surface grows.)

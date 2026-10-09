@@ -4,7 +4,7 @@ Live backlog. Auto-loaded each session. Per-TODO detail lives in `docs/todos/<sl
 
 ## In flight
 
-- **[P1]** [contact-webhook-proxy](contact-webhook-proxy.md) — `/api/contact` on the Worker: Turnstile check, then forward to Discord with the webhook as a secret. The old webhook was abused and is deleted, so the live form fails until this ships. Plan: `plans/active/2026-10-09_contact-webhook-proxy/`. Effort M.
+(none)
 
 ## Backlog
 
@@ -14,5 +14,6 @@ Live backlog. Auto-loaded each session. Per-TODO detail lives in `docs/todos/<sl
 
 ## Done recent
 
+- **contact-webhook-proxy** — `/api/contact` on the Worker with Turnstile; webhook and Turnstile secret are Worker secrets; live 2026-10-09. Archive: `plans/archive/2026-10-09_contact-webhook-proxy/`.
 - **ascii-redesign** — terminal / ASCII redesign shipped and live on `sennettlau.me` (Workers static assets, DNS on Cloudflare). Archive: `plans/archive/2026-10-07_ascii-redesign/`.
 - **vite-cloudflare-migration** — Vite + pnpm + Tailwind + Biome scaffold; closed with the redesign. Archive: `plans/archive/2026-05-13_vite-cloudflare-migration/`.

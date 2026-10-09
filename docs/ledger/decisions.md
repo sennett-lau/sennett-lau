@@ -123,3 +123,21 @@ Wrangler 4 delegated an agent-run `wrangler pages project create` to Workers sta
 ## 2026-10-08 — ascii-redesign DR-8: DNS on Cloudflare, registrar stays Porkbun
 
 Workers custom domains need an active Cloudflare zone, so `sennettlau.me` DNS moved from Porkbun to the personal Cloudflare account ("connect", not "transfer"; registration can move later). Records kept: `typelite` CNAME to GitHub Pages (DNS only, so GitHub keeps renewing its cert), Porkbun email-forwarding MX + SPF, Search Console TXT. Dropped: Porkbun's `*` catch-all. `www` redirects to the apex with a Redirect Rule rather than a second canonical host.
+
+---
+
+## 2026-10-09 — contact-webhook-proxy DR-1: API in the site's own Worker, routed with `run_worker_first`
+
+The webhook moved server-side by adding `main = "worker/index.ts"` to the existing assets Worker, with `run_worker_first = ["/api/*"]`, rather than a second Worker or Pages Functions. That means one deploy, same origin, and static traffic and 404s never run code (asset misses stay on the asset layer). Full entry: `docs/plans/archive/2026-10-09_contact-webhook-proxy/decision.md`.
+
+---
+
+## 2026-10-09 — contact-webhook-proxy DR-2: Turnstile bot check, loaded lazily; rate limiting deferred
+
+Cloudflare Turnstile was chosen over a honeypot or rate limiting alone. It runs in managed mode with `appearance: 'interaction-only'`, and the script loads on first focus in the form. Dummy keys are used on `localhost` / `127.0.0.1`. Per-IP rate limiting was left out (Sennett, 2026-10-09); if spam gets through, start with a no-code Cloudflare WAF rule on `/api/contact`. Full entry: `docs/plans/archive/2026-10-09_contact-webhook-proxy/decision.md`.
+
+---
+
+## 2026-10-09 — contact-webhook-proxy DR-3: Worker types from the `WebWorker` lib, not `wrangler types`
+
+`wrangler types` generates a 16k-line, 624 KB file. This Worker uses only `fetch`, `Request` and `Response`, so `worker/tsconfig.json` uses `lib: ["ES2022", "WebWorker"]` plus a hand-written `Env`. Switch to `wrangler types` when a Cloudflare-specific binding or `request.cf` is used. Full entry: `docs/plans/archive/2026-10-09_contact-webhook-proxy/decision.md`.
