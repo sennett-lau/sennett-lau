@@ -31,8 +31,9 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
-    slug: 'typelite',
-    name: 'Typelite',
+    slug: 'oratype',
+    name: 'OraType',
+    aka: 'formerly Typelite',
     years: '2026',
     role: 'Creator',
     tagline: 'An open-source voice keyboard for macOS.',
@@ -44,16 +45,17 @@ export const PROJECTS: Project[] = [
       { name: 'dictate', text: 'Speak, and clean text is pasted where you are typing.' },
       { name: 'translate', text: 'Speak, and it is written in another language.' },
       { name: 'ask anything', text: 'Ask a question, or ask about the text you have highlighted.' },
+      { name: 'hands-free', text: 'Say "Hey Sam", then speak, with no shortcut.' },
     ],
     stack: ['Tauri 2', 'Rust', 'React', 'TypeScript', 'whisper.cpp', 'llama.cpp'],
     stat: { value: 'MIT', label: 'no account, no telemetry, no history' },
     links: [
-      { label: 'typelite.sennettlau.me', href: 'https://typelite.sennettlau.me/' },
-      { label: 'source', href: 'https://github.com/sennett-lau/typelite' },
+      { label: 'oratype.sennettlau.me', href: 'https://oratype.sennettlau.me/' },
+      { label: 'source', href: 'https://github.com/sennett-lau/oratype' },
     ],
     image: {
-      src: '/images/projects/typelite.webp',
-      alt: 'Typelite website: the headline "Just say it." above the download buttons.',
+      src: '/images/projects/oratype.webp',
+      alt: 'OraType website: the headline "Just say it." above the download buttons.',
       width: 1200,
       height: 750,
       tone: { invert: true, blackPoint: 0.14, gamma: 0.6 },

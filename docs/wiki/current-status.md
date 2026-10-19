@@ -1,14 +1,14 @@
 # Current status
 
-Last update: 2026-10-09
+Last update: 2026-10-20
 
 ## Shipped
 
 - **Live on `sennettlau.me`** (and `www`, redirected to the apex) from the Worker `sennettlau` on Sennett's personal Cloudflare account: Workers static assets, plus a script that runs for `/api/*` only. workers.dev and preview URLs are off. Deploy is a CLI upload, `pnpm build && pnpm run deploy`, with no git integration. See [architecture](architecture.md#deploy-pipeline).
 - **Contact form posts to `/api/contact`.** The Worker checks a Cloudflare Turnstile token, then forwards the message to Discord. The webhook URL and the Turnstile secret are Worker secrets and never ship in the bundle. The widget loads on first focus in the form. See [architecture](architecture.md#contact-api).
-- **DNS on Cloudflare.** The `sennettlau.me` zone is on the personal account (nameservers `ezra`/`fiona.ns.cloudflare.com`); the registrar is still Porkbun. `www` → apex is a Redirect Rule (`https://www.*` → `https://${1}`, 301, query string kept). The zone also carries `typelite` (CNAME → `sennett-lau.github.io`, DNS only), Porkbun email-forwarding MX + SPF, and the Search Console TXT.
+- **DNS on Cloudflare.** The `sennettlau.me` zone is on the personal account (nameservers `ezra`/`fiona.ns.cloudflare.com`); the registrar is still Porkbun. `www` → apex is a Redirect Rule (`https://www.*` → `https://${1}`, 301, query string kept). The zone also carries `oratype` and `typelite` (custom domains of OraType's Worker `oratype-site`; `typelite` 301s to `oratype`, since Typelite was renamed OraType on 2026-10-20), Porkbun email-forwarding MX + SPF, and the Search Console TXT.
 - Vite + pnpm + React + Tailwind + Biome + framer-motion scaffold; `wrangler.toml`, `public/_headers`, `public/404.html`; `pnpm-lock.yaml` committed.
-- **ASCII redesign**: dark terminal theme, every section rebuilt. Hero (figlet name, boot log, ASCII portrait), about (three-paragraph copy + `stack.log`), experience (`git log` timeline, per-project branch under 9GAG), projects (Typelite, CityUGE, dklm.io), certs (table), contact (prompt-style form), footer. Copy lives in `src/content/` ([domain-model](domain-model.md)).
+- **ASCII redesign**: dark terminal theme, every section rebuilt. Hero (figlet name, boot log, ASCII portrait), about (three-paragraph copy + `stack.log`), experience (`git log` timeline, per-project branch under 9GAG), projects (OraType, formerly Typelite; CityUGE; dklm.io), certs (table), contact (prompt-style form), footer. Copy lives in `src/content/` ([domain-model](domain-model.md)).
 - `AsciiImage`: turns images into ASCII in the browser, with a liquid hover trail (after landonorris.com), a click/tap flood reveal and a decode animation.
 - Vitest unit tests for `src/lib/{ascii,rich,reveal,contact}.ts`, and `worker/index.test.ts`, which drives `worker.fetch()` with `fetch` stubbed.
 - Redux, the scroll-driven colour scheme and the Tailwind safelist removed.
