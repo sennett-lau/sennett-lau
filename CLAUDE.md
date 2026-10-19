@@ -41,7 +41,7 @@ worker/
   index.ts (+ .test.ts)   Worker script: POST /api/contact (validate → Turnstile siteverify → Discord), else env.ASSETS
   tsconfig.json           WebWorker lib, no generated types (contact-webhook-proxy DR-3)
 public/
-  images/portrait.webp, images/projects/{typelite,cityuge,dklm}.webp, images/og.png   (unhashed)
+  images/portrait.webp, images/projects/{oratype,cityuge,dklm}.webp, images/og.png   (unhashed)
   favicon.ico
   404.html                Self-contained dark 404; served for unmatched paths (`not_found_handling = "404-page"`)
   _headers                Cache-Control: immutable for /assets/* (Vite-hashed output only)
@@ -83,7 +83,7 @@ CLAUDE.md (this file), LICENSE.txt, README.md
 - **Test:** Vitest 3 (node env) — unit tests next to pure modules in `src/lib/`, and `worker/index.test.ts` driving `worker.fetch()` with `fetch` stubbed
 - **Lint / format:** Biome 1.9 — replaces ESLint + Prettier + husky
 - **Package manager:** pnpm 9.15.0 (exact pin via `"packageManager"`; Corepack auto-detects on local + Cloudflare)
-- **Deploy:** Cloudflare Workers static assets + a script for `/api/*` (Wrangler 4), Worker `sennettlau` on Sennett's personal account, served on the custom domains `sennettlau.me` + `www.sennettlau.me` (workers.dev and preview URLs off). CLI upload: `pnpm build && pnpm run deploy` (`wrangler deploy`). Secrets `DISCORD_WEBHOOK_URL` + `TURNSTILE_SECRET_KEY` via `wrangler secret put`. No git integration yet (a Worker can be connected to GitHub later). DNS: zone `sennettlau.me` on the personal Cloudflare account (registrar stays Porkbun); `typelite` CNAME → GitHub Pages (DNS only) and Porkbun email-forwarding MX/SPF live there too.
+- **Deploy:** Cloudflare Workers static assets + a script for `/api/*` (Wrangler 4), Worker `sennettlau` on Sennett's personal account, served on the custom domains `sennettlau.me` + `www.sennettlau.me` (workers.dev and preview URLs off). CLI upload: `pnpm build && pnpm run deploy` (`wrangler deploy`). Secrets `DISCORD_WEBHOOK_URL` + `TURNSTILE_SECRET_KEY` via `wrangler secret put`. No git integration yet (a Worker can be connected to GitHub later). DNS: zone `sennettlau.me` on the personal Cloudflare account (registrar stays Porkbun); `oratype` + `typelite` are Workers custom domains of OraType's own Worker `oratype-site` (typelite 301s to oratype) and Porkbun email-forwarding MX/SPF live there too.
 - **Prior stack (archived under `archive/`)** — Next.js 13 + Chakra UI + npm + GH Pages publish-via-`docs/`. Retained for content reference.
 
 Commands:

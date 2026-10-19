@@ -33,5 +33,5 @@ export const FOCUS = ['AI-driven development', 'cloud edge', 'web3']
 export const BOOT_LOG = [
   { verb: 'mount', target: '/experience', result: '4 roles since 2021' },
   { verb: 'verify', target: '/education', result: 'Master of AI @ HKU' },
-  { verb: 'load', target: '/projects', result: 'typelite, cityuge, dklm.io' },
+  { verb: 'load', target: '/projects', result: 'oratype, cityuge, dklm.io' },
 ]
